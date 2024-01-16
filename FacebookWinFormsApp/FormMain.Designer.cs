@@ -30,13 +30,13 @@
         {
             this.buttonLogin = new System.Windows.Forms.Button();
             this.buttonLogout = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.FavoritePagesListBox = new System.Windows.Forms.ListBox();
+            this.FavoritePagesLabel = new System.Windows.Forms.Label();
             this.pictureBoxProfile = new System.Windows.Forms.PictureBox();
             this.textBoxAppID = new System.Windows.Forms.TextBox();
-            this.FavoritePagesLabel = new System.Windows.Forms.Label();
-            this.FavoritePagesListBox = new System.Windows.Forms.ListBox();
+            this.RememberMeCheckBox = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).BeginInit();
@@ -65,17 +65,6 @@
             this.buttonLogout.UseVisualStyleBackColor = true;
             this.buttonLogout.Click += new System.EventHandler(this.buttonLogout_Click);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(314, 17);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(976, 60);
-            this.label1.TabIndex = 53;
-            this.label1.Text = "This is the AppID of \"Design Patterns App 2.4\". The grader will use it to test yo" +
-    "ur app.\r\nType here your own AppID to test it:";
-            // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
@@ -88,11 +77,11 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.RememberMeCheckBox);
             this.tabPage1.Controls.Add(this.FavoritePagesListBox);
             this.tabPage1.Controls.Add(this.FavoritePagesLabel);
             this.tabPage1.Controls.Add(this.pictureBoxProfile);
             this.tabPage1.Controls.Add(this.textBoxAppID);
-            this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.buttonLogout);
             this.tabPage1.Controls.Add(this.buttonLogin);
             this.tabPage1.Location = new System.Drawing.Point(4, 39);
@@ -103,9 +92,27 @@
             this.tabPage1.Text = "Home";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // FavoritePagesListBox
+            // 
+            this.FavoritePagesListBox.FormattingEnabled = true;
+            this.FavoritePagesListBox.ItemHeight = 30;
+            this.FavoritePagesListBox.Location = new System.Drawing.Point(35, 324);
+            this.FavoritePagesListBox.Name = "FavoritePagesListBox";
+            this.FavoritePagesListBox.Size = new System.Drawing.Size(251, 274);
+            this.FavoritePagesListBox.TabIndex = 58;
+            // 
+            // FavoritePagesLabel
+            // 
+            this.FavoritePagesLabel.AutoSize = true;
+            this.FavoritePagesLabel.Location = new System.Drawing.Point(72, 275);
+            this.FavoritePagesLabel.Name = "FavoritePagesLabel";
+            this.FavoritePagesLabel.Size = new System.Drawing.Size(185, 30);
+            this.FavoritePagesLabel.TabIndex = 57;
+            this.FavoritePagesLabel.Text = "Favorite Pages";
+            // 
             // pictureBoxProfile
             // 
-            this.pictureBoxProfile.Location = new System.Drawing.Point(18, 96);
+            this.pictureBoxProfile.Location = new System.Drawing.Point(35, 172);
             this.pictureBoxProfile.Name = "pictureBoxProfile";
             this.pictureBoxProfile.Size = new System.Drawing.Size(79, 78);
             this.pictureBoxProfile.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -120,23 +127,15 @@
             this.textBoxAppID.TabIndex = 54;
             this.textBoxAppID.Text = "936827228016864";
             // 
-            // FavoritePagesLabel
+            // RememberMeCheckBox
             // 
-            this.FavoritePagesLabel.AutoSize = true;
-            this.FavoritePagesLabel.Location = new System.Drawing.Point(72, 275);
-            this.FavoritePagesLabel.Name = "FavoritePagesLabel";
-            this.FavoritePagesLabel.Size = new System.Drawing.Size(185, 30);
-            this.FavoritePagesLabel.TabIndex = 57;
-            this.FavoritePagesLabel.Text = "Favorite Pages";
-            // 
-            // FavoritePagesListBox
-            // 
-            this.FavoritePagesListBox.FormattingEnabled = true;
-            this.FavoritePagesListBox.ItemHeight = 30;
-            this.FavoritePagesListBox.Location = new System.Drawing.Point(35, 324);
-            this.FavoritePagesListBox.Name = "FavoritePagesListBox";
-            this.FavoritePagesListBox.Size = new System.Drawing.Size(251, 274);
-            this.FavoritePagesListBox.TabIndex = 58;
+            this.RememberMeCheckBox.AutoSize = true;
+            this.RememberMeCheckBox.Location = new System.Drawing.Point(35, 112);
+            this.RememberMeCheckBox.Name = "RememberMeCheckBox";
+            this.RememberMeCheckBox.Size = new System.Drawing.Size(210, 34);
+            this.RememberMeCheckBox.TabIndex = 59;
+            this.RememberMeCheckBox.Text = "Remember Me";
+            this.RememberMeCheckBox.UseVisualStyleBackColor = true;
             // 
             // FormMain
             // 
@@ -149,6 +148,7 @@
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Best Facebook App";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
             this.Shown += new System.EventHandler(this.FormMain_Shown);
             this.tabControl1.ResumeLayout(false);
@@ -163,13 +163,13 @@
 
 		private System.Windows.Forms.Button buttonLogin;
 		private System.Windows.Forms.Button buttonLogout;
-		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.TabControl tabControl1;
 		private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TextBox textBoxAppID;
         private System.Windows.Forms.PictureBox pictureBoxProfile;
         private System.Windows.Forms.Label FavoritePagesLabel;
         private System.Windows.Forms.ListBox FavoritePagesListBox;
+        private System.Windows.Forms.CheckBox RememberMeCheckBox;
     }
 }
 

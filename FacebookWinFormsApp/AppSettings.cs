@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.IO.Pipes;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Runtime.InteropServices.ComTypes;
 using System.Runtime.Remoting.Messaging;
 using System.Text;
@@ -13,16 +15,16 @@ namespace BasicFacebookFeatures
 {
     public class AppSettings
     {
-        public Point LastWindowsLocation { get; set; } //remember to check on it
-        public Size LastWindowsSize { get; set; } //remember to check on it
-        public bool RememberUs { get; set; }
+        public Point LastWindowLocation { get; set; } //remember to check on it
+        public Size LastWindowSize { get; set; } //remember to check on it
+        public bool RememberUser { get; set; }
         public string LastAccessToken { get; set; }
 
         public AppSettings()
         {
-            LastWindowsLocation = new Point(20, 50);
-            LastWindowsSize = new Size(1000, 500);
-            RememberUs = false;
+            LastWindowLocation = new Point(20, 50);
+            LastWindowSize = new Size(1000, 500);
+            RememberUser = false;
             LastAccessToken = null;
         }
 
@@ -30,6 +32,7 @@ namespace BasicFacebookFeatures
         {
             using (Stream stream = new FileStream(@".\appSettings.xml", FileMode.OpenOrCreate))
             {
+                stream.SetLength(0);
                 XmlSerializer serializer = new XmlSerializer(this.GetType());
                 serializer.Serialize(stream, this);
             }
@@ -37,7 +40,7 @@ namespace BasicFacebookFeatures
 
         public static AppSettings LoadFromFile()
         {
-            AppSettings obj = null;
+            AppSettings appSettings = null;
 
             string filePath = @".\appSettings.xml";
 
@@ -46,12 +49,33 @@ namespace BasicFacebookFeatures
                 using (Stream stream = new FileStream(filePath, FileMode.Open))
                 {
                     XmlSerializer serializer = new XmlSerializer(typeof(AppSettings));
-                    obj = serializer.Deserialize(stream) as AppSettings;
+                    appSettings = serializer.Deserialize(stream) as AppSettings;
                 }
-
             }
 
-            return obj;
+            return appSettings;
         }
+
+        public static bool ClearFile()
+        {
+            bool isSuccessfullDelete = true;
+
+            string filePath = @".\appSettings.xml";
+
+            if (File.Exists(filePath))
+            {
+                try
+                {
+                    File.Delete(filePath);
+                    isSuccessfullDelete = true;
+                }
+                catch (Exception ex)
+                {
+                    isSuccessfullDelete = false;
+                }
+            }
+            return isSuccessfullDelete;
+        }
+
     }
 }
