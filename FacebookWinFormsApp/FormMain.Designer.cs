@@ -32,13 +32,15 @@
             this.buttonLogout = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.RememberMeCheckBox = new System.Windows.Forms.CheckBox();
             this.FavoritePagesListBox = new System.Windows.Forms.ListBox();
             this.FavoritePagesLabel = new System.Windows.Forms.Label();
             this.pictureBoxProfile = new System.Windows.Forms.PictureBox();
             this.textBoxAppID = new System.Windows.Forms.TextBox();
-            this.RememberMeCheckBox = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).BeginInit();
             this.SuspendLayout();
             // 
@@ -77,6 +79,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.pictureBox1);
             this.tabPage1.Controls.Add(this.RememberMeCheckBox);
             this.tabPage1.Controls.Add(this.FavoritePagesListBox);
             this.tabPage1.Controls.Add(this.FavoritePagesLabel);
@@ -92,6 +95,25 @@
             this.tabPage1.Text = "Home";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(57, 644);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(200, 200);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 60;
+            this.pictureBox1.TabStop = false;
+            // 
+            // RememberMeCheckBox
+            // 
+            this.RememberMeCheckBox.AutoSize = true;
+            this.RememberMeCheckBox.Location = new System.Drawing.Point(35, 112);
+            this.RememberMeCheckBox.Name = "RememberMeCheckBox";
+            this.RememberMeCheckBox.Size = new System.Drawing.Size(210, 34);
+            this.RememberMeCheckBox.TabIndex = 59;
+            this.RememberMeCheckBox.Text = "Remember Me";
+            this.RememberMeCheckBox.UseVisualStyleBackColor = true;
+            // 
             // FavoritePagesListBox
             // 
             this.FavoritePagesListBox.FormattingEnabled = true;
@@ -100,6 +122,7 @@
             this.FavoritePagesListBox.Name = "FavoritePagesListBox";
             this.FavoritePagesListBox.Size = new System.Drawing.Size(251, 274);
             this.FavoritePagesListBox.TabIndex = 58;
+            this.FavoritePagesListBox.SelectedIndexChanged += new System.EventHandler(this.FavoritePagesListBox_SelectedIndexChanged);
             // 
             // FavoritePagesLabel
             // 
@@ -112,7 +135,7 @@
             // 
             // pictureBoxProfile
             // 
-            this.pictureBoxProfile.Location = new System.Drawing.Point(35, 172);
+            this.pictureBoxProfile.Location = new System.Drawing.Point(35, 174);
             this.pictureBoxProfile.Name = "pictureBoxProfile";
             this.pictureBoxProfile.Size = new System.Drawing.Size(79, 78);
             this.pictureBoxProfile.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -126,16 +149,6 @@
             this.textBoxAppID.Size = new System.Drawing.Size(237, 37);
             this.textBoxAppID.TabIndex = 54;
             this.textBoxAppID.Text = "936827228016864";
-            // 
-            // RememberMeCheckBox
-            // 
-            this.RememberMeCheckBox.AutoSize = true;
-            this.RememberMeCheckBox.Location = new System.Drawing.Point(35, 112);
-            this.RememberMeCheckBox.Name = "RememberMeCheckBox";
-            this.RememberMeCheckBox.Size = new System.Drawing.Size(210, 34);
-            this.RememberMeCheckBox.TabIndex = 59;
-            this.RememberMeCheckBox.Text = "Remember Me";
-            this.RememberMeCheckBox.UseVisualStyleBackColor = true;
             // 
             // FormMain
             // 
@@ -154,6 +167,7 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).EndInit();
             this.ResumeLayout(false);
 
@@ -170,6 +184,7 @@
         private System.Windows.Forms.Label FavoritePagesLabel;
         private System.Windows.Forms.ListBox FavoritePagesListBox;
         private System.Windows.Forms.CheckBox RememberMeCheckBox;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 

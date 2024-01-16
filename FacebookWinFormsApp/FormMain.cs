@@ -1,13 +1,8 @@
-﻿using System;
+﻿using FacebookWrapper;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using FacebookWrapper.ObjectModel;
-using FacebookWrapper;
 
 namespace BasicFacebookFeatures
 {
@@ -49,8 +44,10 @@ namespace BasicFacebookFeatures
                 "user_hometown",
                 "user_photos",
                 "user_posts",
-                "user_videos"
-                );
+                "user_videos",
+                "user_birthday",
+                "user_location",
+                "user_link");
                 setLoggedInUser();
             }
             catch (Exception ex)
@@ -76,9 +73,21 @@ namespace BasicFacebookFeatures
             buttonLogin.Enabled = false;
             RememberMeCheckBox.Enabled = false;
             buttonLogout.Enabled = true;
+            populateLikedPages();
+            
+
+           //pictureBox1.Load("https://www.cs.mta.ac.il/staff/Boaz_Cohen/me.png");
             //we start from here
-            FavoritePagesListBox.Items.Add(m_LoginResult.LoggedInUser.LikedPages[0].Name);
-            FavoritePagesListBox.Items.Add(m_LoginResult.LoggedInUser.LikedPages[1].Name);
+            //FavoritePagesListBox.Items.Add(m_LoginResult.LoggedInUser.LikedPages[0].Name);
+            //FavoritePagesListBox.Items.Add(m_LoginResult.LoggedInUser.LikedPages[1].Name);
+        }
+
+        private void populateLikedPages()
+        {
+            List<string> namesList;
+
+            namesList = FormManager.FetchLikedPagesNames(m_LoginResult.LoggedInUser);
+            FavoritePagesListBox.Items.AddRange(namesList.ToArray());
         }
 
         private void buttonLogout_Click(object sender, EventArgs e)
@@ -132,6 +141,16 @@ namespace BasicFacebookFeatures
                 }
             }
             
+        }
+
+        private void FavoritePagesListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FacebookWrapper.ObjectModel.Page chosenPage;
+            string imageUrl;
+
+            chosenPage = m_LoginResult.LoggedInUser.LikedPages[(sender as ListBox).SelectedIndex];
+            imageUrl = FormManager.FetchPagePhoto(chosenPage);
+            pictureBox1.Load(imageUrl);
         }
     }
 }
