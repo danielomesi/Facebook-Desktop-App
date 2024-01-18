@@ -8,8 +8,11 @@ namespace BasicFacebookFeatures
 {
     public partial class FormMain : Form
     {
+        const int k_FirstPostIndex = 0;
         FacebookWrapper.LoginResult m_LoginResult;
         AppSettings m_AppSettings;
+        int m_CurrentShowedPostIndex;
+        
 
         public FormMain()
         {
@@ -73,7 +76,14 @@ namespace BasicFacebookFeatures
             buttonLogin.Enabled = false;
             RememberMeCheckBox.Enabled = false;
             buttonLogout.Enabled = true;
+
+
             populateLikedPages();
+
+
+
+            populatePost(k_FirstPostIndex);
+            
             
 
            //pictureBox1.Load("https://www.cs.mta.ac.il/staff/Boaz_Cohen/me.png");
@@ -88,6 +98,36 @@ namespace BasicFacebookFeatures
 
             namesList = FormManager.FetchLikedPagesNames(m_LoginResult.LoggedInUser);
             FavoritePagesListBox.Items.AddRange(namesList.ToArray());
+        }
+
+        private void populatePost(int i_PostIndex)
+        {
+            FacebookWrapper.ObjectModel.Post post;
+
+            post = FormManager.FetchPostByIndex(m_LoginResult.LoggedInUser, i_PostIndex);
+            if (post != null)
+            {
+                PostRichTextBox.Text = post.Message;
+                m_CurrentShowedPostIndex = i_PostIndex;
+              
+                if (m_CurrentShowedPostIndex == (m_LoginResult.LoggedInUser.Posts.Count-1) )
+                {
+                    PreviousPostButton.Enabled = false;
+                }
+                else
+                {
+                    PreviousPostButton.Enabled = true;
+                }
+
+                if (m_CurrentShowedPostIndex == 0)
+                {
+                    NextPostButton.Enabled = false;
+                }
+                else
+                {
+                    NextPostButton.Enabled = true;
+                }
+            }
         }
 
         private void buttonLogout_Click(object sender, EventArgs e)
@@ -151,6 +191,16 @@ namespace BasicFacebookFeatures
             chosenPage = m_LoginResult.LoggedInUser.LikedPages[(sender as ListBox).SelectedIndex];
             imageUrl = FormManager.FetchPagePhoto(chosenPage);
             pictureBox1.Load(imageUrl);
+        }
+
+        private void PreviousPostButton_Click(object sender, EventArgs e)
+        {
+            populatePost(m_CurrentShowedPostIndex + 1);
+        }
+
+        private void NextPostButton_Click(object sender, EventArgs e)
+        {
+            populatePost(m_CurrentShowedPostIndex - 1);
         }
     }
 }

@@ -27,6 +27,18 @@ namespace BasicFacebookFeatures
             return i_Page.PictureNormalURL;
         }
 
+        public static Post FetchPostByIndex(User i_User, int i_Index)
+        {
+            Post post = null;
+
+            if (i_Index < i_User.Posts.Count)
+            {
+                post = i_User.Posts[i_Index]; ;
+            }
+
+            return post;
+        }
+
 
 
 }

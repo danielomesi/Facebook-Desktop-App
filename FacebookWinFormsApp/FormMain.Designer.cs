@@ -32,6 +32,9 @@
             this.buttonLogout = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.NextPostButton = new System.Windows.Forms.Button();
+            this.PreviousPostButton = new System.Windows.Forms.Button();
+            this.PostRichTextBox = new System.Windows.Forms.RichTextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.RememberMeCheckBox = new System.Windows.Forms.CheckBox();
             this.FavoritePagesListBox = new System.Windows.Forms.ListBox();
@@ -79,6 +82,9 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.NextPostButton);
+            this.tabPage1.Controls.Add(this.PreviousPostButton);
+            this.tabPage1.Controls.Add(this.PostRichTextBox);
             this.tabPage1.Controls.Add(this.pictureBox1);
             this.tabPage1.Controls.Add(this.RememberMeCheckBox);
             this.tabPage1.Controls.Add(this.FavoritePagesListBox);
@@ -94,6 +100,37 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Home";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // NextPostButton
+            // 
+            this.NextPostButton.Enabled = false;
+            this.NextPostButton.Location = new System.Drawing.Point(532, 614);
+            this.NextPostButton.Name = "NextPostButton";
+            this.NextPostButton.Size = new System.Drawing.Size(145, 60);
+            this.NextPostButton.TabIndex = 63;
+            this.NextPostButton.Text = "Next";
+            this.NextPostButton.UseVisualStyleBackColor = true;
+            this.NextPostButton.Click += new System.EventHandler(this.NextPostButton_Click);
+            // 
+            // PreviousPostButton
+            // 
+            this.PreviousPostButton.Enabled = false;
+            this.PreviousPostButton.Location = new System.Drawing.Point(354, 614);
+            this.PreviousPostButton.Name = "PreviousPostButton";
+            this.PreviousPostButton.Size = new System.Drawing.Size(145, 60);
+            this.PreviousPostButton.TabIndex = 62;
+            this.PreviousPostButton.Text = "Previous";
+            this.PreviousPostButton.UseVisualStyleBackColor = true;
+            this.PreviousPostButton.Click += new System.EventHandler(this.PreviousPostButton_Click);
+            // 
+            // PostRichTextBox
+            // 
+            this.PostRichTextBox.Location = new System.Drawing.Point(354, 324);
+            this.PostRichTextBox.Name = "PostRichTextBox";
+            this.PostRichTextBox.ReadOnly = true;
+            this.PostRichTextBox.Size = new System.Drawing.Size(323, 274);
+            this.PostRichTextBox.TabIndex = 61;
+            this.PostRichTextBox.Text = "";
             // 
             // pictureBox1
             // 
@@ -185,6 +222,9 @@
         private System.Windows.Forms.ListBox FavoritePagesListBox;
         private System.Windows.Forms.CheckBox RememberMeCheckBox;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button NextPostButton;
+        private System.Windows.Forms.Button PreviousPostButton;
+        private System.Windows.Forms.RichTextBox PostRichTextBox;
     }
 }
 
