@@ -32,10 +32,15 @@
             this.buttonLogout = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.NextPostButton = new System.Windows.Forms.Button();
-            this.PreviousPostButton = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.NextImagePostButton = new System.Windows.Forms.Button();
+            this.PreviousImagePostButton = new System.Windows.Forms.Button();
+            this.ImagePostPictureBox = new System.Windows.Forms.PictureBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.NextStatusButton = new System.Windows.Forms.Button();
+            this.PreviousStatusButton = new System.Windows.Forms.Button();
             this.PostRichTextBox = new System.Windows.Forms.RichTextBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.FavPagePictureBox = new System.Windows.Forms.PictureBox();
             this.RememberMeCheckBox = new System.Windows.Forms.CheckBox();
             this.FavoritePagesListBox = new System.Windows.Forms.ListBox();
             this.FavoritePagesLabel = new System.Windows.Forms.Label();
@@ -43,7 +48,8 @@
             this.textBoxAppID = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ImagePostPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FavPagePictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).BeginInit();
             this.SuspendLayout();
             // 
@@ -82,10 +88,15 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.NextPostButton);
-            this.tabPage1.Controls.Add(this.PreviousPostButton);
+            this.tabPage1.Controls.Add(this.label2);
+            this.tabPage1.Controls.Add(this.NextImagePostButton);
+            this.tabPage1.Controls.Add(this.PreviousImagePostButton);
+            this.tabPage1.Controls.Add(this.ImagePostPictureBox);
+            this.tabPage1.Controls.Add(this.label1);
+            this.tabPage1.Controls.Add(this.NextStatusButton);
+            this.tabPage1.Controls.Add(this.PreviousStatusButton);
             this.tabPage1.Controls.Add(this.PostRichTextBox);
-            this.tabPage1.Controls.Add(this.pictureBox1);
+            this.tabPage1.Controls.Add(this.FavPagePictureBox);
             this.tabPage1.Controls.Add(this.RememberMeCheckBox);
             this.tabPage1.Controls.Add(this.FavoritePagesListBox);
             this.tabPage1.Controls.Add(this.FavoritePagesLabel);
@@ -101,27 +112,77 @@
             this.tabPage1.Text = "Home";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // NextPostButton
+            // label2
             // 
-            this.NextPostButton.Enabled = false;
-            this.NextPostButton.Location = new System.Drawing.Point(532, 614);
-            this.NextPostButton.Name = "NextPostButton";
-            this.NextPostButton.Size = new System.Drawing.Size(145, 60);
-            this.NextPostButton.TabIndex = 63;
-            this.NextPostButton.Text = "Next";
-            this.NextPostButton.UseVisualStyleBackColor = true;
-            this.NextPostButton.Click += new System.EventHandler(this.NextPostButton_Click);
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(814, 275);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(196, 30);
+            this.label2.TabIndex = 68;
+            this.label2.Text = "My Image Posts";
             // 
-            // PreviousPostButton
+            // NextImagePostButton
             // 
-            this.PreviousPostButton.Enabled = false;
-            this.PreviousPostButton.Location = new System.Drawing.Point(354, 614);
-            this.PreviousPostButton.Name = "PreviousPostButton";
-            this.PreviousPostButton.Size = new System.Drawing.Size(145, 60);
-            this.PreviousPostButton.TabIndex = 62;
-            this.PreviousPostButton.Text = "Previous";
-            this.PreviousPostButton.UseVisualStyleBackColor = true;
-            this.PreviousPostButton.Click += new System.EventHandler(this.PreviousPostButton_Click);
+            this.NextImagePostButton.Enabled = false;
+            this.NextImagePostButton.Location = new System.Drawing.Point(942, 614);
+            this.NextImagePostButton.Name = "NextImagePostButton";
+            this.NextImagePostButton.Size = new System.Drawing.Size(145, 60);
+            this.NextImagePostButton.TabIndex = 67;
+            this.NextImagePostButton.Text = "Next";
+            this.NextImagePostButton.UseVisualStyleBackColor = true;
+            this.NextImagePostButton.Click += new System.EventHandler(this.NextImagePostButton_Click);
+            // 
+            // PreviousImagePostButton
+            // 
+            this.PreviousImagePostButton.Enabled = false;
+            this.PreviousImagePostButton.Location = new System.Drawing.Point(738, 614);
+            this.PreviousImagePostButton.Name = "PreviousImagePostButton";
+            this.PreviousImagePostButton.Size = new System.Drawing.Size(145, 60);
+            this.PreviousImagePostButton.TabIndex = 66;
+            this.PreviousImagePostButton.Text = "Previous";
+            this.PreviousImagePostButton.UseVisualStyleBackColor = true;
+            this.PreviousImagePostButton.Click += new System.EventHandler(this.PreviousImagePostButton_Click);
+            // 
+            // ImagePostPictureBox
+            // 
+            this.ImagePostPictureBox.Location = new System.Drawing.Point(738, 324);
+            this.ImagePostPictureBox.Name = "ImagePostPictureBox";
+            this.ImagePostPictureBox.Size = new System.Drawing.Size(349, 271);
+            this.ImagePostPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.ImagePostPictureBox.TabIndex = 65;
+            this.ImagePostPictureBox.TabStop = false;
+            this.ImagePostPictureBox.Click += new System.EventHandler(this.ImagePostPictureBox_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(425, 275);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(154, 30);
+            this.label1.TabIndex = 64;
+            this.label1.Text = "My Statuses";
+            // 
+            // NextStatusButton
+            // 
+            this.NextStatusButton.Enabled = false;
+            this.NextStatusButton.Location = new System.Drawing.Point(532, 614);
+            this.NextStatusButton.Name = "NextStatusButton";
+            this.NextStatusButton.Size = new System.Drawing.Size(145, 60);
+            this.NextStatusButton.TabIndex = 63;
+            this.NextStatusButton.Text = "Next";
+            this.NextStatusButton.UseVisualStyleBackColor = true;
+            this.NextStatusButton.Click += new System.EventHandler(this.NextPostButton_Click);
+            // 
+            // PreviousStatusButton
+            // 
+            this.PreviousStatusButton.Enabled = false;
+            this.PreviousStatusButton.Location = new System.Drawing.Point(354, 614);
+            this.PreviousStatusButton.Name = "PreviousStatusButton";
+            this.PreviousStatusButton.Size = new System.Drawing.Size(145, 60);
+            this.PreviousStatusButton.TabIndex = 62;
+            this.PreviousStatusButton.Text = "Previous";
+            this.PreviousStatusButton.UseVisualStyleBackColor = true;
+            this.PreviousStatusButton.Click += new System.EventHandler(this.PreviousPostButton_Click);
             // 
             // PostRichTextBox
             // 
@@ -132,14 +193,14 @@
             this.PostRichTextBox.TabIndex = 61;
             this.PostRichTextBox.Text = "";
             // 
-            // pictureBox1
+            // FavPagePictureBox
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(57, 644);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(200, 200);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 60;
-            this.pictureBox1.TabStop = false;
+            this.FavPagePictureBox.Location = new System.Drawing.Point(57, 614);
+            this.FavPagePictureBox.Name = "FavPagePictureBox";
+            this.FavPagePictureBox.Size = new System.Drawing.Size(200, 200);
+            this.FavPagePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.FavPagePictureBox.TabIndex = 60;
+            this.FavPagePictureBox.TabStop = false;
             // 
             // RememberMeCheckBox
             // 
@@ -204,7 +265,8 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ImagePostPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FavPagePictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).EndInit();
             this.ResumeLayout(false);
 
@@ -221,10 +283,15 @@
         private System.Windows.Forms.Label FavoritePagesLabel;
         private System.Windows.Forms.ListBox FavoritePagesListBox;
         private System.Windows.Forms.CheckBox RememberMeCheckBox;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Button NextPostButton;
-        private System.Windows.Forms.Button PreviousPostButton;
+        private System.Windows.Forms.PictureBox FavPagePictureBox;
+        private System.Windows.Forms.Button NextStatusButton;
+        private System.Windows.Forms.Button PreviousStatusButton;
         private System.Windows.Forms.RichTextBox PostRichTextBox;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.PictureBox ImagePostPictureBox;
+        private System.Windows.Forms.Button NextImagePostButton;
+        private System.Windows.Forms.Button PreviousImagePostButton;
+        private System.Windows.Forms.Label label2;
     }
 }
 

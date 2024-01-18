@@ -1,4 +1,5 @@
 ﻿using FacebookWrapper;
+using FacebookWrapper.ObjectModel;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -10,9 +11,11 @@ namespace BasicFacebookFeatures
     {
         const int k_FirstPostIndex = 0;
         FacebookWrapper.LoginResult m_LoginResult;
+        ActiveUserManager m_ActiveUserManager;
         AppSettings m_AppSettings;
-        int m_CurrentShowedPostIndex;
-        
+        int m_CurrentShowedStatusIndex;
+        int m_CurrentShowedImagePostIndex;
+
 
         public FormMain()
         {
@@ -70,7 +73,9 @@ namespace BasicFacebookFeatures
 
         private void setLoggedInUser()
         {
-            buttonLogin.Text = $"Logged in as {m_LoginResult.LoggedInUser.Name}";
+            m_ActiveUserManager = new ActiveUserManager(m_LoginResult.LoggedInUser);
+
+            buttonLogin.Text = $"Logged in as {m_ActiveUserManager.GetNameOfUser()}";
             buttonLogin.BackColor = Color.LightGreen;
             pictureBoxProfile.ImageLocation = m_LoginResult.LoggedInUser.PictureNormalURL;
             buttonLogin.Enabled = false;
@@ -82,51 +87,68 @@ namespace BasicFacebookFeatures
 
 
 
-            populatePost(k_FirstPostIndex);
-            
-            
-
-           //pictureBox1.Load("https://www.cs.mta.ac.il/staff/Boaz_Cohen/me.png");
-            //we start from here
-            //FavoritePagesListBox.Items.Add(m_LoginResult.LoggedInUser.LikedPages[0].Name);
-            //FavoritePagesListBox.Items.Add(m_LoginResult.LoggedInUser.LikedPages[1].Name);
+            populateStatus(k_FirstPostIndex);
+            populateImagePost(k_FirstPostIndex);
         }
 
         private void populateLikedPages()
         {
             List<string> namesList;
 
-            namesList = FormManager.FetchLikedPagesNames(m_LoginResult.LoggedInUser);
+            namesList = m_ActiveUserManager.FetchLikedPagesNames();
             FavoritePagesListBox.Items.AddRange(namesList.ToArray());
         }
 
-        private void populatePost(int i_PostIndex)
+
+        private void populateStatus(int i_PostIndex)
         {
             FacebookWrapper.ObjectModel.Post post;
 
-            post = FormManager.FetchPostByIndex(m_LoginResult.LoggedInUser, i_PostIndex);
+            post = m_ActiveUserManager.FetchPostByIndex(Post.eType.status, i_PostIndex);
             if (post != null)
             {
                 PostRichTextBox.Text = post.Message;
-                m_CurrentShowedPostIndex = i_PostIndex;
-              
-                if (m_CurrentShowedPostIndex == (m_LoginResult.LoggedInUser.Posts.Count-1) )
-                {
-                    PreviousPostButton.Enabled = false;
-                }
-                else
-                {
-                    PreviousPostButton.Enabled = true;
-                }
+                m_CurrentShowedStatusIndex = i_PostIndex;
+                HandlePreviousAndNextButtons(m_CurrentShowedStatusIndex, m_ActiveUserManager.m_StatusPostsListSize,
+                    PreviousStatusButton, NextStatusButton);
+            }
+        }
 
-                if (m_CurrentShowedPostIndex == 0)
-                {
-                    NextPostButton.Enabled = false;
-                }
-                else
-                {
-                    NextPostButton.Enabled = true;
-                }
+        private void populateImagePost(int i_PostIndex)
+        {
+            FacebookWrapper.ObjectModel.Post post;
+
+            post = m_ActiveUserManager.FetchPostByIndex(Post.eType.photo, i_PostIndex);
+            if (post != null)
+            {
+                ImagePostPictureBox.Load(post.PictureURL);
+                m_CurrentShowedImagePostIndex = i_PostIndex;
+                HandlePreviousAndNextButtons(m_CurrentShowedImagePostIndex, m_ActiveUserManager.m_PhotoPostsListSize,
+                    PreviousImagePostButton, NextImagePostButton);
+            }
+        }
+
+
+
+        private void HandlePreviousAndNextButtons(int m_CurrentShowedIndex, int m_SizeOfObjects,
+            Button i_PreviousButton, Button i_NextButton)
+        {
+            if (m_CurrentShowedIndex == (m_SizeOfObjects - 1))
+            {
+                i_PreviousButton.Enabled = false;
+            }
+            else
+            {
+                i_PreviousButton.Enabled = true;
+            }
+
+            if (m_CurrentShowedIndex == 0)
+            {
+                i_NextButton.Enabled = false;
+            }
+            else
+            {
+                i_NextButton.Enabled = true;
             }
         }
 
@@ -189,18 +211,42 @@ namespace BasicFacebookFeatures
             string imageUrl;
 
             chosenPage = m_LoginResult.LoggedInUser.LikedPages[(sender as ListBox).SelectedIndex];
-            imageUrl = FormManager.FetchPagePhoto(chosenPage);
-            pictureBox1.Load(imageUrl);
+            imageUrl = ActiveUserManager.FetchPagePhoto(chosenPage);
+            FavPagePictureBox.Load(imageUrl);
         }
 
         private void PreviousPostButton_Click(object sender, EventArgs e)
         {
-            populatePost(m_CurrentShowedPostIndex + 1);
+            populateStatus(m_CurrentShowedStatusIndex + 1);
         }
 
         private void NextPostButton_Click(object sender, EventArgs e)
         {
-            populatePost(m_CurrentShowedPostIndex - 1);
+            populateStatus(m_CurrentShowedStatusIndex - 1);
+        }
+
+        private void PreviousImagePostButton_Click(object sender, EventArgs e)
+        {
+            populateImagePost(m_CurrentShowedImagePostIndex + 1);
+        }
+
+        private void NextImagePostButton_Click(object sender, EventArgs e)
+        {
+            populateImagePost(m_CurrentShowedImagePostIndex - 1);
+        }
+
+        private void ImagePostPictureBox_Click(object sender, EventArgs e)
+        {
+            Post post;
+            string message;
+
+            post = m_ActiveUserManager.FetchPostByIndex(Post.eType.photo, m_CurrentShowedImagePostIndex);
+            message = post.Message;
+
+            if (!string.IsNullOrEmpty(message))
+            {
+                MessageBox.Show(message);
+            }
         }
     }
 }
