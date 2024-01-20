@@ -46,11 +46,22 @@
             this.FavoritePagesLabel = new System.Windows.Forms.Label();
             this.pictureBoxProfile = new System.Windows.Forms.PictureBox();
             this.textBoxAppID = new System.Windows.Forms.TextBox();
+            this.FriendsListBox = new System.Windows.Forms.ListBox();
+            this.MyFriendsLabel = new System.Windows.Forms.Label();
+            this.AlbumsTab = new System.Windows.Forms.TabPage();
+            this.AlbumsListBox = new System.Windows.Forms.ListBox();
+            this.AlbumsLabel = new System.Windows.Forms.Label();
+            this.AlbumImagesLabel = new System.Windows.Forms.Label();
+            this.AlbumImageNextButton = new System.Windows.Forms.Button();
+            this.AlbumImagePerviousButton = new System.Windows.Forms.Button();
+            this.AlbumPictureBox = new System.Windows.Forms.PictureBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ImagePostPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.FavPagePictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).BeginInit();
+            this.AlbumsTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.AlbumPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonLogin
@@ -79,15 +90,18 @@
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.AlbumsTab);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1162, 773);
+            this.tabControl1.Size = new System.Drawing.Size(1539, 1117);
             this.tabControl1.TabIndex = 54;
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.MyFriendsLabel);
+            this.tabPage1.Controls.Add(this.FriendsListBox);
             this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Controls.Add(this.NextImagePostButton);
             this.tabPage1.Controls.Add(this.PreviousImagePostButton);
@@ -104,10 +118,10 @@
             this.tabPage1.Controls.Add(this.textBoxAppID);
             this.tabPage1.Controls.Add(this.buttonLogout);
             this.tabPage1.Controls.Add(this.buttonLogin);
-            this.tabPage1.Location = new System.Drawing.Point(4, 35);
+            this.tabPage1.Location = new System.Drawing.Point(4, 39);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1154, 734);
+            this.tabPage1.Size = new System.Drawing.Size(1531, 1074);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Home";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -117,7 +131,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(827, 172);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(169, 26);
+            this.label2.Size = new System.Drawing.Size(196, 30);
             this.label2.TabIndex = 68;
             this.label2.Text = "My Image Posts";
             // 
@@ -158,7 +172,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(438, 172);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(132, 26);
+            this.label1.Size = new System.Drawing.Size(154, 30);
             this.label1.TabIndex = 64;
             this.label1.Text = "My Statuses";
             // 
@@ -207,7 +221,7 @@
             this.RememberMeCheckBox.AutoSize = true;
             this.RememberMeCheckBox.Location = new System.Drawing.Point(35, 112);
             this.RememberMeCheckBox.Name = "RememberMeCheckBox";
-            this.RememberMeCheckBox.Size = new System.Drawing.Size(183, 30);
+            this.RememberMeCheckBox.Size = new System.Drawing.Size(210, 34);
             this.RememberMeCheckBox.TabIndex = 59;
             this.RememberMeCheckBox.Text = "Remember Me";
             this.RememberMeCheckBox.UseVisualStyleBackColor = true;
@@ -215,10 +229,10 @@
             // FavoritePagesListBox
             // 
             this.FavoritePagesListBox.FormattingEnabled = true;
-            this.FavoritePagesListBox.ItemHeight = 26;
+            this.FavoritePagesListBox.ItemHeight = 30;
             this.FavoritePagesListBox.Location = new System.Drawing.Point(48, 221);
             this.FavoritePagesListBox.Name = "FavoritePagesListBox";
-            this.FavoritePagesListBox.Size = new System.Drawing.Size(251, 264);
+            this.FavoritePagesListBox.Size = new System.Drawing.Size(251, 244);
             this.FavoritePagesListBox.TabIndex = 58;
             this.FavoritePagesListBox.SelectedIndexChanged += new System.EventHandler(this.FavoritePagesListBox_SelectedIndexChanged);
             // 
@@ -227,7 +241,7 @@
             this.FavoritePagesLabel.AutoSize = true;
             this.FavoritePagesLabel.Location = new System.Drawing.Point(85, 172);
             this.FavoritePagesLabel.Name = "FavoritePagesLabel";
-            this.FavoritePagesLabel.Size = new System.Drawing.Size(158, 26);
+            this.FavoritePagesLabel.Size = new System.Drawing.Size(185, 30);
             this.FavoritePagesLabel.TabIndex = 57;
             this.FavoritePagesLabel.Text = "Favorite Pages";
             // 
@@ -244,15 +258,107 @@
             // 
             this.textBoxAppID.Location = new System.Drawing.Point(317, 61);
             this.textBoxAppID.Name = "textBoxAppID";
-            this.textBoxAppID.Size = new System.Drawing.Size(237, 32);
+            this.textBoxAppID.Size = new System.Drawing.Size(237, 37);
             this.textBoxAppID.TabIndex = 54;
             this.textBoxAppID.Text = "936827228016864";
             // 
+            // FriendsListBox
+            // 
+            this.FriendsListBox.FormattingEnabled = true;
+            this.FriendsListBox.ItemHeight = 30;
+            this.FriendsListBox.Location = new System.Drawing.Point(1159, 221);
+            this.FriendsListBox.Name = "FriendsListBox";
+            this.FriendsListBox.Size = new System.Drawing.Size(335, 274);
+            this.FriendsListBox.TabIndex = 69;
+            // 
+            // MyFriendsLabel
+            // 
+            this.MyFriendsLabel.AutoSize = true;
+            this.MyFriendsLabel.Location = new System.Drawing.Point(1246, 172);
+            this.MyFriendsLabel.Name = "MyFriendsLabel";
+            this.MyFriendsLabel.Size = new System.Drawing.Size(141, 30);
+            this.MyFriendsLabel.TabIndex = 70;
+            this.MyFriendsLabel.Text = "My Friends";
+            // 
+            // AlbumsTab
+            // 
+            this.AlbumsTab.Controls.Add(this.AlbumImagesLabel);
+            this.AlbumsTab.Controls.Add(this.AlbumImageNextButton);
+            this.AlbumsTab.Controls.Add(this.AlbumImagePerviousButton);
+            this.AlbumsTab.Controls.Add(this.AlbumPictureBox);
+            this.AlbumsTab.Controls.Add(this.AlbumsLabel);
+            this.AlbumsTab.Controls.Add(this.AlbumsListBox);
+            this.AlbumsTab.Location = new System.Drawing.Point(4, 39);
+            this.AlbumsTab.Name = "AlbumsTab";
+            this.AlbumsTab.Padding = new System.Windows.Forms.Padding(3);
+            this.AlbumsTab.Size = new System.Drawing.Size(1531, 1074);
+            this.AlbumsTab.TabIndex = 1;
+            this.AlbumsTab.Text = "Albums";
+            this.AlbumsTab.UseVisualStyleBackColor = true;
+            // 
+            // AlbumsListBox
+            // 
+            this.AlbumsListBox.FormattingEnabled = true;
+            this.AlbumsListBox.ItemHeight = 30;
+            this.AlbumsListBox.Location = new System.Drawing.Point(30, 169);
+            this.AlbumsListBox.Name = "AlbumsListBox";
+            this.AlbumsListBox.Size = new System.Drawing.Size(251, 244);
+            this.AlbumsListBox.TabIndex = 59;
+            this.AlbumsListBox.SelectedIndexChanged += new System.EventHandler(this.AlbumsListBox_SelectedIndexChanged);
+            // 
+            // AlbumsLabel
+            // 
+            this.AlbumsLabel.AutoSize = true;
+            this.AlbumsLabel.Location = new System.Drawing.Point(68, 120);
+            this.AlbumsLabel.Name = "AlbumsLabel";
+            this.AlbumsLabel.Size = new System.Drawing.Size(175, 30);
+            this.AlbumsLabel.TabIndex = 60;
+            this.AlbumsLabel.Text = "Album Names";
+            // 
+            // AlbumImagesLabel
+            // 
+            this.AlbumImagesLabel.AutoSize = true;
+            this.AlbumImagesLabel.Location = new System.Drawing.Point(486, 111);
+            this.AlbumImagesLabel.Name = "AlbumImagesLabel";
+            this.AlbumImagesLabel.Size = new System.Drawing.Size(0, 30);
+            this.AlbumImagesLabel.TabIndex = 72;
+            // 
+            // AlbumImageNextButton
+            // 
+            this.AlbumImageNextButton.Enabled = false;
+            this.AlbumImageNextButton.Location = new System.Drawing.Point(567, 459);
+            this.AlbumImageNextButton.Name = "AlbumImageNextButton";
+            this.AlbumImageNextButton.Size = new System.Drawing.Size(145, 60);
+            this.AlbumImageNextButton.TabIndex = 71;
+            this.AlbumImageNextButton.Text = "Next";
+            this.AlbumImageNextButton.UseVisualStyleBackColor = true;
+            this.AlbumImageNextButton.Click += new System.EventHandler(this.AlbumImageNextButton_Click);
+            // 
+            // AlbumImagePerviousButton
+            // 
+            this.AlbumImagePerviousButton.Enabled = false;
+            this.AlbumImagePerviousButton.Location = new System.Drawing.Point(363, 459);
+            this.AlbumImagePerviousButton.Name = "AlbumImagePerviousButton";
+            this.AlbumImagePerviousButton.Size = new System.Drawing.Size(145, 60);
+            this.AlbumImagePerviousButton.TabIndex = 70;
+            this.AlbumImagePerviousButton.Text = "Previous";
+            this.AlbumImagePerviousButton.UseVisualStyleBackColor = true;
+            this.AlbumImagePerviousButton.Click += new System.EventHandler(this.AlbumImagePerviousButton_Click);
+            // 
+            // AlbumPictureBox
+            // 
+            this.AlbumPictureBox.Location = new System.Drawing.Point(363, 169);
+            this.AlbumPictureBox.Name = "AlbumPictureBox";
+            this.AlbumPictureBox.Size = new System.Drawing.Size(349, 271);
+            this.AlbumPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.AlbumPictureBox.TabIndex = 69;
+            this.AlbumPictureBox.TabStop = false;
+            // 
             // FormMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 26F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(15F, 30F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1162, 773);
+            this.ClientSize = new System.Drawing.Size(1539, 1117);
             this.Controls.Add(this.tabControl1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -268,6 +374,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.ImagePostPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.FavPagePictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).EndInit();
+            this.AlbumsTab.ResumeLayout(false);
+            this.AlbumsTab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.AlbumPictureBox)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -292,6 +401,15 @@
         private System.Windows.Forms.Button NextImagePostButton;
         private System.Windows.Forms.Button PreviousImagePostButton;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label MyFriendsLabel;
+        private System.Windows.Forms.ListBox FriendsListBox;
+        private System.Windows.Forms.TabPage AlbumsTab;
+        private System.Windows.Forms.Label AlbumsLabel;
+        private System.Windows.Forms.ListBox AlbumsListBox;
+        private System.Windows.Forms.Label AlbumImagesLabel;
+        private System.Windows.Forms.Button AlbumImageNextButton;
+        private System.Windows.Forms.Button AlbumImagePerviousButton;
+        private System.Windows.Forms.PictureBox AlbumPictureBox;
     }
 }
 

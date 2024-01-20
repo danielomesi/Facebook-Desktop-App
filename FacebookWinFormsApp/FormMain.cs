@@ -3,6 +3,7 @@ using FacebookWrapper.ObjectModel;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace BasicFacebookFeatures
@@ -15,7 +16,8 @@ namespace BasicFacebookFeatures
         AppSettings m_AppSettings;
         int m_CurrentShowedStatusIndex;
         int m_CurrentShowedImagePostIndex;
-
+        int m_CurrentShowedAlbumIndex;
+        int m_CurrentShowedPhotoIndexInAlbum;
 
         public FormMain()
         {
@@ -51,7 +53,8 @@ namespace BasicFacebookFeatures
                 "user_videos",
                 "user_birthday",
                 "user_location",
-                "user_link");
+                "user_link",
+                "");
                 setLoggedInUser();
             }
             catch (Exception ex)
@@ -65,25 +68,27 @@ namespace BasicFacebookFeatures
         {
             m_ActiveUserManager = new ActiveUserManager(m_LoginResult.LoggedInUser);
 
-            buttonLogin.Text = $"Logged in as {m_ActiveUserManager.GetNameOfUser()}";
+            buttonLogin.Text = $"Logged in as {m_LoginResult.LoggedInUser.Name}";
             buttonLogin.BackColor = Color.LightGreen;
             pictureBoxProfile.ImageLocation = m_LoginResult.LoggedInUser.PictureNormalURL;
             buttonLogin.Enabled = false;
             RememberMeCheckBox.Enabled = false;
             buttonLogout.Enabled = true;
 
-
-            populateLikedPages();
+            populateListBox(FavoritePagesListBox,
+                m_ActiveUserManager.FetchNamesOfObjectList<Page>(m_LoginResult.LoggedInUser.LikedPages.ToList()));
+            populateListBox(FriendsListBox, m_ActiveUserManager.GenerdateFriendsNamesDummyData());
+            populateListBox(AlbumsListBox,
+                m_ActiveUserManager.FetchNamesOfObjectList<Album>(m_LoginResult.LoggedInUser.Albums.ToList()));
             populateStatus(k_FirstPostIndex);
             populateImagePost(k_FirstPostIndex);
         }
 
-        private void populateLikedPages()
+        private void populateListBox(ListBox i_ListBox, List<string> i_NamesList)
         {
-            List<string> namesList;
+            List<string> List;
 
-            namesList = m_ActiveUserManager.FetchLikedPagesNames();
-            FavoritePagesListBox.Items.AddRange(namesList.ToArray());
+            i_ListBox.Items.AddRange(i_NamesList.ToArray());
         }
 
         private void populateStatus(int i_PostIndex)
@@ -112,6 +117,18 @@ namespace BasicFacebookFeatures
                 HandlePreviousAndNextButtons(m_CurrentShowedImagePostIndex, m_ActiveUserManager.m_PhotoPostsListSize,
                     PreviousImagePostButton, NextImagePostButton);
             }
+        }
+
+        private void populateAlbumPhoto(int i_PhotoIndexToChange)
+        {
+            Album currentAlbum = m_LoginResult.LoggedInUser.Albums[m_CurrentShowedAlbumIndex];
+            Photo currentPhoto = currentAlbum.Photos[i_PhotoIndexToChange];
+
+            AlbumPictureBox.Load(currentPhoto.PictureNormalURL);
+
+            m_CurrentShowedPhotoIndexInAlbum = i_PhotoIndexToChange;
+            HandlePreviousAndNextButtons(m_CurrentShowedPhotoIndexInAlbum,
+                currentAlbum.Photos.Count, AlbumImagePerviousButton, AlbumImageNextButton);
         }
 
         private void HandlePreviousAndNextButtons(int m_CurrentShowedIndex, int m_SizeOfObjects,
@@ -230,6 +247,29 @@ namespace BasicFacebookFeatures
             {
                 MessageBox.Show(message);
             }
+        }
+        private void AlbumsListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Album currentAlbum;
+
+            m_CurrentShowedPhotoIndexInAlbum = 0;
+            m_CurrentShowedAlbumIndex = (sender as ListBox).SelectedIndex;
+
+            currentAlbum = m_LoginResult.LoggedInUser.Albums[m_CurrentShowedAlbumIndex];
+
+            AlbumImagesLabel.Text = !string.IsNullOrEmpty(currentAlbum.Name) ? currentAlbum.Name : string.Empty; 
+            
+            populateAlbumPhoto(m_CurrentShowedPhotoIndexInAlbum);
+        }
+
+        private void AlbumImagePerviousButton_Click(object sender, EventArgs e)
+        {
+            populateAlbumPhoto(m_CurrentShowedPhotoIndexInAlbum + 1);
+        }
+
+        private void AlbumImageNextButton_Click(object sender, EventArgs e)
+        {
+            populateAlbumPhoto(m_CurrentShowedPhotoIndexInAlbum - 1);
         }
     }
 }

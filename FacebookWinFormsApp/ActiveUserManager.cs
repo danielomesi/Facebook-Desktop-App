@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Reflection;
 using FacebookWrapper.ObjectModel;
 
 namespace BasicFacebookFeatures
@@ -16,11 +17,6 @@ namespace BasicFacebookFeatures
             m_PhotoPostsListSize = getSizeOfListOfSpecificPostsType(Post.eType.photo);
         }
 
-        public string GetNameOfUser()
-        {
-            return r_LoggedInUser.Name;
-        }
-
         private int getSizeOfListOfSpecificPostsType(Post.eType i_PostType)
         {
             int specificPostsTypeCounter = 0;
@@ -36,15 +32,20 @@ namespace BasicFacebookFeatures
             return specificPostsTypeCounter;
         }
 
-        public List<string> FetchLikedPagesNames()
+        public List<string> FetchNamesOfObjectList<T>(List<T> i_ListOfElementsThatHaveNameProperty)
         {
             List<string> namesList = new List<string>();
 
-            foreach (Page page in r_LoggedInUser.LikedPages)
-            {
-                namesList.Add(page.Name);
-            }
+            PropertyInfo nameProperty = typeof(T).GetProperty("Name");
 
+            if(nameProperty != null)
+            {
+                for (int i = 0; i < i_ListOfElementsThatHaveNameProperty.Count; i++)
+                {
+                    namesList.Add(nameProperty.GetValue(i_ListOfElementsThatHaveNameProperty[i]) as string);
+                }
+            }
+            
             return namesList;
         }
 
@@ -72,6 +73,16 @@ namespace BasicFacebookFeatures
             }
 
             return postRes;
+        }
+
+        public List<string> GenerdateFriendsNamesDummyData()
+        {
+            List<string> friendNames = new List<string>();
+
+            friendNames.Add("George Levy");
+            friendNames.Add("Michael Ezra");
+
+            return friendNames;
         }
     }
 }
