@@ -83,7 +83,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1621, 1053);
+            this.tabControl1.Size = new System.Drawing.Size(1162, 773);
             this.tabControl1.TabIndex = 54;
             // 
             // tabPage1
@@ -104,10 +104,10 @@
             this.tabPage1.Controls.Add(this.textBoxAppID);
             this.tabPage1.Controls.Add(this.buttonLogout);
             this.tabPage1.Controls.Add(this.buttonLogin);
-            this.tabPage1.Location = new System.Drawing.Point(4, 39);
+            this.tabPage1.Location = new System.Drawing.Point(4, 35);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1613, 1010);
+            this.tabPage1.Size = new System.Drawing.Size(1154, 734);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Home";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -115,16 +115,16 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(814, 275);
+            this.label2.Location = new System.Drawing.Point(827, 172);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(196, 30);
+            this.label2.Size = new System.Drawing.Size(169, 26);
             this.label2.TabIndex = 68;
             this.label2.Text = "My Image Posts";
             // 
             // NextImagePostButton
             // 
             this.NextImagePostButton.Enabled = false;
-            this.NextImagePostButton.Location = new System.Drawing.Point(942, 614);
+            this.NextImagePostButton.Location = new System.Drawing.Point(955, 511);
             this.NextImagePostButton.Name = "NextImagePostButton";
             this.NextImagePostButton.Size = new System.Drawing.Size(145, 60);
             this.NextImagePostButton.TabIndex = 67;
@@ -135,7 +135,7 @@
             // PreviousImagePostButton
             // 
             this.PreviousImagePostButton.Enabled = false;
-            this.PreviousImagePostButton.Location = new System.Drawing.Point(738, 614);
+            this.PreviousImagePostButton.Location = new System.Drawing.Point(751, 511);
             this.PreviousImagePostButton.Name = "PreviousImagePostButton";
             this.PreviousImagePostButton.Size = new System.Drawing.Size(145, 60);
             this.PreviousImagePostButton.TabIndex = 66;
@@ -145,7 +145,7 @@
             // 
             // ImagePostPictureBox
             // 
-            this.ImagePostPictureBox.Location = new System.Drawing.Point(738, 324);
+            this.ImagePostPictureBox.Location = new System.Drawing.Point(751, 221);
             this.ImagePostPictureBox.Name = "ImagePostPictureBox";
             this.ImagePostPictureBox.Size = new System.Drawing.Size(349, 271);
             this.ImagePostPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -156,16 +156,16 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(425, 275);
+            this.label1.Location = new System.Drawing.Point(438, 172);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(154, 30);
+            this.label1.Size = new System.Drawing.Size(132, 26);
             this.label1.TabIndex = 64;
             this.label1.Text = "My Statuses";
             // 
             // NextStatusButton
             // 
             this.NextStatusButton.Enabled = false;
-            this.NextStatusButton.Location = new System.Drawing.Point(532, 614);
+            this.NextStatusButton.Location = new System.Drawing.Point(545, 511);
             this.NextStatusButton.Name = "NextStatusButton";
             this.NextStatusButton.Size = new System.Drawing.Size(145, 60);
             this.NextStatusButton.TabIndex = 63;
@@ -176,7 +176,7 @@
             // PreviousStatusButton
             // 
             this.PreviousStatusButton.Enabled = false;
-            this.PreviousStatusButton.Location = new System.Drawing.Point(354, 614);
+            this.PreviousStatusButton.Location = new System.Drawing.Point(367, 511);
             this.PreviousStatusButton.Name = "PreviousStatusButton";
             this.PreviousStatusButton.Size = new System.Drawing.Size(145, 60);
             this.PreviousStatusButton.TabIndex = 62;
@@ -186,7 +186,7 @@
             // 
             // PostRichTextBox
             // 
-            this.PostRichTextBox.Location = new System.Drawing.Point(354, 324);
+            this.PostRichTextBox.Location = new System.Drawing.Point(367, 221);
             this.PostRichTextBox.Name = "PostRichTextBox";
             this.PostRichTextBox.ReadOnly = true;
             this.PostRichTextBox.Size = new System.Drawing.Size(323, 274);
@@ -195,7 +195,7 @@
             // 
             // FavPagePictureBox
             // 
-            this.FavPagePictureBox.Location = new System.Drawing.Point(57, 614);
+            this.FavPagePictureBox.Location = new System.Drawing.Point(70, 511);
             this.FavPagePictureBox.Name = "FavPagePictureBox";
             this.FavPagePictureBox.Size = new System.Drawing.Size(200, 200);
             this.FavPagePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -207,7 +207,7 @@
             this.RememberMeCheckBox.AutoSize = true;
             this.RememberMeCheckBox.Location = new System.Drawing.Point(35, 112);
             this.RememberMeCheckBox.Name = "RememberMeCheckBox";
-            this.RememberMeCheckBox.Size = new System.Drawing.Size(210, 34);
+            this.RememberMeCheckBox.Size = new System.Drawing.Size(183, 30);
             this.RememberMeCheckBox.TabIndex = 59;
             this.RememberMeCheckBox.Text = "Remember Me";
             this.RememberMeCheckBox.UseVisualStyleBackColor = true;
@@ -215,25 +215,25 @@
             // FavoritePagesListBox
             // 
             this.FavoritePagesListBox.FormattingEnabled = true;
-            this.FavoritePagesListBox.ItemHeight = 30;
-            this.FavoritePagesListBox.Location = new System.Drawing.Point(35, 324);
+            this.FavoritePagesListBox.ItemHeight = 26;
+            this.FavoritePagesListBox.Location = new System.Drawing.Point(48, 221);
             this.FavoritePagesListBox.Name = "FavoritePagesListBox";
-            this.FavoritePagesListBox.Size = new System.Drawing.Size(251, 274);
+            this.FavoritePagesListBox.Size = new System.Drawing.Size(251, 264);
             this.FavoritePagesListBox.TabIndex = 58;
             this.FavoritePagesListBox.SelectedIndexChanged += new System.EventHandler(this.FavoritePagesListBox_SelectedIndexChanged);
             // 
             // FavoritePagesLabel
             // 
             this.FavoritePagesLabel.AutoSize = true;
-            this.FavoritePagesLabel.Location = new System.Drawing.Point(72, 275);
+            this.FavoritePagesLabel.Location = new System.Drawing.Point(85, 172);
             this.FavoritePagesLabel.Name = "FavoritePagesLabel";
-            this.FavoritePagesLabel.Size = new System.Drawing.Size(185, 30);
+            this.FavoritePagesLabel.Size = new System.Drawing.Size(158, 26);
             this.FavoritePagesLabel.TabIndex = 57;
             this.FavoritePagesLabel.Text = "Favorite Pages";
             // 
             // pictureBoxProfile
             // 
-            this.pictureBoxProfile.Location = new System.Drawing.Point(35, 174);
+            this.pictureBoxProfile.Location = new System.Drawing.Point(611, 15);
             this.pictureBoxProfile.Name = "pictureBoxProfile";
             this.pictureBoxProfile.Size = new System.Drawing.Size(79, 78);
             this.pictureBoxProfile.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -244,15 +244,15 @@
             // 
             this.textBoxAppID.Location = new System.Drawing.Point(317, 61);
             this.textBoxAppID.Name = "textBoxAppID";
-            this.textBoxAppID.Size = new System.Drawing.Size(237, 37);
+            this.textBoxAppID.Size = new System.Drawing.Size(237, 32);
             this.textBoxAppID.TabIndex = 54;
             this.textBoxAppID.Text = "936827228016864";
             // 
             // FormMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(15F, 30F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 26F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1621, 1053);
+            this.ClientSize = new System.Drawing.Size(1162, 773);
             this.Controls.Add(this.tabControl1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4);

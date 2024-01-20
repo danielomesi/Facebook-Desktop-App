@@ -23,8 +23,6 @@ namespace BasicFacebookFeatures
             FacebookWrapper.FacebookService.s_CollectionLimit = 25;
         }
 
-        
-
         private void buttonLogin_Click(object sender, EventArgs e)
         {
             Clipboard.SetText("design.patterns");
@@ -61,14 +59,6 @@ namespace BasicFacebookFeatures
                 MessageBox.Show("Login failed! Please try again", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 m_LoginResult = null;
             }
-
-            
-
-            if (m_LoginResult!=null && string.IsNullOrEmpty(m_LoginResult.ErrorMessage)
-                && !string.IsNullOrEmpty(m_LoginResult.AccessToken))
-            {
-                
-            }
         }
 
         private void setLoggedInUser()
@@ -84,9 +74,6 @@ namespace BasicFacebookFeatures
 
 
             populateLikedPages();
-
-
-
             populateStatus(k_FirstPostIndex);
             populateImagePost(k_FirstPostIndex);
         }
@@ -98,7 +85,6 @@ namespace BasicFacebookFeatures
             namesList = m_ActiveUserManager.FetchLikedPagesNames();
             FavoritePagesListBox.Items.AddRange(namesList.ToArray());
         }
-
 
         private void populateStatus(int i_PostIndex)
         {
@@ -127,8 +113,6 @@ namespace BasicFacebookFeatures
                     PreviousImagePostButton, NextImagePostButton);
             }
         }
-
-
 
         private void HandlePreviousAndNextButtons(int m_CurrentShowedIndex, int m_SizeOfObjects,
             Button i_PreviousButton, Button i_NextButton)
@@ -202,7 +186,6 @@ namespace BasicFacebookFeatures
                     MessageBox.Show("Deleting your personal settings failed!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            
         }
 
         private void FavoritePagesListBox_SelectedIndexChanged(object sender, EventArgs e)

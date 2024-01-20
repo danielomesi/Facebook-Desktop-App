@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using FacebookWrapper.ObjectModel;
-using FacebookWrapper;
 
 namespace BasicFacebookFeatures
 {
@@ -12,7 +7,7 @@ namespace BasicFacebookFeatures
     {
         private readonly User r_LoggedInUser;
         public int m_StatusPostsListSize { get; set; }
-        public int m_PhotoPostsListSize {  get; set; }
+        public int m_PhotoPostsListSize { get; set; }
 
         public ActiveUserManager(User i_LoggedInUser)
         {
@@ -23,7 +18,7 @@ namespace BasicFacebookFeatures
 
         public string GetNameOfUser()
         {
-            return r_LoggedInUser.UserName;
+            return r_LoggedInUser.Name;
         }
 
         private int getSizeOfListOfSpecificPostsType(Post.eType i_PostType)
@@ -78,5 +73,5 @@ namespace BasicFacebookFeatures
 
             return postRes;
         }
-}
+    }
 }
