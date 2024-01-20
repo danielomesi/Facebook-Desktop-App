@@ -63,6 +63,14 @@
             this.genderLabel = new System.Windows.Forms.Label();
             this.birthdayLabel = new System.Windows.Forms.Label();
             this.fullNameLabel = new System.Windows.Forms.Label();
+            this.AIRephraser = new System.Windows.Forms.TabPage();
+            this.StartRephraseButton = new System.Windows.Forms.Button();
+            this.SuggestedByAITextBox = new System.Windows.Forms.RichTextBox();
+            this.WriteStatusRichTextBox = new System.Windows.Forms.RichTextBox();
+            this.PreviousSuggestedTextButton = new System.Windows.Forms.Button();
+            this.NextSuggestedTextButton = new System.Windows.Forms.Button();
+            this.PostActionButton = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.HomeTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ImagePostPictureBox)).BeginInit();
@@ -70,6 +78,7 @@
             this.AlbumsTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AlbumPictureBox)).BeginInit();
             this.AboutTab.SuspendLayout();
+            this.AIRephraser.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonLogin
@@ -100,6 +109,7 @@
             this.tabControl.Controls.Add(this.HomeTab);
             this.tabControl.Controls.Add(this.AlbumsTab);
             this.tabControl.Controls.Add(this.AboutTab);
+            this.tabControl.Controls.Add(this.AIRephraser);
             this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl.Location = new System.Drawing.Point(0, 0);
             this.tabControl.Name = "tabControl";
@@ -126,10 +136,10 @@
             this.HomeTab.Controls.Add(this.textBoxAppID);
             this.HomeTab.Controls.Add(this.buttonLogout);
             this.HomeTab.Controls.Add(this.buttonLogin);
-            this.HomeTab.Location = new System.Drawing.Point(4, 35);
+            this.HomeTab.Location = new System.Drawing.Point(4, 39);
             this.HomeTab.Name = "HomeTab";
             this.HomeTab.Padding = new System.Windows.Forms.Padding(3);
-            this.HomeTab.Size = new System.Drawing.Size(1531, 1011);
+            this.HomeTab.Size = new System.Drawing.Size(1531, 1007);
             this.HomeTab.TabIndex = 0;
             this.HomeTab.Text = "Home";
             this.HomeTab.UseVisualStyleBackColor = true;
@@ -139,7 +149,7 @@
             this.MyFriendsLabel.AutoSize = true;
             this.MyFriendsLabel.Location = new System.Drawing.Point(1246, 172);
             this.MyFriendsLabel.Name = "MyFriendsLabel";
-            this.MyFriendsLabel.Size = new System.Drawing.Size(119, 26);
+            this.MyFriendsLabel.Size = new System.Drawing.Size(141, 30);
             this.MyFriendsLabel.TabIndex = 70;
             this.MyFriendsLabel.Text = "My Friends";
             this.MyFriendsLabel.Visible = false;
@@ -147,10 +157,10 @@
             // FriendsListBox
             // 
             this.FriendsListBox.FormattingEnabled = true;
-            this.FriendsListBox.ItemHeight = 26;
+            this.FriendsListBox.ItemHeight = 30;
             this.FriendsListBox.Location = new System.Drawing.Point(1159, 221);
             this.FriendsListBox.Name = "FriendsListBox";
-            this.FriendsListBox.Size = new System.Drawing.Size(335, 264);
+            this.FriendsListBox.Size = new System.Drawing.Size(335, 244);
             this.FriendsListBox.TabIndex = 69;
             this.FriendsListBox.Visible = false;
             // 
@@ -159,7 +169,7 @@
             this.MyImagePostsLabel.AutoSize = true;
             this.MyImagePostsLabel.Location = new System.Drawing.Point(827, 172);
             this.MyImagePostsLabel.Name = "MyImagePostsLabel";
-            this.MyImagePostsLabel.Size = new System.Drawing.Size(169, 26);
+            this.MyImagePostsLabel.Size = new System.Drawing.Size(196, 30);
             this.MyImagePostsLabel.TabIndex = 68;
             this.MyImagePostsLabel.Text = "My Image Posts";
             this.MyImagePostsLabel.Visible = false;
@@ -204,7 +214,7 @@
             this.MyStatusesLabel.AutoSize = true;
             this.MyStatusesLabel.Location = new System.Drawing.Point(438, 172);
             this.MyStatusesLabel.Name = "MyStatusesLabel";
-            this.MyStatusesLabel.Size = new System.Drawing.Size(132, 26);
+            this.MyStatusesLabel.Size = new System.Drawing.Size(154, 30);
             this.MyStatusesLabel.TabIndex = 64;
             this.MyStatusesLabel.Text = "My Statuses";
             this.MyStatusesLabel.Visible = false;
@@ -258,7 +268,7 @@
             this.RememberMeCheckBox.AutoSize = true;
             this.RememberMeCheckBox.Location = new System.Drawing.Point(35, 112);
             this.RememberMeCheckBox.Name = "RememberMeCheckBox";
-            this.RememberMeCheckBox.Size = new System.Drawing.Size(183, 30);
+            this.RememberMeCheckBox.Size = new System.Drawing.Size(210, 34);
             this.RememberMeCheckBox.TabIndex = 59;
             this.RememberMeCheckBox.Text = "Remember Me";
             this.RememberMeCheckBox.UseVisualStyleBackColor = true;
@@ -266,10 +276,10 @@
             // FavoritePagesListBox
             // 
             this.FavoritePagesListBox.FormattingEnabled = true;
-            this.FavoritePagesListBox.ItemHeight = 26;
+            this.FavoritePagesListBox.ItemHeight = 30;
             this.FavoritePagesListBox.Location = new System.Drawing.Point(48, 221);
             this.FavoritePagesListBox.Name = "FavoritePagesListBox";
-            this.FavoritePagesListBox.Size = new System.Drawing.Size(251, 238);
+            this.FavoritePagesListBox.Size = new System.Drawing.Size(251, 214);
             this.FavoritePagesListBox.TabIndex = 58;
             this.FavoritePagesListBox.Visible = false;
             this.FavoritePagesListBox.SelectedIndexChanged += new System.EventHandler(this.FavoritePagesListBox_SelectedIndexChanged);
@@ -279,7 +289,7 @@
             this.FavoritePagesLabel.AutoSize = true;
             this.FavoritePagesLabel.Location = new System.Drawing.Point(85, 172);
             this.FavoritePagesLabel.Name = "FavoritePagesLabel";
-            this.FavoritePagesLabel.Size = new System.Drawing.Size(158, 26);
+            this.FavoritePagesLabel.Size = new System.Drawing.Size(185, 30);
             this.FavoritePagesLabel.TabIndex = 57;
             this.FavoritePagesLabel.Text = "Favorite Pages";
             this.FavoritePagesLabel.Visible = false;
@@ -288,7 +298,7 @@
             // 
             this.textBoxAppID.Location = new System.Drawing.Point(317, 61);
             this.textBoxAppID.Name = "textBoxAppID";
-            this.textBoxAppID.Size = new System.Drawing.Size(237, 32);
+            this.textBoxAppID.Size = new System.Drawing.Size(237, 37);
             this.textBoxAppID.TabIndex = 54;
             this.textBoxAppID.Text = "936827228016864";
             // 
@@ -300,10 +310,10 @@
             this.AlbumsTab.Controls.Add(this.AlbumPictureBox);
             this.AlbumsTab.Controls.Add(this.AlbumsLabel);
             this.AlbumsTab.Controls.Add(this.AlbumsListBox);
-            this.AlbumsTab.Location = new System.Drawing.Point(4, 35);
+            this.AlbumsTab.Location = new System.Drawing.Point(4, 39);
             this.AlbumsTab.Name = "AlbumsTab";
             this.AlbumsTab.Padding = new System.Windows.Forms.Padding(3);
-            this.AlbumsTab.Size = new System.Drawing.Size(1531, 1011);
+            this.AlbumsTab.Size = new System.Drawing.Size(1531, 1007);
             this.AlbumsTab.TabIndex = 1;
             this.AlbumsTab.Text = "Albums";
             this.AlbumsTab.UseVisualStyleBackColor = true;
@@ -313,7 +323,7 @@
             this.AlbumImagesLabel.AutoSize = true;
             this.AlbumImagesLabel.Location = new System.Drawing.Point(486, 111);
             this.AlbumImagesLabel.Name = "AlbumImagesLabel";
-            this.AlbumImagesLabel.Size = new System.Drawing.Size(0, 26);
+            this.AlbumImagesLabel.Size = new System.Drawing.Size(0, 30);
             this.AlbumImagesLabel.TabIndex = 72;
             // 
             // AlbumImageNextButton
@@ -355,7 +365,7 @@
             this.AlbumsLabel.AutoSize = true;
             this.AlbumsLabel.Location = new System.Drawing.Point(68, 120);
             this.AlbumsLabel.Name = "AlbumsLabel";
-            this.AlbumsLabel.Size = new System.Drawing.Size(151, 26);
+            this.AlbumsLabel.Size = new System.Drawing.Size(175, 30);
             this.AlbumsLabel.TabIndex = 60;
             this.AlbumsLabel.Text = "Album Names";
             this.AlbumsLabel.Visible = false;
@@ -363,10 +373,10 @@
             // AlbumsListBox
             // 
             this.AlbumsListBox.FormattingEnabled = true;
-            this.AlbumsListBox.ItemHeight = 26;
+            this.AlbumsListBox.ItemHeight = 30;
             this.AlbumsListBox.Location = new System.Drawing.Point(30, 169);
             this.AlbumsListBox.Name = "AlbumsListBox";
-            this.AlbumsListBox.Size = new System.Drawing.Size(251, 238);
+            this.AlbumsListBox.Size = new System.Drawing.Size(251, 214);
             this.AlbumsListBox.TabIndex = 59;
             this.AlbumsListBox.Visible = false;
             this.AlbumsListBox.SelectedIndexChanged += new System.EventHandler(this.AlbumsListBox_SelectedIndexChanged);
@@ -381,10 +391,10 @@
             this.AboutTab.Controls.Add(this.genderLabel);
             this.AboutTab.Controls.Add(this.birthdayLabel);
             this.AboutTab.Controls.Add(this.fullNameLabel);
-            this.AboutTab.Location = new System.Drawing.Point(4, 35);
+            this.AboutTab.Location = new System.Drawing.Point(4, 39);
             this.AboutTab.Name = "AboutTab";
             this.AboutTab.Padding = new System.Windows.Forms.Padding(3);
-            this.AboutTab.Size = new System.Drawing.Size(1531, 1011);
+            this.AboutTab.Size = new System.Drawing.Size(1531, 1007);
             this.AboutTab.TabIndex = 2;
             this.AboutTab.Text = "About";
             this.AboutTab.UseVisualStyleBackColor = true;
@@ -395,7 +405,7 @@
             this.emailLabelData.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.emailLabelData.Location = new System.Drawing.Point(222, 238);
             this.emailLabelData.Name = "emailLabelData";
-            this.emailLabelData.Size = new System.Drawing.Size(73, 26);
+            this.emailLabelData.Size = new System.Drawing.Size(83, 30);
             this.emailLabelData.TabIndex = 7;
             this.emailLabelData.Text = "Email";
             this.emailLabelData.Visible = false;
@@ -406,7 +416,7 @@
             this.genderLabelData.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.genderLabelData.Location = new System.Drawing.Point(222, 179);
             this.genderLabelData.Name = "genderLabelData";
-            this.genderLabelData.Size = new System.Drawing.Size(90, 26);
+            this.genderLabelData.Size = new System.Drawing.Size(104, 30);
             this.genderLabelData.TabIndex = 6;
             this.genderLabelData.Text = "Gender";
             this.genderLabelData.Visible = false;
@@ -417,7 +427,7 @@
             this.birthdayLabelData.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.birthdayLabelData.Location = new System.Drawing.Point(222, 123);
             this.birthdayLabelData.Name = "birthdayLabelData";
-            this.birthdayLabelData.Size = new System.Drawing.Size(100, 26);
+            this.birthdayLabelData.Size = new System.Drawing.Size(115, 30);
             this.birthdayLabelData.TabIndex = 5;
             this.birthdayLabelData.Text = "Birthday";
             this.birthdayLabelData.Visible = false;
@@ -428,7 +438,7 @@
             this.FullNameLabelData.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FullNameLabelData.Location = new System.Drawing.Point(221, 68);
             this.FullNameLabelData.Name = "FullNameLabelData";
-            this.FullNameLabelData.Size = new System.Drawing.Size(121, 26);
+            this.FullNameLabelData.Size = new System.Drawing.Size(140, 30);
             this.FullNameLabelData.TabIndex = 4;
             this.FullNameLabelData.Text = "Full Name";
             this.FullNameLabelData.Visible = false;
@@ -438,7 +448,7 @@
             this.emailLabel.AutoSize = true;
             this.emailLabel.Location = new System.Drawing.Point(61, 238);
             this.emailLabel.Name = "emailLabel";
-            this.emailLabel.Size = new System.Drawing.Size(80, 26);
+            this.emailLabel.Size = new System.Drawing.Size(92, 30);
             this.emailLabel.TabIndex = 3;
             this.emailLabel.Text = "Email: ";
             this.emailLabel.Visible = false;
@@ -448,7 +458,7 @@
             this.genderLabel.AutoSize = true;
             this.genderLabel.Location = new System.Drawing.Point(61, 179);
             this.genderLabel.Name = "genderLabel";
-            this.genderLabel.Size = new System.Drawing.Size(96, 26);
+            this.genderLabel.Size = new System.Drawing.Size(112, 30);
             this.genderLabel.TabIndex = 2;
             this.genderLabel.Text = "Gender: ";
             this.genderLabel.Visible = false;
@@ -458,7 +468,7 @@
             this.birthdayLabel.AutoSize = true;
             this.birthdayLabel.Location = new System.Drawing.Point(61, 123);
             this.birthdayLabel.Name = "birthdayLabel";
-            this.birthdayLabel.Size = new System.Drawing.Size(104, 26);
+            this.birthdayLabel.Size = new System.Drawing.Size(121, 30);
             this.birthdayLabel.TabIndex = 1;
             this.birthdayLabel.Text = "Birthday: ";
             this.birthdayLabel.Visible = false;
@@ -468,14 +478,99 @@
             this.fullNameLabel.AutoSize = true;
             this.fullNameLabel.Location = new System.Drawing.Point(61, 68);
             this.fullNameLabel.Name = "fullNameLabel";
-            this.fullNameLabel.Size = new System.Drawing.Size(124, 26);
+            this.fullNameLabel.Size = new System.Drawing.Size(145, 30);
             this.fullNameLabel.TabIndex = 0;
             this.fullNameLabel.Text = "Full Name: ";
             this.fullNameLabel.Visible = false;
             // 
+            // AIRephraser
+            // 
+            this.AIRephraser.Controls.Add(this.label1);
+            this.AIRephraser.Controls.Add(this.PostActionButton);
+            this.AIRephraser.Controls.Add(this.NextSuggestedTextButton);
+            this.AIRephraser.Controls.Add(this.PreviousSuggestedTextButton);
+            this.AIRephraser.Controls.Add(this.WriteStatusRichTextBox);
+            this.AIRephraser.Controls.Add(this.StartRephraseButton);
+            this.AIRephraser.Controls.Add(this.SuggestedByAITextBox);
+            this.AIRephraser.Location = new System.Drawing.Point(4, 39);
+            this.AIRephraser.Name = "AIRephraser";
+            this.AIRephraser.Padding = new System.Windows.Forms.Padding(3);
+            this.AIRephraser.Size = new System.Drawing.Size(1531, 1007);
+            this.AIRephraser.TabIndex = 3;
+            this.AIRephraser.Text = "AI Rephraser";
+            this.AIRephraser.UseVisualStyleBackColor = true;
+            // 
+            // StartRephraseButton
+            // 
+            this.StartRephraseButton.Location = new System.Drawing.Point(157, 476);
+            this.StartRephraseButton.Name = "StartRephraseButton";
+            this.StartRephraseButton.Size = new System.Drawing.Size(153, 77);
+            this.StartRephraseButton.TabIndex = 63;
+            this.StartRephraseButton.Text = "Start";
+            this.StartRephraseButton.UseVisualStyleBackColor = true;
+            this.StartRephraseButton.Click += new System.EventHandler(this.StartAiButton_Click);
+            // 
+            // SuggestedByAITextBox
+            // 
+            this.SuggestedByAITextBox.Location = new System.Drawing.Point(561, 111);
+            this.SuggestedByAITextBox.Name = "SuggestedByAITextBox";
+            this.SuggestedByAITextBox.ReadOnly = true;
+            this.SuggestedByAITextBox.Size = new System.Drawing.Size(592, 327);
+            this.SuggestedByAITextBox.TabIndex = 62;
+            this.SuggestedByAITextBox.Text = "";
+            // 
+            // WriteStatusRichTextBox
+            // 
+            this.WriteStatusRichTextBox.Location = new System.Drawing.Point(31, 111);
+            this.WriteStatusRichTextBox.Name = "WriteStatusRichTextBox";
+            this.WriteStatusRichTextBox.Size = new System.Drawing.Size(404, 344);
+            this.WriteStatusRichTextBox.TabIndex = 64;
+            this.WriteStatusRichTextBox.Text = "";
+            // 
+            // PreviousSuggestedTextButton
+            // 
+            this.PreviousSuggestedTextButton.Enabled = false;
+            this.PreviousSuggestedTextButton.Location = new System.Drawing.Point(666, 484);
+            this.PreviousSuggestedTextButton.Name = "PreviousSuggestedTextButton";
+            this.PreviousSuggestedTextButton.Size = new System.Drawing.Size(145, 60);
+            this.PreviousSuggestedTextButton.TabIndex = 71;
+            this.PreviousSuggestedTextButton.Text = "Previous";
+            this.PreviousSuggestedTextButton.UseVisualStyleBackColor = true;
+            this.PreviousSuggestedTextButton.Click += new System.EventHandler(this.PreviousSuggestedTextButton_Click);
+            // 
+            // NextSuggestedTextButton
+            // 
+            this.NextSuggestedTextButton.Enabled = false;
+            this.NextSuggestedTextButton.Location = new System.Drawing.Point(900, 484);
+            this.NextSuggestedTextButton.Name = "NextSuggestedTextButton";
+            this.NextSuggestedTextButton.Size = new System.Drawing.Size(145, 60);
+            this.NextSuggestedTextButton.TabIndex = 72;
+            this.NextSuggestedTextButton.Text = "Next";
+            this.NextSuggestedTextButton.UseVisualStyleBackColor = true;
+            this.NextSuggestedTextButton.Click += new System.EventHandler(this.NextSuggestedTextButton_Click);
+            // 
+            // PostActionButton
+            // 
+            this.PostActionButton.Location = new System.Drawing.Point(962, 561);
+            this.PostActionButton.Name = "PostActionButton";
+            this.PostActionButton.Size = new System.Drawing.Size(191, 76);
+            this.PostActionButton.TabIndex = 73;
+            this.PostActionButton.Text = "Post!";
+            this.PostActionButton.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(47, 42);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(928, 30);
+            this.label1.TabIndex = 74;
+            this.label1.Text = "Let AI suggest you better rephrasing of your text! Note: New lines are not allowe" +
+    "d";
+            // 
             // FormMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 26F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(15F, 30F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1539, 1050);
             this.Controls.Add(this.tabControl);
@@ -497,6 +592,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.AlbumPictureBox)).EndInit();
             this.AboutTab.ResumeLayout(false);
             this.AboutTab.PerformLayout();
+            this.AIRephraser.ResumeLayout(false);
+            this.AIRephraser.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -538,6 +635,14 @@
         private System.Windows.Forms.Label genderLabelData;
         private System.Windows.Forms.Label birthdayLabelData;
         private System.Windows.Forms.Label FullNameLabelData;
+        private System.Windows.Forms.TabPage AIRephraser;
+        private System.Windows.Forms.RichTextBox SuggestedByAITextBox;
+        private System.Windows.Forms.Button StartRephraseButton;
+        private System.Windows.Forms.RichTextBox WriteStatusRichTextBox;
+        private System.Windows.Forms.Button PreviousSuggestedTextButton;
+        private System.Windows.Forms.Button NextSuggestedTextButton;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button PostActionButton;
     }
 }
 

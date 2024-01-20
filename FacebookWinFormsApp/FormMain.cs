@@ -5,9 +5,19 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+//
+using System.Net.Http;
+using System.Text;
+using System.Text.Json;
+using System.Threading.Tasks;
+using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace BasicFacebookFeatures
 {
+    //
+    
+    //
     public partial class FormMain : Form
     {
         // sum minutes logged in and show statistics about it
@@ -19,7 +29,7 @@ namespace BasicFacebookFeatures
         // create post in ordered time
 
 
-        const int k_FirstPostIndex = 0;
+        const int k_StartIndex = 0;
         FacebookWrapper.LoginResult m_LoginResult;
         ActiveUserManager m_ActiveUserManager;
         AppSettings m_AppSettings;
@@ -27,6 +37,7 @@ namespace BasicFacebookFeatures
         int m_CurrentShowedImagePostIndex;
         int m_CurrentShowedAlbumIndex;
         int m_CurrentShowedPhotoIndexInAlbum;
+        int m_CurrentShowedSuggestedAiTextIndex;
 
         public FormMain()
         {
@@ -98,8 +109,8 @@ namespace BasicFacebookFeatures
             populateListBox(FriendsListBox, m_ActiveUserManager.GenerdateFriendsNamesDummyData());
             populateListBox(AlbumsListBox,
                 m_ActiveUserManager.FetchNamesOfObjectList<Album>(m_LoginResult.LoggedInUser.Albums.ToList()));
-            populateStatus(k_FirstPostIndex);
-            populateImagePost(k_FirstPostIndex);
+            populateStatus(k_StartIndex);
+            populateImagePost(k_StartIndex);
         }
 
         private void toggleDisplayedElements(bool i_Show)
@@ -340,5 +351,48 @@ namespace BasicFacebookFeatures
         {
             populateAlbumPhoto(m_CurrentShowedPhotoIndexInAlbum - 1);
         }
+
+        //
+        
+
+        private async void StartAiButton_Click(object sender, EventArgs e)
+        {
+
+            bool isSuccesfulRephrasing = await m_ActiveUserManager.ParaphraseTextAsync(WriteStatusRichTextBox.Text);
+
+            populateAiSuggestionTextBox(k_StartIndex);
+        }
+
+        private void populateAiSuggestionTextBox(int i_SuggestionIndex)
+        {
+            List<string> suggestionsList = m_ActiveUserManager.m_AiSuggestionsForStatuses;
+
+            if (suggestionsList.Any())
+            {
+                SuggestedByAITextBox.Text = suggestionsList[i_SuggestionIndex];
+                m_CurrentShowedSuggestedAiTextIndex = i_SuggestionIndex;
+                HandlePreviousAndNextButtons(m_CurrentShowedSuggestedAiTextIndex, suggestionsList.Count,
+                    PreviousSuggestedTextButton, NextSuggestedTextButton);
+            }
+            else
+            {
+                SuggestedByAITextBox.Text = "This is not a valid text to rephrase. Please avoid new lines and special characters.";
+            }
+            
+        }
+
+        private void PreviousSuggestedTextButton_Click(object sender, EventArgs e)
+        {
+            populateAiSuggestionTextBox(m_CurrentShowedSuggestedAiTextIndex + 1);
+        }
+
+        private void NextSuggestedTextButton_Click(object sender, EventArgs e)
+        {
+            populateAiSuggestionTextBox(m_CurrentShowedSuggestedAiTextIndex - 1);
+        }
     }
+
+
+
+
 }
