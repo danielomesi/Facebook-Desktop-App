@@ -13,11 +13,11 @@ namespace BasicFacebookFeatures
         public ActiveUserManager(User i_LoggedInUser)
         {
             r_LoggedInUser = i_LoggedInUser;
-            m_StatusPostsListSize = getSizeOfListOfSpecificPostsType(Post.eType.status);
-            m_PhotoPostsListSize = getSizeOfListOfSpecificPostsType(Post.eType.photo);
+            m_StatusPostsListSize = getListSizeOfSpecificPostsType(Post.eType.status);
+            m_PhotoPostsListSize = getListSizeOfSpecificPostsType(Post.eType.photo);
         }
 
-        private int getSizeOfListOfSpecificPostsType(Post.eType i_PostType)
+        private int getListSizeOfSpecificPostsType(Post.eType i_PostType)
         {
             int specificPostsTypeCounter = 0;
 

@@ -10,6 +10,15 @@ namespace BasicFacebookFeatures
 {
     public partial class FormMain : Form
     {
+        // sum minutes logged in and show statistics about it
+        // option for timer in bottom of form
+        // statistics in about section
+        // option 1: average check ins (like: you post every 2 weeks)
+        // option 2: average photos in album
+        // option 3: make ai correction for text for post 
+        // create post in ordered time
+
+
         const int k_FirstPostIndex = 0;
         FacebookWrapper.LoginResult m_LoginResult;
         ActiveUserManager m_ActiveUserManager;
@@ -53,8 +62,8 @@ namespace BasicFacebookFeatures
                 "user_videos",
                 "user_birthday",
                 "user_location",
-                "user_link",
-                "");
+                "user_link");
+
                 setLoggedInUser();
             }
             catch (Exception ex)
@@ -70,10 +79,19 @@ namespace BasicFacebookFeatures
 
             buttonLogin.Text = $"Logged in as {m_LoginResult.LoggedInUser.Name}";
             buttonLogin.BackColor = Color.LightGreen;
-            pictureBoxProfile.ImageLocation = m_LoginResult.LoggedInUser.PictureNormalURL;
             buttonLogin.Enabled = false;
             RememberMeCheckBox.Enabled = false;
             buttonLogout.Enabled = true;
+
+            initiateFormData();   
+        }
+
+        private void initiateFormData()
+        {
+            bool isLoggedIn = true;
+            toggleDisplayedElements(isLoggedIn);
+
+            populateAboutTab();
 
             populateListBox(FavoritePagesListBox,
                 m_ActiveUserManager.FetchNamesOfObjectList<Page>(m_LoginResult.LoggedInUser.LikedPages.ToList()));
@@ -84,10 +102,44 @@ namespace BasicFacebookFeatures
             populateImagePost(k_FirstPostIndex);
         }
 
+        private void toggleDisplayedElements(bool i_Show)
+        {
+            FavoritePagesLabel.Visible = i_Show;
+            MyStatusesLabel.Visible = i_Show;
+            MyImagePostsLabel.Visible = i_Show; 
+            MyFriendsLabel.Visible = i_Show;
+            FavoritePagesListBox.Visible = i_Show;
+            PostRichTextBox.Visible = i_Show;
+            ImagePostPictureBox.Visible = i_Show;
+            FriendsListBox.Visible = i_Show;
+            FavPagePictureBox.Visible = i_Show;
+            PreviousImagePostButton.Visible = i_Show;
+            NextImagePostButton.Visible = i_Show;
+            PreviousStatusButton.Visible = i_Show;
+            NextStatusButton.Visible = i_Show;
+
+            foreach (Control control in AboutTab.Controls)
+            {
+                control.Visible = i_Show;
+            }
+
+            foreach (Control control in AlbumsTab.Controls)
+            {
+                control.Visible = i_Show;
+            }
+        }
+
+        private void populateAboutTab()
+        {
+            User currentUser = m_LoginResult.LoggedInUser;
+            FullNameLabelData.Text = !string.IsNullOrEmpty(currentUser.Name) ? currentUser.Name : string.Empty;
+            birthdayLabelData.Text = !string.IsNullOrEmpty(currentUser.Birthday) ? currentUser.Birthday : string.Empty;
+            genderLabelData.Text = !string.IsNullOrEmpty(currentUser.Gender.ToString()) ? currentUser.Gender.ToString() : string.Empty;
+            emailLabelData.Text = !string.IsNullOrEmpty(currentUser.Email) ? currentUser.Email : string.Empty;
+        }
+
         private void populateListBox(ListBox i_ListBox, List<string> i_NamesList)
         {
-            List<string> List;
-
             i_ListBox.Items.AddRange(i_NamesList.ToArray());
         }
 
@@ -155,13 +207,30 @@ namespace BasicFacebookFeatures
 
         private void buttonLogout_Click(object sender, EventArgs e)
         {
-            FacebookService.LogoutWithUI();
+            FacebookService.LogoutWithUI();            
+            m_LoginResult = null;
+            m_ActiveUserManager = null;
+
+            resetFormData();
+        }
+
+        private void resetFormData()
+        {
             buttonLogin.Text = "Login";
             buttonLogin.BackColor = buttonLogout.BackColor;
-            m_LoginResult = null;
             buttonLogin.Enabled = true;
             buttonLogout.Enabled = false;
             RememberMeCheckBox.Enabled = true;
+
+            toggleDisplayedElements(false);
+            
+            AlbumsListBox.Items.Clear();
+            FriendsListBox.Items.Clear();
+            FavoritePagesListBox.Items.Clear();
+            FavPagePictureBox.Image = null;
+            ImagePostPictureBox.Image = null;
+            AlbumPictureBox.Image = null;
+            PostRichTextBox.Text = string.Empty;
         }
 
         private void FormMain_Shown(object sender, EventArgs e)
