@@ -1,7 +1,14 @@
-﻿namespace AITextGenerator
+﻿using static System.Net.Mime.MediaTypeNames;
+
+namespace AITextGenerator
 {
     public class Suggestion
     {
-        public string Text { get; set; }
+        private string m_Text;
+        public string Text
+        {
+            get { return m_Text; }
+            set { m_Text = value; }
+        }
     }
 }

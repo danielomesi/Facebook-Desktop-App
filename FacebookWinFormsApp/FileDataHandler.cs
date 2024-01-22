@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.Xml.Serialization;
 
@@ -35,21 +34,21 @@ namespace BasicFacebookFeatures
 
         public static bool ClearFile(string i_FilePath)
         {
-            bool isSuccessfullDelete = true;
+            bool IsSuccessfullDelete = true;
 
             if (File.Exists(i_FilePath))
             {
                 try
                 {
                     File.Delete(i_FilePath);
-                    isSuccessfullDelete = true;
+                    IsSuccessfullDelete = true;
                 }
                 catch (Exception ex)
                 {
-                    isSuccessfullDelete = false;
+                    IsSuccessfullDelete = false;
                 }
             }
-            return isSuccessfullDelete;
+            return IsSuccessfullDelete;
         }
     }
 }

@@ -7,9 +7,21 @@ namespace BasicFacebookFeatures
 {
     public class SessionTimer
     {
-        public const int k_Interval = 1000;
-        public Stopwatch m_Stopwatch { get; set; }
-        public Timer m_timer { get; set; }
+        private const int k_Interval = 1000;
+        private Stopwatch m_Stopwatch;
+        private Timer m_timer;
+
+        public Stopwatch Stopwatch
+        {
+            get { return m_Stopwatch; }
+            set { m_Stopwatch = value; }
+        }
+
+        public Timer Timer
+        {
+            get { return m_timer; }
+            set { m_timer = value; }
+        }
 
         public SessionTimer()
         {
@@ -19,13 +31,9 @@ namespace BasicFacebookFeatures
             m_timer.Interval = k_Interval; 
         }
 
-        public void Start(List<EventHandler> i_ListToDoOnTick)
+        public void Start(EventHandler i_ToDoOnTick)
         {
-            foreach(EventHandler func in i_ListToDoOnTick)
-            {
-                m_timer.Tick += func;
-            }
-            
+            m_timer.Tick += i_ToDoOnTick;
             m_timer.Start();
         }
 
@@ -43,7 +51,6 @@ namespace BasicFacebookFeatures
         {
             return m_Stopwatch.Elapsed.TotalSeconds;
         }
-
 
         public void Stop()
         {

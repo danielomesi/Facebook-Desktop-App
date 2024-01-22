@@ -10,17 +10,13 @@ namespace BasicFacebookFeatures
 {
     public partial class FormMain : Form
     {
-        // sum minutes logged in and show statistics about it
-        // option for timer in bottom of form
-        // statistics in about section
-        // option 1: average check ins (like: you post every 2 weeks)
-        // option 2: average photos in album
-        // option 3: make ai correction for text for post 
-        // create post in ordered time
-
+        //consts
         const string k_AppSettingsFilePath = @".\App Settings.xml";
         const string k_ElapsedTimeFilePath = @".\Elapsed Time.xml";
+        const string k_MessageNotFoundText = "This status has no textual message to show";
         const int k_StartIndex = 0;
+        const int k_CollectionLimit = 25;
+        //
         LoginResult m_LoginResult;
         ActiveUserManager m_ActiveUserManager;
         AppSettings m_AppSettings;
@@ -33,32 +29,40 @@ namespace BasicFacebookFeatures
         int m_CurrentShowedPhotoIndexInAlbum;
         int m_CurrentShowedSuggestedAiTextIndex;
        
-
         public FormMain()
         {
             InitializeComponent();
-            FacebookService.s_CollectionLimit = 25;
+            FacebookService.s_CollectionLimit = k_CollectionLimit;
         }
 
-        
-
-        private void initiateTimer()
+        private void formMain_Shown(object sender, EventArgs e)
         {
-            m_SessionTimer = new SessionTimer();
-            m_SessionTimer.Start(new List<EventHandler> { updateTimeLabel});
+            m_AppSettings = FileDataHandler.LoadFromFile(k_AppSettingsFilePath, typeof(AppSettings)) as AppSettings;
+
+            if (m_AppSettings != null)
+            {
+                this.Size = m_AppSettings.LastWindowSize;
+                this.Location = m_AppSettings.LastWindowLocation;
+                checkBoxRememberMe.Checked = m_AppSettings.RememberUser;
+                m_LoginResult = FacebookService.Connect(m_AppSettings.LastAccessToken);
+
+                if (string.IsNullOrEmpty(m_LoginResult.ErrorMessage))
+                {
+                    setLoggedInUser();
+                }
+            }
+            else
+            {
+                m_AppSettings = new AppSettings();
+            }
+
+            loadUsageTime();
+            initiateTimer();
         }
 
-        private void terminateTimer()
-        {
-            TimeData timeData = new TimeData();
-            double elapsedSeconds = m_SessionTimer.GetSeconds();
-            timeData.m_elapsedSeconds = elapsedSeconds + m_TimeData.m_elapsedSeconds;
-            timeData.m_LastLoginDateTime = m_LastLoginDateTime;
-            m_SessionTimer.Stop();
-            FileDataHandler.SaveToFile(k_ElapsedTimeFilePath, timeData, typeof(TimeData));
-        }
-
-
+        // -------------
+        // Login
+        // -------------
         private void buttonLoginClick(object sender, EventArgs e)
         {
             Clipboard.SetText("design.patterns");
@@ -74,7 +78,6 @@ namespace BasicFacebookFeatures
             try
             {
                 m_LoginResult = FacebookService.Login(
-                ///Desig's app ID: 1450160541956417  
                 textBoxAppID.Text,
                 "email",
                 "public_profile",
@@ -101,98 +104,39 @@ namespace BasicFacebookFeatures
             }
         }
 
-        private void updateTimeLabel(object sender, EventArgs e)
-        {
-            TimeSpan elapsedTime = m_SessionTimer.m_Stopwatch.Elapsed;
-            TimeSpan oldElapsedTime = TimeSpan.FromSeconds(m_TimeData.m_elapsedSeconds);
-            TimeSpan overallElapsedTime = elapsedTime + oldElapsedTime;
-            string overallTimeAsString = m_SessionTimer.ConvertTimeSpanToString(overallElapsedTime);
-            string elapsedTimeAsString = m_SessionTimer.ConvertTimeSpanToString(elapsedTime);
-
-            labelElapsedTime.Text = $"Elapsed Time: {elapsedTimeAsString}";
-            labelOverallElapsedTime.Text = $"Overall Elapsed Time: {overallTimeAsString}";
-        }
-
         private void setLoggedInUser()
         {
             m_ActiveUserManager = new ActiveUserManager(m_LoginResult.LoggedInUser);
-
             buttonLogin.Text = $"Logged in as {m_LoginResult.LoggedInUser.Name}";
-            buttonLogin.BackColor = Color.LightGreen;
+            buttonLogin.BackColor = Color.LightBlue;
             buttonLogin.Enabled = false;
-            RememberMeCheckBox.Enabled = false;
+            checkBoxRememberMe.Enabled = false;
             buttonLogout.Enabled = true;
             textBoxAppID.Enabled = false;
-
             initiateFormData();
-            LoadUsageTime();
-            initiateTimer();
-        }
-
-        private void LoadUsageTime()
-        {
-            m_TimeData = FileDataHandler.LoadFromFile(k_ElapsedTimeFilePath, typeof(TimeData)) as TimeData;
-            m_LastLoginDateTime = DateTime.Now;
-
-            if (m_TimeData == null)
-            {
-                m_TimeData = new TimeData();
-                m_TimeData.m_elapsedSeconds = 0;
-                labelLastLogin.Text = string.Empty;
-            }
-            else
-            {
-                labelLastLogin.Text = $"Last login: {m_TimeData.m_LastLoginDateTime}";
-            }
         }
 
         private void initiateFormData()
         {
             bool isLoggedIn = true;
+            List<string> favPagesNames = m_ActiveUserManager.FetchNamesOfObjectList<Page>(m_LoginResult.LoggedInUser.LikedPages.ToList());
+            List<string> friendsNames = m_ActiveUserManager.FetchNamesOfObjectList<User>(m_LoginResult.LoggedInUser.Friends.ToList());
+            List<string> albumsNames = m_ActiveUserManager.FetchNamesOfObjectList<Album>(m_LoginResult.LoggedInUser.Albums.ToList());
+
             toggleDisplayedElements(isLoggedIn);
-
-            populateAboutTab();
-
-            populateListBox(FavoritePagesListBox,
-                m_ActiveUserManager.FetchNamesOfObjectList<Page>(m_LoginResult.LoggedInUser.LikedPages.ToList()));
-            populateListBox(FriendsListBox, m_ActiveUserManager.GenerateFriendsNamesDummyData());
-            populateListBox(AlbumsListBox,
-                m_ActiveUserManager.FetchNamesOfObjectList<Album>(m_LoginResult.LoggedInUser.Albums.ToList()));
             populateStatus(k_StartIndex);
+            populateListBox(listBoxFavoritePages, favPagesNames);
+            populateListBox(listBoxFriends, friendsNames);
+            populateListBox(AlbumsListBox, albumsNames);
             populateImagePost(k_StartIndex);
-        }
-
-        private void buttonLogoutClick(object sender, EventArgs e)
-        {
-            FacebookService.LogoutWithUI();
-            m_LoginResult = null;
-            m_ActiveUserManager = null;
-
-            resetFormData();
-        }
-
-        private void resetFormData()
-        {
-            buttonLogin.Text = "Login";
-            buttonLogin.BackColor = buttonLogout.BackColor;
-            buttonLogin.Enabled = true;
-            buttonLogout.Enabled = false;
-            RememberMeCheckBox.Enabled = true;
-            textBoxAppID.Enabled = true;
-
-            toggleDisplayedElements(false);
-
-            FavPagePictureBox.Image = null;
-            ImagePostPictureBox.Image = null;
-            AlbumPictureBox.Image = null;
-            PostRichTextBox.Text = string.Empty;
+            populateAboutTab();
         }
 
         private void toggleDisplayedElements(bool i_Show)
         {
             foreach (TabPage tabPage in tabControl.TabPages)
             {
-                if (tabPage != LoginTab)
+                if (tabPage != tabLogin)
                 {
                     foreach (Control control in tabPage.Controls)
                     {
@@ -202,40 +146,45 @@ namespace BasicFacebookFeatures
             }
         }
 
-        private void formMainShown(object sender, EventArgs e)
+        // -------------
+        // Logout
+        // -------------
+        private void buttonLogoutClick(object sender, EventArgs e)
         {
-            m_AppSettings = FileDataHandler.LoadFromFile(k_AppSettingsFilePath, typeof(AppSettings)) as AppSettings;
-
-            if (m_AppSettings != null)
-            {
-                this.Size = m_AppSettings.m_LastWindowSize;
-                this.Location = m_AppSettings.m_LastWindowLocation;
-                RememberMeCheckBox.Checked = m_AppSettings.m_RememberUser;
-
-                m_LoginResult = FacebookService.Connect(m_AppSettings.m_LastAccessToken);
-
-                if (string.IsNullOrEmpty(m_LoginResult.ErrorMessage))
-                {
-                    setLoggedInUser();
-                }
-            }
-            else
-            {
-                m_AppSettings = new AppSettings();
-            }
+            FacebookService.LogoutWithUI();
+            m_LoginResult = null;
+            m_ActiveUserManager = null;
+            resetFormData();
         }
 
-        private void formMainFormClosing(object sender, FormClosingEventArgs e)
+        private void resetFormData()
+        {
+            bool shouldShow = false;
+
+            buttonLogin.Text = "Login";
+            buttonLogin.BackColor = buttonLogout.BackColor;
+            buttonLogin.Enabled = true;
+            buttonLogout.Enabled = false;
+            checkBoxRememberMe.Enabled = true;
+            textBoxAppID.Enabled = true;
+            toggleDisplayedElements(shouldShow);
+            pictureBoxFavPage.Image = null;
+            pictureBoxImagePost.Image = null;
+            AlbumPictureBox.Image = null;
+            richTextBoxStatus.Text = string.Empty;
+        }
+
+        private void formMain_FormClosing(object sender, FormClosingEventArgs e)
         {
             terminateTimer();
 
-            if (RememberMeCheckBox.Checked && m_LoginResult != null &&
+            if (checkBoxRememberMe.Checked && m_LoginResult != null &&
                 string.IsNullOrEmpty(m_LoginResult.ErrorMessage))
             {
-                m_AppSettings.m_LastAccessToken = m_LoginResult.AccessToken;
-                m_AppSettings.m_RememberUser = true;
-                m_AppSettings.m_LastWindowSize = this.Size;
-                m_AppSettings.m_LastWindowLocation = this.Location;
+                m_AppSettings.LastAccessToken = m_LoginResult.AccessToken;
+                m_AppSettings.RememberUser = true;
+                m_AppSettings.LastWindowSize = this.Size;
+                m_AppSettings.LastWindowLocation = this.Location;
                 FileDataHandler.SaveToFile(k_AppSettingsFilePath, m_AppSettings, typeof(AppSettings));
             }
             else
@@ -253,10 +202,10 @@ namespace BasicFacebookFeatures
             i_ListBox.Items.AddRange(i_NamesList.ToArray());
         }
 
-        private void handlePreviousAndNextButtons(int m_CurrentShowedIndex, int m_SizeOfObjects, Button i_PreviousButton, Button i_NextButton)
+        private void handlePreviousAndNextButtons(int i_CurrentShowedIndex, int i_SizeOfObjects, Button i_PreviousButton, Button i_NextButton)
         {
-            i_PreviousButton.Enabled = (m_CurrentShowedIndex != (m_SizeOfObjects - 1));
-            i_NextButton.Enabled = (m_CurrentShowedIndex != 0);
+            i_PreviousButton.Enabled = (i_CurrentShowedIndex != (i_SizeOfObjects - 1));
+            i_NextButton.Enabled = (i_CurrentShowedIndex != 0);
         }
 
         // -------------
@@ -265,10 +214,10 @@ namespace BasicFacebookFeatures
         private void populateAboutTab()
         {
             User currentUser = m_LoginResult.LoggedInUser;
-            FullNameLabelData.Text = !string.IsNullOrEmpty(currentUser.Name) ? currentUser.Name : string.Empty;
-            birthdayLabelData.Text = !string.IsNullOrEmpty(currentUser.Birthday) ? currentUser.Birthday : string.Empty;
-            genderLabelData.Text = !string.IsNullOrEmpty(currentUser.Gender.ToString()) ? currentUser.Gender.ToString() : string.Empty;
-            emailLabelData.Text = !string.IsNullOrEmpty(currentUser.Email) ? currentUser.Email : string.Empty;
+            labelDataFullName.Text = !string.IsNullOrEmpty(currentUser.Name) ? currentUser.Name : string.Empty;
+            labelDataBirthday.Text = !string.IsNullOrEmpty(currentUser.Birthday) ? currentUser.Birthday : string.Empty;
+            labelDataGender.Text = !string.IsNullOrEmpty(currentUser.Gender.ToString()) ? currentUser.Gender.ToString() : string.Empty;
+            labelDataEmail.Text = !string.IsNullOrEmpty(currentUser.Email) ? currentUser.Email : string.Empty;
         }
 
         // -------------
@@ -276,12 +225,12 @@ namespace BasicFacebookFeatures
         // -------------
         private void favoritePagesListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            FacebookWrapper.ObjectModel.Page chosenPage;
+            Page chosenPage;
             string imageUrl;
 
             chosenPage = m_LoginResult.LoggedInUser.LikedPages[(sender as ListBox).SelectedIndex];
             imageUrl = ActiveUserManager.FetchPagePhoto(chosenPage);
-            FavPagePictureBox.Load(imageUrl);
+            pictureBoxFavPage.Load(imageUrl);
         }
 
         // -------------
@@ -289,14 +238,13 @@ namespace BasicFacebookFeatures
         // -------------
         private void populateStatus(int i_PostIndex)
         {
-            Post post;
+            Post post = m_ActiveUserManager.FetchPostByIndex(Post.eType.status, i_PostIndex);
 
-            post = m_ActiveUserManager.FetchPostByIndex(Post.eType.status, i_PostIndex);
             if (post != null)
             {
-                PostRichTextBox.Text = post.Message;
+                richTextBoxStatus.Text = !string.IsNullOrEmpty(post.Message) ? post.Message : k_MessageNotFoundText;
                 m_CurrentShowedStatusIndex = i_PostIndex;
-                handlePreviousAndNextButtons(m_CurrentShowedStatusIndex, m_ActiveUserManager.m_StatusPostsListSize, PreviousStatusButton, NextStatusButton);
+                handlePreviousAndNextButtons(m_CurrentShowedStatusIndex, m_ActiveUserManager.m_StatusPostsListSize, buttonPreviousStatus, buttonNextStatus);
             }
         }
 
@@ -315,14 +263,13 @@ namespace BasicFacebookFeatures
         // -------------
         private void populateImagePost(int i_PostIndex)
         {
-            Post post;
-
-            post = m_ActiveUserManager.FetchPostByIndex(Post.eType.photo, i_PostIndex);
+            Post post = m_ActiveUserManager.FetchPostByIndex(Post.eType.photo, i_PostIndex);
+            
             if (post != null)
             {
-                ImagePostPictureBox.Load(post.PictureURL);
+                pictureBoxImagePost.Load(post.PictureURL);
                 m_CurrentShowedImagePostIndex = i_PostIndex;
-                handlePreviousAndNextButtons(m_CurrentShowedImagePostIndex, m_ActiveUserManager.m_PhotoPostsListSize, PreviousImagePostButton, NextImagePostButton);
+                handlePreviousAndNextButtons(m_CurrentShowedImagePostIndex, m_ActiveUserManager.m_PhotoPostsListSize, buttonPreviousImagePost, buttonNextImagePost);
             }
         }
 
@@ -338,11 +285,8 @@ namespace BasicFacebookFeatures
 
         private void imagePostPictureBox_Click(object sender, EventArgs e)
         {
-            Post post;
-            string message;
-
-            post = m_ActiveUserManager.FetchPostByIndex(Post.eType.photo, m_CurrentShowedImagePostIndex);
-            message = post.Message;
+            Post post = m_ActiveUserManager.FetchPostByIndex(Post.eType.photo, m_CurrentShowedImagePostIndex);
+            string message = post.Message;
 
             if (!string.IsNullOrEmpty(message))
             {
@@ -359,12 +303,9 @@ namespace BasicFacebookFeatures
 
             m_CurrentShowedPhotoIndexInAlbum = 0;
             m_CurrentShowedAlbumIndex = (sender as ListBox).SelectedIndex;
-
             currentAlbum = m_LoginResult.LoggedInUser.Albums[m_CurrentShowedAlbumIndex];
-
             AlbumImagesLabel.Text = !string.IsNullOrEmpty(currentAlbum.Name) ? currentAlbum.Name : string.Empty;
             albumCreatedAtLabel.Text = !string.IsNullOrEmpty(currentAlbum.CreatedTime.ToString()) ? string.Format("Created At: {0}", currentAlbum.CreatedTime) : string.Empty;
-           
             populateAlbumPhoto(m_CurrentShowedPhotoIndexInAlbum);
         }
 
@@ -374,7 +315,6 @@ namespace BasicFacebookFeatures
             Photo currentPhoto = currentAlbum.Photos[i_PhotoIndexToChange];
 
             AlbumPictureBox.Load(currentPhoto.PictureNormalURL);
-
             m_CurrentShowedPhotoIndexInAlbum = i_PhotoIndexToChange;
             handlePreviousAndNextButtons(m_CurrentShowedPhotoIndexInAlbum, currentAlbum.Photos.Count, AlbumImagePerviousButton, AlbumImageNextButton);
         }
@@ -394,7 +334,7 @@ namespace BasicFacebookFeatures
         // -------------
         private async void startAiButton_Click(object sender, EventArgs e)
         {
-            m_ActiveUserManager.m_AiSuggestionsForStatuses = await AITextGenerator.AITextGenerator.ParaphraseTextAsync(WriteStatusRichTextBox.Text);
+            m_ActiveUserManager.m_AiSuggestionsForStatuses = await AITextGenerator.AITextGenerator.ParaphraseTextAsync(richTextBoxWritePhrase.Text);
             populateAiSuggestionTextBox(k_StartIndex);
         }
 
@@ -404,17 +344,17 @@ namespace BasicFacebookFeatures
 
             if (suggestionsList.Any())
             {
-                SuggestedByAITextBox.Text = suggestionsList[i_SuggestionIndex];
+                textBoxSuggestedByAI.Text = suggestionsList[i_SuggestionIndex];
                 m_CurrentShowedSuggestedAiTextIndex = i_SuggestionIndex;
-                handlePreviousAndNextButtons(m_CurrentShowedSuggestedAiTextIndex, suggestionsList.Count, PreviousSuggestedTextButton, NextSuggestedTextButton);
-                PostActionButton.Enabled = true;
+                handlePreviousAndNextButtons(m_CurrentShowedSuggestedAiTextIndex, suggestionsList.Count, buttonPreviousSuggestedText, buttonNextSuggestedText);
+                ButtonPost.Enabled = true;
             }
             else
             {
-                SuggestedByAITextBox.Text = "This is not a valid text to rephrase. Please avoid new lines and special characters.";
-                NextSuggestedTextButton.Enabled = false;
-                PreviousSuggestedTextButton.Enabled = false;
-                PostActionButton.Enabled = false;
+                textBoxSuggestedByAI.Text = "This is not a valid text to rephrase. Please avoid new lines and special characters.";
+                buttonNextSuggestedText.Enabled = false;
+                buttonPreviousSuggestedText.Enabled = false;
+                ButtonPost.Enabled = false;
             }
         }
 
@@ -432,7 +372,7 @@ namespace BasicFacebookFeatures
         {
             try
             {
-                Status postedStatus = m_LoginResult.LoggedInUser.PostStatus(SuggestedByAITextBox.Text);
+                Status postedStatus = m_LoginResult.LoggedInUser.PostStatus(textBoxSuggestedByAI.Text);
                 MessageBox.Show("Status Posted! ID: " + postedStatus.Id);
             }
             catch (Exception ex)
@@ -441,9 +381,53 @@ namespace BasicFacebookFeatures
             }
         }
 
-        private void buttonLimitTime_Click(object sender, EventArgs e)
+        // -------------
+        // Timer
+        // -------------
+        private void initiateTimer()
         {
+            m_SessionTimer = new SessionTimer();
+            m_SessionTimer.Start(updateTimeLabel);
+        }
 
+        private void terminateTimer()
+        {
+            TimeData timeData = new TimeData();
+            double elapsedSeconds = m_SessionTimer.GetSeconds();
+
+            timeData.m_ElapsedSeconds = elapsedSeconds + m_TimeData.m_ElapsedSeconds;
+            timeData.m_LastLoginDateTime = m_LastLoginDateTime;
+            m_SessionTimer.Stop();
+            FileDataHandler.SaveToFile(k_ElapsedTimeFilePath, timeData, typeof(TimeData));
+        }
+
+        private void updateTimeLabel(object sender, EventArgs e)
+        {
+            TimeSpan elapsedTime = m_SessionTimer.Stopwatch.Elapsed;
+            TimeSpan oldElapsedTime = TimeSpan.FromSeconds(m_TimeData.m_ElapsedSeconds);
+            TimeSpan overallElapsedTime = elapsedTime + oldElapsedTime;
+            string overallTimeAsString = m_SessionTimer.ConvertTimeSpanToString(overallElapsedTime);
+            string elapsedTimeAsString = m_SessionTimer.ConvertTimeSpanToString(elapsedTime);
+
+            labelElapsedTime.Text = $"Elapsed Time: {elapsedTimeAsString}";
+            labelOverallElapsedTime.Text = $"Overall Elapsed Time: {overallTimeAsString}";
+        }
+
+        private void loadUsageTime()
+        {
+            m_TimeData = FileDataHandler.LoadFromFile(k_ElapsedTimeFilePath, typeof(TimeData)) as TimeData;
+            m_LastLoginDateTime = DateTime.Now;
+
+            if (m_TimeData == null)
+            {
+                m_TimeData = new TimeData();
+                m_TimeData.m_ElapsedSeconds = 0;
+                labelLastLogin.Text = string.Empty;
+            }
+            else
+            {
+                labelLastLogin.Text = $"Last login: {m_TimeData.m_LastLoginDateTime}";
+            }
         }
     }
 }

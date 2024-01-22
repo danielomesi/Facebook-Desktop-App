@@ -17,7 +17,6 @@ namespace AITextGenerator
             bool isSuccess;
             List<string> suggestionsList = new List<string>();
             Uri requestUri = new Uri(k_RequestUri);
-
             string requestBody = $"{{\"style\":\"general\", \"text\":\"{i_Text}\"}}";
 
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, requestUri);
@@ -29,6 +28,7 @@ namespace AITextGenerator
             {
                 HttpResponseMessage response = await client.SendAsync(request);
                 isSuccess = response.IsSuccessStatusCode;
+
                 if (isSuccess)
                 {
                     string result = await response.Content.ReadAsStringAsync();

@@ -1,16 +1,37 @@
-﻿using System;
-using System.Drawing;
-using System.IO;
-using System.Xml.Serialization;
+﻿using System.Drawing;
 
 namespace BasicFacebookFeatures
 {
     public class AppSettings
     {
-        public Point m_LastWindowLocation { get; set; } //remember to check on it
-        public Size m_LastWindowSize { get; set; } //remember to check on it
-        public bool m_RememberUser { get; set; }
-        public string m_LastAccessToken { get; set; }
+        private Point m_LastWindowLocation;
+        private Size m_LastWindowSize;
+        private bool m_RememberUser;
+        private string m_LastAccessToken;
+
+        public Point LastWindowLocation
+        {
+            get { return m_LastWindowLocation; }
+            set { m_LastWindowLocation = value; }
+        }
+
+        public Size LastWindowSize
+        {
+            get { return m_LastWindowSize; }
+            set { m_LastWindowSize = value; }
+        }
+
+        public bool RememberUser
+        {
+            get { return m_RememberUser; }
+            set { m_RememberUser = value; }
+        }
+
+        public string LastAccessToken
+        {
+            get { return m_LastAccessToken; }
+            set { m_LastAccessToken = value; }
+        }
 
         public AppSettings()
         {
