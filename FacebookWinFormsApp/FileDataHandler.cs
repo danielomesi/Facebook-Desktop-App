@@ -7,7 +7,7 @@ namespace BasicFacebookFeatures
 {
     public static class FileDataHandler
     {
-        public static void SaveToFile(string i_FilePath, Stopwatch i_Obj, Type i_Type)
+        public static void SaveToFile(string i_FilePath, object i_Obj, Type i_Type)
         {
             using (Stream stream = new FileStream(i_FilePath, FileMode.OpenOrCreate))
             {

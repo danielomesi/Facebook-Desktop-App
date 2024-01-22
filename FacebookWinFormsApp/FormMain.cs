@@ -18,11 +18,14 @@ namespace BasicFacebookFeatures
         // option 3: make ai correction for text for post 
         // create post in ordered time
 
+        const string k_AppSettingsFilePath = @".\App Settings.xml";
+        const string k_ElapsedTimeFilePath = @".\Elapsed Time.xml";
         const int k_StartIndex = 0;
         LoginResult m_LoginResult;
         ActiveUserManager m_ActiveUserManager;
         AppSettings m_AppSettings;
         SessionTimer m_SessionTimer;
+        TimeData m_TimeData;
         int m_CurrentShowedStatusIndex;
         int m_CurrentShowedImagePostIndex;
         int m_CurrentShowedAlbumIndex;
@@ -36,11 +39,21 @@ namespace BasicFacebookFeatures
             FacebookService.s_CollectionLimit = 25;
         }
 
-        // Timer
+        
 
         private void initiateTimer()
         {
-            m_SessionTimer = new SessionTimer(updateTimeLabel);
+            m_SessionTimer = new SessionTimer();
+            m_SessionTimer.Start(new List<EventHandler> { updateTimeLabel});
+        }
+
+        private void terminateTimer()
+        {
+            TimeData timeData = new TimeData();
+            double elapsedSeconds = m_SessionTimer.GetSeconds();
+            timeData.m_elapsedSeconds = elapsedSeconds;
+            m_SessionTimer.Stop();
+            FileDataHandler.SaveToFile(k_ElapsedTimeFilePath, timeData, typeof(TimeData));
         }
 
 
@@ -88,7 +101,14 @@ namespace BasicFacebookFeatures
 
         private void updateTimeLabel(object sender, EventArgs e)
         {
-            elapsedTimeLabel.Text = $"Elapsed Time: {m_SessionTimer.GetCurrentTimeAsString()}";
+            TimeSpan elapsedTime = m_SessionTimer.m_Stopwatch.Elapsed;
+            TimeSpan oldElapsedTime = TimeSpan.FromSeconds(m_TimeData.m_elapsedSeconds);
+            TimeSpan overallElapsedTime = elapsedTime + oldElapsedTime;
+            string overallTimeAsString = m_SessionTimer.ConvertTimeSpanToString(overallElapsedTime);
+            string elapsedTimeAsString = m_SessionTimer.ConvertTimeSpanToString(elapsedTime);
+
+            labelElapsedTime.Text = $"Elapsed Time: {elapsedTimeAsString}";
+            labelOverallElapsedTime.Text = $"Overall Elapsed Time: {overallTimeAsString}";
         }
 
         private void setLoggedInUser()
@@ -103,7 +123,18 @@ namespace BasicFacebookFeatures
             textBoxAppID.Enabled = false;
 
             initiateFormData();
+            LoadUsageTime();
             initiateTimer();
+        }
+
+        private void LoadUsageTime()
+        {
+            m_TimeData = FileDataHandler.LoadFromFile(k_ElapsedTimeFilePath, typeof(TimeData)) as TimeData; 
+            if (m_TimeData == null)
+            {
+                m_TimeData = new TimeData();
+                m_TimeData.m_elapsedSeconds = 0;
+            }
         }
 
         private void initiateFormData()
@@ -164,7 +195,7 @@ namespace BasicFacebookFeatures
 
         private void formMainShown(object sender, EventArgs e)
         {
-            m_AppSettings = AppSettings.LoadFromFile();
+            m_AppSettings = FileDataHandler.LoadFromFile(k_AppSettingsFilePath, typeof(AppSettings)) as AppSettings;
 
             if (m_AppSettings != null)
             {
@@ -187,7 +218,7 @@ namespace BasicFacebookFeatures
 
         private void formMainFormClosing(object sender, FormClosingEventArgs e)
         {
-            FileDataHandler.SaveToFile(@".\time.xml", m_SessionTimer.m_Stopwatch, m_SessionTimer.m_Stopwatch.GetType());
+            terminateTimer();
 
             if (RememberMeCheckBox.Checked && m_LoginResult != null &&
                 string.IsNullOrEmpty(m_LoginResult.ErrorMessage))
@@ -196,11 +227,11 @@ namespace BasicFacebookFeatures
                 m_AppSettings.m_RememberUser = true;
                 m_AppSettings.m_LastWindowSize = this.Size;
                 m_AppSettings.m_LastWindowLocation = this.Location;
-                m_AppSettings.SaveToFile();
+                FileDataHandler.SaveToFile(k_AppSettingsFilePath, m_AppSettings, typeof(AppSettings));
             }
             else
             {
-                if (!AppSettings.ClearFile())
+                if (!FileDataHandler.ClearFile(k_AppSettingsFilePath))
                 {
                     MessageBox.Show("Deleting your personal settings failed!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
@@ -399,6 +430,11 @@ namespace BasicFacebookFeatures
             {
                 MessageBox.Show("Currently posting status on facebook isn't supported");
             }
+        }
+
+        private void buttonLimitTime_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
