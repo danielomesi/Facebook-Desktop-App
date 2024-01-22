@@ -94,6 +94,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AITextGenerator.cs" />
     <Compile Include="AppSettings.cs" />
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>

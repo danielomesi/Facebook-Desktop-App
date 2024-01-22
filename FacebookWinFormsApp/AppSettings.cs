@@ -1,31 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.IO.Pipes;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Runtime.InteropServices.ComTypes;
-using System.Runtime.Remoting.Messaging;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 namespace BasicFacebookFeatures
 {
     public class AppSettings
     {
-        public Point LastWindowLocation { get; set; } //remember to check on it
-        public Size LastWindowSize { get; set; } //remember to check on it
-        public bool RememberUser { get; set; }
-        public string LastAccessToken { get; set; }
+        public Point m_LastWindowLocation { get; set; } //remember to check on it
+        public Size m_LastWindowSize { get; set; } //remember to check on it
+        public bool m_RememberUser { get; set; }
+        public string m_LastAccessToken { get; set; }
 
         public AppSettings()
         {
-            LastWindowLocation = new Point(20, 50);
-            LastWindowSize = new Size(1000, 500);
-            RememberUser = false;
-            LastAccessToken = null;
+            m_LastWindowLocation = new Point(20, 50);
+            m_LastWindowSize = new Size(1000, 500);
+            m_RememberUser = false;
+            m_LastAccessToken = null;
         }
 
         public void SaveToFile()
@@ -76,6 +68,5 @@ namespace BasicFacebookFeatures
             }
             return isSuccessfullDelete;
         }
-
     }
 }
