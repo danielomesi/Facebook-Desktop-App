@@ -28,10 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.buttonLogin = new System.Windows.Forms.Button();
-            this.buttonLogout = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
+            this.LoginTab = new System.Windows.Forms.TabPage();
+            this.RememberMeCheckBox = new System.Windows.Forms.CheckBox();
+            this.textBoxAppID = new System.Windows.Forms.TextBox();
+            this.buttonLogout = new System.Windows.Forms.Button();
+            this.buttonLogin = new System.Windows.Forms.Button();
             this.HomeTab = new System.Windows.Forms.TabPage();
+            this.elapsedTimeLabel = new System.Windows.Forms.Label();
             this.MyFriendsLabel = new System.Windows.Forms.Label();
             this.FriendsListBox = new System.Windows.Forms.ListBox();
             this.MyImagePostsLabel = new System.Windows.Forms.Label();
@@ -43,10 +47,8 @@
             this.PreviousStatusButton = new System.Windows.Forms.Button();
             this.PostRichTextBox = new System.Windows.Forms.RichTextBox();
             this.FavPagePictureBox = new System.Windows.Forms.PictureBox();
-            this.RememberMeCheckBox = new System.Windows.Forms.CheckBox();
             this.FavoritePagesListBox = new System.Windows.Forms.ListBox();
             this.FavoritePagesLabel = new System.Windows.Forms.Label();
-            this.textBoxAppID = new System.Windows.Forms.TextBox();
             this.AlbumsTab = new System.Windows.Forms.TabPage();
             this.albumCreatedAtLabel = new System.Windows.Forms.Label();
             this.AlbumImagesLabel = new System.Windows.Forms.Label();
@@ -55,6 +57,15 @@
             this.AlbumPictureBox = new System.Windows.Forms.PictureBox();
             this.AlbumsLabel = new System.Windows.Forms.Label();
             this.AlbumsListBox = new System.Windows.Forms.ListBox();
+            this.AIRephraserTab = new System.Windows.Forms.TabPage();
+            this.creditLabel = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.PostActionButton = new System.Windows.Forms.Button();
+            this.NextSuggestedTextButton = new System.Windows.Forms.Button();
+            this.PreviousSuggestedTextButton = new System.Windows.Forms.Button();
+            this.WriteStatusRichTextBox = new System.Windows.Forms.RichTextBox();
+            this.StartRephraseButton = new System.Windows.Forms.Button();
+            this.SuggestedByAITextBox = new System.Windows.Forms.RichTextBox();
             this.AboutTab = new System.Windows.Forms.TabPage();
             this.label2 = new System.Windows.Forms.Label();
             this.emailLabelData = new System.Windows.Forms.Label();
@@ -65,53 +76,24 @@
             this.genderLabel = new System.Windows.Forms.Label();
             this.birthdayLabel = new System.Windows.Forms.Label();
             this.fullNameLabel = new System.Windows.Forms.Label();
-            this.AIRephraser = new System.Windows.Forms.TabPage();
-            this.label1 = new System.Windows.Forms.Label();
-            this.PostActionButton = new System.Windows.Forms.Button();
-            this.NextSuggestedTextButton = new System.Windows.Forms.Button();
-            this.PreviousSuggestedTextButton = new System.Windows.Forms.Button();
-            this.WriteStatusRichTextBox = new System.Windows.Forms.RichTextBox();
-            this.StartRephraseButton = new System.Windows.Forms.Button();
-            this.SuggestedByAITextBox = new System.Windows.Forms.RichTextBox();
             this.tabControl.SuspendLayout();
+            this.LoginTab.SuspendLayout();
             this.HomeTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ImagePostPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.FavPagePictureBox)).BeginInit();
             this.AlbumsTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AlbumPictureBox)).BeginInit();
+            this.AIRephraserTab.SuspendLayout();
             this.AboutTab.SuspendLayout();
-            this.AIRephraser.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // buttonLogin
-            // 
-            this.buttonLogin.Location = new System.Drawing.Point(18, 17);
-            this.buttonLogin.Margin = new System.Windows.Forms.Padding(4);
-            this.buttonLogin.Name = "buttonLogin";
-            this.buttonLogin.Size = new System.Drawing.Size(268, 32);
-            this.buttonLogin.TabIndex = 36;
-            this.buttonLogin.Text = "Login";
-            this.buttonLogin.UseVisualStyleBackColor = true;
-            this.buttonLogin.Click += new System.EventHandler(this.buttonLogin_Click);
-            // 
-            // buttonLogout
-            // 
-            this.buttonLogout.Enabled = false;
-            this.buttonLogout.Location = new System.Drawing.Point(18, 57);
-            this.buttonLogout.Margin = new System.Windows.Forms.Padding(4);
-            this.buttonLogout.Name = "buttonLogout";
-            this.buttonLogout.Size = new System.Drawing.Size(268, 32);
-            this.buttonLogout.TabIndex = 52;
-            this.buttonLogout.Text = "Logout";
-            this.buttonLogout.UseVisualStyleBackColor = true;
-            this.buttonLogout.Click += new System.EventHandler(this.buttonLogout_Click);
             // 
             // tabControl
             // 
+            this.tabControl.Controls.Add(this.LoginTab);
             this.tabControl.Controls.Add(this.HomeTab);
             this.tabControl.Controls.Add(this.AlbumsTab);
+            this.tabControl.Controls.Add(this.AIRephraserTab);
             this.tabControl.Controls.Add(this.AboutTab);
-            this.tabControl.Controls.Add(this.AIRephraser);
             this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl.Location = new System.Drawing.Point(0, 0);
             this.tabControl.Name = "tabControl";
@@ -119,9 +101,65 @@
             this.tabControl.Size = new System.Drawing.Size(1168, 698);
             this.tabControl.TabIndex = 54;
             // 
+            // LoginTab
+            // 
+            this.LoginTab.Controls.Add(this.RememberMeCheckBox);
+            this.LoginTab.Controls.Add(this.textBoxAppID);
+            this.LoginTab.Controls.Add(this.buttonLogout);
+            this.LoginTab.Controls.Add(this.buttonLogin);
+            this.LoginTab.Location = new System.Drawing.Point(4, 35);
+            this.LoginTab.Name = "LoginTab";
+            this.LoginTab.Padding = new System.Windows.Forms.Padding(3);
+            this.LoginTab.Size = new System.Drawing.Size(1160, 659);
+            this.LoginTab.TabIndex = 4;
+            this.LoginTab.Text = "Login";
+            this.LoginTab.UseVisualStyleBackColor = true;
+            // 
+            // RememberMeCheckBox
+            // 
+            this.RememberMeCheckBox.AutoSize = true;
+            this.RememberMeCheckBox.Location = new System.Drawing.Point(37, 121);
+            this.RememberMeCheckBox.Name = "RememberMeCheckBox";
+            this.RememberMeCheckBox.Size = new System.Drawing.Size(183, 30);
+            this.RememberMeCheckBox.TabIndex = 63;
+            this.RememberMeCheckBox.Text = "Remember Me";
+            this.RememberMeCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // textBoxAppID
+            // 
+            this.textBoxAppID.Location = new System.Drawing.Point(319, 70);
+            this.textBoxAppID.Name = "textBoxAppID";
+            this.textBoxAppID.Size = new System.Drawing.Size(237, 32);
+            this.textBoxAppID.TabIndex = 62;
+            this.textBoxAppID.Text = "936827228016864";
+            // 
+            // buttonLogout
+            // 
+            this.buttonLogout.Enabled = false;
+            this.buttonLogout.Location = new System.Drawing.Point(20, 66);
+            this.buttonLogout.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonLogout.Name = "buttonLogout";
+            this.buttonLogout.Size = new System.Drawing.Size(268, 32);
+            this.buttonLogout.TabIndex = 61;
+            this.buttonLogout.Text = "Logout";
+            this.buttonLogout.UseVisualStyleBackColor = true;
+            this.buttonLogout.Click += new System.EventHandler(this.buttonLogoutClick);
+            // 
+            // buttonLogin
+            // 
+            this.buttonLogin.Location = new System.Drawing.Point(20, 26);
+            this.buttonLogin.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonLogin.Name = "buttonLogin";
+            this.buttonLogin.Size = new System.Drawing.Size(268, 32);
+            this.buttonLogin.TabIndex = 60;
+            this.buttonLogin.Text = "Login";
+            this.buttonLogin.UseVisualStyleBackColor = true;
+            this.buttonLogin.Click += new System.EventHandler(this.buttonLoginClick);
+            // 
             // HomeTab
             // 
             this.HomeTab.AutoScroll = true;
+            this.HomeTab.Controls.Add(this.elapsedTimeLabel);
             this.HomeTab.Controls.Add(this.MyFriendsLabel);
             this.HomeTab.Controls.Add(this.FriendsListBox);
             this.HomeTab.Controls.Add(this.MyImagePostsLabel);
@@ -133,12 +171,8 @@
             this.HomeTab.Controls.Add(this.PreviousStatusButton);
             this.HomeTab.Controls.Add(this.PostRichTextBox);
             this.HomeTab.Controls.Add(this.FavPagePictureBox);
-            this.HomeTab.Controls.Add(this.RememberMeCheckBox);
             this.HomeTab.Controls.Add(this.FavoritePagesListBox);
             this.HomeTab.Controls.Add(this.FavoritePagesLabel);
-            this.HomeTab.Controls.Add(this.textBoxAppID);
-            this.HomeTab.Controls.Add(this.buttonLogout);
-            this.HomeTab.Controls.Add(this.buttonLogin);
             this.HomeTab.Location = new System.Drawing.Point(4, 35);
             this.HomeTab.Name = "HomeTab";
             this.HomeTab.Padding = new System.Windows.Forms.Padding(3);
@@ -147,10 +181,18 @@
             this.HomeTab.Text = "Home";
             this.HomeTab.UseVisualStyleBackColor = true;
             // 
+            // elapsedTimeLabel
+            // 
+            this.elapsedTimeLabel.AutoSize = true;
+            this.elapsedTimeLabel.Location = new System.Drawing.Point(415, 555);
+            this.elapsedTimeLabel.Name = "elapsedTimeLabel";
+            this.elapsedTimeLabel.Size = new System.Drawing.Size(0, 26);
+            this.elapsedTimeLabel.TabIndex = 71;
+            // 
             // MyFriendsLabel
             // 
             this.MyFriendsLabel.AutoSize = true;
-            this.MyFriendsLabel.Location = new System.Drawing.Point(904, 192);
+            this.MyFriendsLabel.Location = new System.Drawing.Point(906, 61);
             this.MyFriendsLabel.Name = "MyFriendsLabel";
             this.MyFriendsLabel.Size = new System.Drawing.Size(159, 26);
             this.MyFriendsLabel.TabIndex = 70;
@@ -161,7 +203,7 @@
             // 
             this.FriendsListBox.FormattingEnabled = true;
             this.FriendsListBox.ItemHeight = 26;
-            this.FriendsListBox.Location = new System.Drawing.Point(852, 221);
+            this.FriendsListBox.Location = new System.Drawing.Point(854, 90);
             this.FriendsListBox.Name = "FriendsListBox";
             this.FriendsListBox.Size = new System.Drawing.Size(249, 212);
             this.FriendsListBox.TabIndex = 69;
@@ -170,7 +212,7 @@
             // MyImagePostsLabel
             // 
             this.MyImagePostsLabel.AutoSize = true;
-            this.MyImagePostsLabel.Location = new System.Drawing.Point(625, 192);
+            this.MyImagePostsLabel.Location = new System.Drawing.Point(627, 61);
             this.MyImagePostsLabel.Name = "MyImagePostsLabel";
             this.MyImagePostsLabel.Size = new System.Drawing.Size(169, 26);
             this.MyImagePostsLabel.TabIndex = 68;
@@ -180,7 +222,7 @@
             // NextImagePostButton
             // 
             this.NextImagePostButton.Enabled = false;
-            this.NextImagePostButton.Location = new System.Drawing.Point(992, 439);
+            this.NextImagePostButton.Location = new System.Drawing.Point(724, 308);
             this.NextImagePostButton.Name = "NextImagePostButton";
             this.NextImagePostButton.Size = new System.Drawing.Size(109, 49);
             this.NextImagePostButton.TabIndex = 67;
@@ -192,7 +234,7 @@
             // PreviousImagePostButton
             // 
             this.PreviousImagePostButton.Enabled = false;
-            this.PreviousImagePostButton.Location = new System.Drawing.Point(852, 439);
+            this.PreviousImagePostButton.Location = new System.Drawing.Point(584, 308);
             this.PreviousImagePostButton.Name = "PreviousImagePostButton";
             this.PreviousImagePostButton.Size = new System.Drawing.Size(109, 49);
             this.PreviousImagePostButton.TabIndex = 66;
@@ -203,7 +245,7 @@
             // 
             // ImagePostPictureBox
             // 
-            this.ImagePostPictureBox.Location = new System.Drawing.Point(582, 221);
+            this.ImagePostPictureBox.Location = new System.Drawing.Point(584, 90);
             this.ImagePostPictureBox.Name = "ImagePostPictureBox";
             this.ImagePostPictureBox.Size = new System.Drawing.Size(249, 212);
             this.ImagePostPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -215,7 +257,7 @@
             // MyStatusesLabel
             // 
             this.MyStatusesLabel.AutoSize = true;
-            this.MyStatusesLabel.Location = new System.Drawing.Point(371, 192);
+            this.MyStatusesLabel.Location = new System.Drawing.Point(373, 61);
             this.MyStatusesLabel.Name = "MyStatusesLabel";
             this.MyStatusesLabel.Size = new System.Drawing.Size(132, 26);
             this.MyStatusesLabel.TabIndex = 64;
@@ -225,7 +267,7 @@
             // NextStatusButton
             // 
             this.NextStatusButton.Enabled = false;
-            this.NextStatusButton.Location = new System.Drawing.Point(722, 440);
+            this.NextStatusButton.Location = new System.Drawing.Point(447, 309);
             this.NextStatusButton.Name = "NextStatusButton";
             this.NextStatusButton.Size = new System.Drawing.Size(109, 48);
             this.NextStatusButton.TabIndex = 63;
@@ -237,7 +279,7 @@
             // PreviousStatusButton
             // 
             this.PreviousStatusButton.Enabled = false;
-            this.PreviousStatusButton.Location = new System.Drawing.Point(582, 440);
+            this.PreviousStatusButton.Location = new System.Drawing.Point(319, 309);
             this.PreviousStatusButton.Name = "PreviousStatusButton";
             this.PreviousStatusButton.Size = new System.Drawing.Size(106, 48);
             this.PreviousStatusButton.TabIndex = 62;
@@ -248,7 +290,7 @@
             // 
             // PostRichTextBox
             // 
-            this.PostRichTextBox.Location = new System.Drawing.Point(317, 221);
+            this.PostRichTextBox.Location = new System.Drawing.Point(319, 90);
             this.PostRichTextBox.Name = "PostRichTextBox";
             this.PostRichTextBox.ReadOnly = true;
             this.PostRichTextBox.Size = new System.Drawing.Size(237, 212);
@@ -258,7 +300,7 @@
             // 
             // FavPagePictureBox
             // 
-            this.FavPagePictureBox.Location = new System.Drawing.Point(83, 458);
+            this.FavPagePictureBox.Location = new System.Drawing.Point(85, 327);
             this.FavPagePictureBox.Name = "FavPagePictureBox";
             this.FavPagePictureBox.Size = new System.Drawing.Size(150, 150);
             this.FavPagePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -266,22 +308,11 @@
             this.FavPagePictureBox.TabStop = false;
             this.FavPagePictureBox.Visible = false;
             // 
-            // RememberMeCheckBox
-            // 
-            this.RememberMeCheckBox.AutoSize = true;
-            this.RememberMeCheckBox.Location = new System.Drawing.Point(35, 112);
-            this.RememberMeCheckBox.Name = "RememberMeCheckBox";
-            this.RememberMeCheckBox.Size = new System.Drawing.Size(183, 30);
-            this.RememberMeCheckBox.TabIndex = 59;
-            this.RememberMeCheckBox.Text = "Remember Me";
-            this.RememberMeCheckBox.UseVisualStyleBackColor = true;
-            this.RememberMeCheckBox.Visible = false;
-            // 
             // FavoritePagesListBox
             // 
             this.FavoritePagesListBox.FormattingEnabled = true;
             this.FavoritePagesListBox.ItemHeight = 26;
-            this.FavoritePagesListBox.Location = new System.Drawing.Point(35, 221);
+            this.FavoritePagesListBox.Location = new System.Drawing.Point(37, 90);
             this.FavoritePagesListBox.Name = "FavoritePagesListBox";
             this.FavoritePagesListBox.Size = new System.Drawing.Size(251, 212);
             this.FavoritePagesListBox.TabIndex = 58;
@@ -291,20 +322,12 @@
             // FavoritePagesLabel
             // 
             this.FavoritePagesLabel.AutoSize = true;
-            this.FavoritePagesLabel.Location = new System.Drawing.Point(78, 192);
+            this.FavoritePagesLabel.Location = new System.Drawing.Point(80, 61);
             this.FavoritePagesLabel.Name = "FavoritePagesLabel";
             this.FavoritePagesLabel.Size = new System.Drawing.Size(158, 26);
             this.FavoritePagesLabel.TabIndex = 57;
             this.FavoritePagesLabel.Text = "Favorite Pages";
             this.FavoritePagesLabel.Visible = false;
-            // 
-            // textBoxAppID
-            // 
-            this.textBoxAppID.Location = new System.Drawing.Point(317, 61);
-            this.textBoxAppID.Name = "textBoxAppID";
-            this.textBoxAppID.Size = new System.Drawing.Size(237, 32);
-            this.textBoxAppID.TabIndex = 54;
-            this.textBoxAppID.Text = "936827228016864";
             // 
             // AlbumsTab
             // 
@@ -394,6 +417,114 @@
             this.AlbumsListBox.TabIndex = 59;
             this.AlbumsListBox.Visible = false;
             this.AlbumsListBox.SelectedIndexChanged += new System.EventHandler(this.albumsListBox_SelectedIndexChanged);
+            // 
+            // AIRephraserTab
+            // 
+            this.AIRephraserTab.AutoScroll = true;
+            this.AIRephraserTab.Controls.Add(this.creditLabel);
+            this.AIRephraserTab.Controls.Add(this.label1);
+            this.AIRephraserTab.Controls.Add(this.PostActionButton);
+            this.AIRephraserTab.Controls.Add(this.NextSuggestedTextButton);
+            this.AIRephraserTab.Controls.Add(this.PreviousSuggestedTextButton);
+            this.AIRephraserTab.Controls.Add(this.WriteStatusRichTextBox);
+            this.AIRephraserTab.Controls.Add(this.StartRephraseButton);
+            this.AIRephraserTab.Controls.Add(this.SuggestedByAITextBox);
+            this.AIRephraserTab.Location = new System.Drawing.Point(4, 35);
+            this.AIRephraserTab.Name = "AIRephraserTab";
+            this.AIRephraserTab.Padding = new System.Windows.Forms.Padding(3);
+            this.AIRephraserTab.Size = new System.Drawing.Size(1160, 659);
+            this.AIRephraserTab.TabIndex = 3;
+            this.AIRephraserTab.Text = "AI Rephraser";
+            this.AIRephraserTab.UseVisualStyleBackColor = true;
+            // 
+            // creditLabel
+            // 
+            this.creditLabel.AutoSize = true;
+            this.creditLabel.Font = new System.Drawing.Font("Myanmar Text", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.creditLabel.Location = new System.Drawing.Point(100, 595);
+            this.creditLabel.Name = "creditLabel";
+            this.creditLabel.Size = new System.Drawing.Size(261, 39);
+            this.creditLabel.TabIndex = 75;
+            this.creditLabel.Text = "© Paraphrase API service";
+            this.creditLabel.Visible = false;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Myanmar Text", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(47, 42);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(869, 39);
+            this.label1.TabIndex = 74;
+            this.label1.Text = "Let AI suggest you better rephrasing of your text! Note: New lines are not allowe" +
+    "d";
+            this.label1.Visible = false;
+            // 
+            // PostActionButton
+            // 
+            this.PostActionButton.Enabled = false;
+            this.PostActionButton.Location = new System.Drawing.Point(570, 527);
+            this.PostActionButton.Name = "PostActionButton";
+            this.PostActionButton.Size = new System.Drawing.Size(191, 76);
+            this.PostActionButton.TabIndex = 73;
+            this.PostActionButton.Text = "Post!";
+            this.PostActionButton.UseVisualStyleBackColor = true;
+            this.PostActionButton.Visible = false;
+            this.PostActionButton.Click += new System.EventHandler(this.postActionButton_Click);
+            // 
+            // NextSuggestedTextButton
+            // 
+            this.NextSuggestedTextButton.Enabled = false;
+            this.NextSuggestedTextButton.Location = new System.Drawing.Point(674, 461);
+            this.NextSuggestedTextButton.Name = "NextSuggestedTextButton";
+            this.NextSuggestedTextButton.Size = new System.Drawing.Size(145, 60);
+            this.NextSuggestedTextButton.TabIndex = 72;
+            this.NextSuggestedTextButton.Text = "-->";
+            this.NextSuggestedTextButton.UseVisualStyleBackColor = true;
+            this.NextSuggestedTextButton.Visible = false;
+            this.NextSuggestedTextButton.Click += new System.EventHandler(this.nextSuggestedTextButton_Click);
+            // 
+            // PreviousSuggestedTextButton
+            // 
+            this.PreviousSuggestedTextButton.Enabled = false;
+            this.PreviousSuggestedTextButton.Location = new System.Drawing.Point(523, 461);
+            this.PreviousSuggestedTextButton.Name = "PreviousSuggestedTextButton";
+            this.PreviousSuggestedTextButton.Size = new System.Drawing.Size(145, 60);
+            this.PreviousSuggestedTextButton.TabIndex = 71;
+            this.PreviousSuggestedTextButton.Text = "<--";
+            this.PreviousSuggestedTextButton.UseVisualStyleBackColor = true;
+            this.PreviousSuggestedTextButton.Visible = false;
+            this.PreviousSuggestedTextButton.Click += new System.EventHandler(this.previousSuggestedTextButton_Click);
+            // 
+            // WriteStatusRichTextBox
+            // 
+            this.WriteStatusRichTextBox.Location = new System.Drawing.Point(37, 128);
+            this.WriteStatusRichTextBox.Name = "WriteStatusRichTextBox";
+            this.WriteStatusRichTextBox.Size = new System.Drawing.Size(403, 327);
+            this.WriteStatusRichTextBox.TabIndex = 64;
+            this.WriteStatusRichTextBox.Text = "";
+            this.WriteStatusRichTextBox.Visible = false;
+            // 
+            // StartRephraseButton
+            // 
+            this.StartRephraseButton.Location = new System.Drawing.Point(156, 461);
+            this.StartRephraseButton.Name = "StartRephraseButton";
+            this.StartRephraseButton.Size = new System.Drawing.Size(153, 77);
+            this.StartRephraseButton.TabIndex = 63;
+            this.StartRephraseButton.Text = "Start";
+            this.StartRephraseButton.UseVisualStyleBackColor = true;
+            this.StartRephraseButton.Visible = false;
+            this.StartRephraseButton.Click += new System.EventHandler(this.startAiButton_Click);
+            // 
+            // SuggestedByAITextBox
+            // 
+            this.SuggestedByAITextBox.Location = new System.Drawing.Point(457, 128);
+            this.SuggestedByAITextBox.Name = "SuggestedByAITextBox";
+            this.SuggestedByAITextBox.ReadOnly = true;
+            this.SuggestedByAITextBox.Size = new System.Drawing.Size(403, 327);
+            this.SuggestedByAITextBox.TabIndex = 62;
+            this.SuggestedByAITextBox.Text = "";
+            this.SuggestedByAITextBox.Visible = false;
             // 
             // AboutTab
             // 
@@ -514,95 +645,6 @@
             this.fullNameLabel.Text = "Full Name: ";
             this.fullNameLabel.Visible = false;
             // 
-            // AIRephraser
-            // 
-            this.AIRephraser.AutoScroll = true;
-            this.AIRephraser.Controls.Add(this.label1);
-            this.AIRephraser.Controls.Add(this.PostActionButton);
-            this.AIRephraser.Controls.Add(this.NextSuggestedTextButton);
-            this.AIRephraser.Controls.Add(this.PreviousSuggestedTextButton);
-            this.AIRephraser.Controls.Add(this.WriteStatusRichTextBox);
-            this.AIRephraser.Controls.Add(this.StartRephraseButton);
-            this.AIRephraser.Controls.Add(this.SuggestedByAITextBox);
-            this.AIRephraser.Location = new System.Drawing.Point(4, 35);
-            this.AIRephraser.Name = "AIRephraser";
-            this.AIRephraser.Padding = new System.Windows.Forms.Padding(3);
-            this.AIRephraser.Size = new System.Drawing.Size(1160, 659);
-            this.AIRephraser.TabIndex = 3;
-            this.AIRephraser.Text = "AI Rephraser";
-            this.AIRephraser.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Myanmar Text", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(47, 42);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(869, 39);
-            this.label1.TabIndex = 74;
-            this.label1.Text = "Let AI suggest you better rephrasing of your text! Note: New lines are not allowe" +
-    "d";
-            // 
-            // PostActionButton
-            // 
-            this.PostActionButton.Enabled = false;
-            this.PostActionButton.Location = new System.Drawing.Point(570, 527);
-            this.PostActionButton.Name = "PostActionButton";
-            this.PostActionButton.Size = new System.Drawing.Size(191, 76);
-            this.PostActionButton.TabIndex = 73;
-            this.PostActionButton.Text = "Post!";
-            this.PostActionButton.UseVisualStyleBackColor = true;
-            this.PostActionButton.Click += new System.EventHandler(this.postActionButton_Click);
-            // 
-            // NextSuggestedTextButton
-            // 
-            this.NextSuggestedTextButton.Enabled = false;
-            this.NextSuggestedTextButton.Location = new System.Drawing.Point(674, 461);
-            this.NextSuggestedTextButton.Name = "NextSuggestedTextButton";
-            this.NextSuggestedTextButton.Size = new System.Drawing.Size(145, 60);
-            this.NextSuggestedTextButton.TabIndex = 72;
-            this.NextSuggestedTextButton.Text = "-->";
-            this.NextSuggestedTextButton.UseVisualStyleBackColor = true;
-            this.NextSuggestedTextButton.Click += new System.EventHandler(this.nextSuggestedTextButton_Click);
-            // 
-            // PreviousSuggestedTextButton
-            // 
-            this.PreviousSuggestedTextButton.Enabled = false;
-            this.PreviousSuggestedTextButton.Location = new System.Drawing.Point(523, 461);
-            this.PreviousSuggestedTextButton.Name = "PreviousSuggestedTextButton";
-            this.PreviousSuggestedTextButton.Size = new System.Drawing.Size(145, 60);
-            this.PreviousSuggestedTextButton.TabIndex = 71;
-            this.PreviousSuggestedTextButton.Text = "<--";
-            this.PreviousSuggestedTextButton.UseVisualStyleBackColor = true;
-            this.PreviousSuggestedTextButton.Click += new System.EventHandler(this.previousSuggestedTextButton_Click);
-            // 
-            // WriteStatusRichTextBox
-            // 
-            this.WriteStatusRichTextBox.Location = new System.Drawing.Point(37, 128);
-            this.WriteStatusRichTextBox.Name = "WriteStatusRichTextBox";
-            this.WriteStatusRichTextBox.Size = new System.Drawing.Size(403, 327);
-            this.WriteStatusRichTextBox.TabIndex = 64;
-            this.WriteStatusRichTextBox.Text = "";
-            // 
-            // StartRephraseButton
-            // 
-            this.StartRephraseButton.Location = new System.Drawing.Point(156, 461);
-            this.StartRephraseButton.Name = "StartRephraseButton";
-            this.StartRephraseButton.Size = new System.Drawing.Size(153, 77);
-            this.StartRephraseButton.TabIndex = 63;
-            this.StartRephraseButton.Text = "Start";
-            this.StartRephraseButton.UseVisualStyleBackColor = true;
-            this.StartRephraseButton.Click += new System.EventHandler(this.startAiButton_Click);
-            // 
-            // SuggestedByAITextBox
-            // 
-            this.SuggestedByAITextBox.Location = new System.Drawing.Point(457, 128);
-            this.SuggestedByAITextBox.Name = "SuggestedByAITextBox";
-            this.SuggestedByAITextBox.ReadOnly = true;
-            this.SuggestedByAITextBox.Size = new System.Drawing.Size(403, 327);
-            this.SuggestedByAITextBox.TabIndex = 62;
-            this.SuggestedByAITextBox.Text = "";
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 26F);
@@ -620,6 +662,8 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.formMainFormClosing);
             this.Shown += new System.EventHandler(this.formMainShown);
             this.tabControl.ResumeLayout(false);
+            this.LoginTab.ResumeLayout(false);
+            this.LoginTab.PerformLayout();
             this.HomeTab.ResumeLayout(false);
             this.HomeTab.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ImagePostPictureBox)).EndInit();
@@ -627,23 +671,18 @@
             this.AlbumsTab.ResumeLayout(false);
             this.AlbumsTab.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AlbumPictureBox)).EndInit();
+            this.AIRephraserTab.ResumeLayout(false);
+            this.AIRephraserTab.PerformLayout();
             this.AboutTab.ResumeLayout(false);
             this.AboutTab.PerformLayout();
-            this.AIRephraser.ResumeLayout(false);
-            this.AIRephraser.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
 		#endregion
-
-		private System.Windows.Forms.Button buttonLogin;
-		private System.Windows.Forms.Button buttonLogout;
 		private System.Windows.Forms.TabPage HomeTab;
-        private System.Windows.Forms.TextBox textBoxAppID;
         private System.Windows.Forms.Label FavoritePagesLabel;
         private System.Windows.Forms.ListBox FavoritePagesListBox;
-        private System.Windows.Forms.CheckBox RememberMeCheckBox;
         private System.Windows.Forms.PictureBox FavPagePictureBox;
         private System.Windows.Forms.Button NextStatusButton;
         private System.Windows.Forms.Button PreviousStatusButton;
@@ -672,7 +711,7 @@
         private System.Windows.Forms.Label genderLabelData;
         private System.Windows.Forms.Label birthdayLabelData;
         private System.Windows.Forms.Label FullNameLabelData;
-        private System.Windows.Forms.TabPage AIRephraser;
+        private System.Windows.Forms.TabPage AIRephraserTab;
         private System.Windows.Forms.RichTextBox SuggestedByAITextBox;
         private System.Windows.Forms.Button StartRephraseButton;
         private System.Windows.Forms.RichTextBox WriteStatusRichTextBox;
@@ -682,6 +721,13 @@
         private System.Windows.Forms.Button PostActionButton;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label albumCreatedAtLabel;
+        private System.Windows.Forms.TabPage LoginTab;
+        private System.Windows.Forms.CheckBox RememberMeCheckBox;
+        private System.Windows.Forms.TextBox textBoxAppID;
+        private System.Windows.Forms.Button buttonLogout;
+        private System.Windows.Forms.Button buttonLogin;
+        private System.Windows.Forms.Label creditLabel;
+        private System.Windows.Forms.Label elapsedTimeLabel;
     }
 }
 

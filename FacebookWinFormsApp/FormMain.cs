@@ -19,22 +19,32 @@ namespace BasicFacebookFeatures
         // create post in ordered time
 
         const int k_StartIndex = 0;
-        FacebookWrapper.LoginResult m_LoginResult;
+        LoginResult m_LoginResult;
         ActiveUserManager m_ActiveUserManager;
         AppSettings m_AppSettings;
+        SessionTimer m_SessionTimer;
         int m_CurrentShowedStatusIndex;
         int m_CurrentShowedImagePostIndex;
         int m_CurrentShowedAlbumIndex;
         int m_CurrentShowedPhotoIndexInAlbum;
         int m_CurrentShowedSuggestedAiTextIndex;
+       
 
         public FormMain()
         {
             InitializeComponent();
-            FacebookWrapper.FacebookService.s_CollectionLimit = 25;
+            FacebookService.s_CollectionLimit = 25;
         }
 
-        private void buttonLogin_Click(object sender, EventArgs e)
+        // Timer
+
+        private void initiateTimer()
+        {
+            m_SessionTimer = new SessionTimer(updateTimeLabel);
+        }
+
+
+        private void buttonLoginClick(object sender, EventArgs e)
         {
             Clipboard.SetText("design.patterns");
 
@@ -76,6 +86,11 @@ namespace BasicFacebookFeatures
             }
         }
 
+        private void updateTimeLabel(object sender, EventArgs e)
+        {
+            elapsedTimeLabel.Text = $"Elapsed Time: {m_SessionTimer.GetCurrentTimeAsString()}";
+        }
+
         private void setLoggedInUser()
         {
             m_ActiveUserManager = new ActiveUserManager(m_LoginResult.LoggedInUser);
@@ -85,8 +100,10 @@ namespace BasicFacebookFeatures
             buttonLogin.Enabled = false;
             RememberMeCheckBox.Enabled = false;
             buttonLogout.Enabled = true;
+            textBoxAppID.Enabled = false;
 
-            initiateFormData();   
+            initiateFormData();
+            initiateTimer();
         }
 
         private void initiateFormData()
@@ -105,7 +122,7 @@ namespace BasicFacebookFeatures
             populateImagePost(k_StartIndex);
         }
 
-        private void buttonLogout_Click(object sender, EventArgs e)
+        private void buttonLogoutClick(object sender, EventArgs e)
         {
             FacebookService.LogoutWithUI();
             m_LoginResult = null;
@@ -121,12 +138,10 @@ namespace BasicFacebookFeatures
             buttonLogin.Enabled = true;
             buttonLogout.Enabled = false;
             RememberMeCheckBox.Enabled = true;
+            textBoxAppID.Enabled = true;
 
             toggleDisplayedElements(false);
 
-            //AlbumsListBox.Items.Clear();
-            //FriendsListBox.Items.Clear();
-            //FavoritePagesListBox.Items.Clear();
             FavPagePictureBox.Image = null;
             ImagePostPictureBox.Image = null;
             AlbumPictureBox.Image = null;
@@ -135,31 +150,17 @@ namespace BasicFacebookFeatures
 
         private void toggleDisplayedElements(bool i_Show)
         {
-            FavoritePagesLabel.Visible = i_Show;
-            MyStatusesLabel.Visible = i_Show;
-            MyImagePostsLabel.Visible = i_Show; 
-            MyFriendsLabel.Visible = i_Show;
-            FavoritePagesListBox.Visible = i_Show;
-            PostRichTextBox.Visible = i_Show;
-            ImagePostPictureBox.Visible = i_Show;
-            FriendsListBox.Visible = i_Show;
-            FavPagePictureBox.Visible = i_Show;
-            PreviousImagePostButton.Visible = i_Show;
-            NextImagePostButton.Visible = i_Show;
-            PreviousStatusButton.Visible = i_Show;
-            NextStatusButton.Visible = i_Show;
-
-            foreach (Control control in AboutTab.Controls)
+            foreach (TabPage tabPage in tabControl.TabPages)
             {
-                control.Visible = i_Show;
-            }
-
-            foreach (Control control in AlbumsTab.Controls)
-            {
-                control.Visible = i_Show;
+                if (tabPage != LoginTab)
+                {
+                    foreach (Control control in tabPage.Controls)
+                    {
+                        control.Visible = i_Show;
+                    }
+                }
             }
         }
-
 
         private void formMainShown(object sender, EventArgs e)
         {
@@ -186,6 +187,8 @@ namespace BasicFacebookFeatures
 
         private void formMainFormClosing(object sender, FormClosingEventArgs e)
         {
+            FileDataHandler.SaveToFile(@".\time.xml", m_SessionTimer.m_Stopwatch, m_SessionTimer.m_Stopwatch.GetType());
+
             if (RememberMeCheckBox.Checked && m_LoginResult != null &&
                 string.IsNullOrEmpty(m_LoginResult.ErrorMessage))
             {
@@ -394,7 +397,7 @@ namespace BasicFacebookFeatures
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show("Currently posting status on facebook isn't supported");
             }
         }
     }

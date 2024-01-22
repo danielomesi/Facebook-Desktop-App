@@ -7,9 +7,9 @@ namespace BasicFacebookFeatures
     public class ActiveUserManager
     {
         private readonly User r_LoggedInUser;
-        public int m_StatusPostsListSize { get; set; }
-        public int m_PhotoPostsListSize { get; set; }
-        public List<string> m_AiSuggestionsForStatuses { get; set; }
+        public int m_StatusPostsListSize;
+        public int m_PhotoPostsListSize;
+        public List<string> m_AiSuggestionsForStatuses;
 
         public ActiveUserManager(User i_LoggedInUser)
         {

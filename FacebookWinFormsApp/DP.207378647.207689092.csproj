@@ -96,6 +96,7 @@
   <ItemGroup>
     <Compile Include="AITextGenerator.cs" />
     <Compile Include="AppSettings.cs" />
+    <Compile Include="FileDataHandler.cs" />
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -106,6 +107,7 @@
     <Compile Include="ParaphraseResponse.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SessionTimer.cs" />
     <Compile Include="Suggestion.cs" />
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
