@@ -26,6 +26,7 @@ namespace BasicFacebookFeatures
         AppSettings m_AppSettings;
         SessionTimer m_SessionTimer;
         TimeData m_TimeData;
+        DateTime m_LastLoginDateTime;
         int m_CurrentShowedStatusIndex;
         int m_CurrentShowedImagePostIndex;
         int m_CurrentShowedAlbumIndex;
@@ -51,7 +52,8 @@ namespace BasicFacebookFeatures
         {
             TimeData timeData = new TimeData();
             double elapsedSeconds = m_SessionTimer.GetSeconds();
-            timeData.m_elapsedSeconds = elapsedSeconds;
+            timeData.m_elapsedSeconds = elapsedSeconds + m_TimeData.m_elapsedSeconds;
+            timeData.m_LastLoginDateTime = m_LastLoginDateTime;
             m_SessionTimer.Stop();
             FileDataHandler.SaveToFile(k_ElapsedTimeFilePath, timeData, typeof(TimeData));
         }
@@ -129,11 +131,18 @@ namespace BasicFacebookFeatures
 
         private void LoadUsageTime()
         {
-            m_TimeData = FileDataHandler.LoadFromFile(k_ElapsedTimeFilePath, typeof(TimeData)) as TimeData; 
+            m_TimeData = FileDataHandler.LoadFromFile(k_ElapsedTimeFilePath, typeof(TimeData)) as TimeData;
+            m_LastLoginDateTime = DateTime.Now;
+
             if (m_TimeData == null)
             {
                 m_TimeData = new TimeData();
                 m_TimeData.m_elapsedSeconds = 0;
+                labelLastLogin.Text = string.Empty;
+            }
+            else
+            {
+                labelLastLogin.Text = $"Last login: {m_TimeData.m_LastLoginDateTime}";
             }
         }
 

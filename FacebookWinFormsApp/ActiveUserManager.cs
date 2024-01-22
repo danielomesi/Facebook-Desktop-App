@@ -27,8 +27,16 @@ namespace BasicFacebookFeatures
             {
                 if (post.Type == i_PostType)
                 {
-                    specificPostsTypeCounter++;
+                    if (post.Type == Post.eType.status && !string.IsNullOrEmpty(post.Message))
+                    {
+                        specificPostsTypeCounter++;
+                    }
+                    else if (post.Type != Post.eType.status)
+                    {
+                        specificPostsTypeCounter++;
+                    }
                 }
+                
             }
 
             return specificPostsTypeCounter;
@@ -65,11 +73,20 @@ namespace BasicFacebookFeatures
             {
                 if (post.Type == i_PostType)
                 {
-                    if (specificPostsRunner == i_Index)
+                    if (post.Type == Post.eType.status && !string.IsNullOrEmpty(post.Message))
                     {
-                        postRes = post;
+                        if (specificPostsRunner == i_Index)
+                        {
+                            postRes = post;
+                        }
                     }
-
+                    if (post.Type != Post.eType.status)
+                    {
+                        if (specificPostsRunner == i_Index)
+                        {
+                            postRes = post;
+                        }
+                    }
                     specificPostsRunner++;
                 }
             }

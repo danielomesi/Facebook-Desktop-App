@@ -9,5 +9,6 @@ namespace BasicFacebookFeatures
     public class TimeData
     {
         public double m_elapsedSeconds { get; set; }
+        public DateTime m_LastLoginDateTime { get; set; }    
     }
 }

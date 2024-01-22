@@ -66,6 +66,7 @@
             this.StartRephraseButton = new System.Windows.Forms.Button();
             this.SuggestedByAITextBox = new System.Windows.Forms.RichTextBox();
             this.TimeUsageTab = new System.Windows.Forms.TabPage();
+            this.labelOverallElapsedTime = new System.Windows.Forms.Label();
             this.labelElapsedTime = new System.Windows.Forms.Label();
             this.AboutTab = new System.Windows.Forms.TabPage();
             this.label2 = new System.Windows.Forms.Label();
@@ -77,7 +78,7 @@
             this.genderLabel = new System.Windows.Forms.Label();
             this.birthdayLabel = new System.Windows.Forms.Label();
             this.fullNameLabel = new System.Windows.Forms.Label();
-            this.labelOverallElapsedTime = new System.Windows.Forms.Label();
+            this.labelLastLogin = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.LoginTab.SuspendLayout();
             this.HomeTab.SuspendLayout();
@@ -523,6 +524,7 @@
             // 
             // TimeUsageTab
             // 
+            this.TimeUsageTab.Controls.Add(this.labelLastLogin);
             this.TimeUsageTab.Controls.Add(this.labelOverallElapsedTime);
             this.TimeUsageTab.Controls.Add(this.labelElapsedTime);
             this.TimeUsageTab.Location = new System.Drawing.Point(4, 39);
@@ -533,14 +535,28 @@
             this.TimeUsageTab.Text = "Time Usage";
             this.TimeUsageTab.UseVisualStyleBackColor = true;
             // 
+            // labelOverallElapsedTime
+            // 
+            this.labelOverallElapsedTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelOverallElapsedTime.AutoSize = true;
+            this.labelOverallElapsedTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelOverallElapsedTime.Location = new System.Drawing.Point(152, 258);
+            this.labelOverallElapsedTime.Name = "labelOverallElapsedTime";
+            this.labelOverallElapsedTime.Size = new System.Drawing.Size(0, 95);
+            this.labelOverallElapsedTime.TabIndex = 73;
+            this.labelOverallElapsedTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelOverallElapsedTime.Visible = false;
+            // 
             // labelElapsedTime
             // 
+            this.labelElapsedTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.labelElapsedTime.AutoSize = true;
             this.labelElapsedTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelElapsedTime.Location = new System.Drawing.Point(556, 60);
+            this.labelElapsedTime.Location = new System.Drawing.Point(152, 78);
             this.labelElapsedTime.Name = "labelElapsedTime";
             this.labelElapsedTime.Size = new System.Drawing.Size(0, 95);
             this.labelElapsedTime.TabIndex = 72;
+            this.labelElapsedTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.labelElapsedTime.Visible = false;
             // 
             // AboutTab
@@ -662,15 +678,15 @@
             this.fullNameLabel.Text = "Full Name: ";
             this.fullNameLabel.Visible = false;
             // 
-            // labelOverallElapsedTime
+            // labelLastLogin
             // 
-            this.labelOverallElapsedTime.AutoSize = true;
-            this.labelOverallElapsedTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelOverallElapsedTime.Location = new System.Drawing.Point(567, 387);
-            this.labelOverallElapsedTime.Name = "labelOverallElapsedTime";
-            this.labelOverallElapsedTime.Size = new System.Drawing.Size(0, 95);
-            this.labelOverallElapsedTime.TabIndex = 73;
-            this.labelOverallElapsedTime.Visible = false;
+            this.labelLastLogin.AutoSize = true;
+            this.labelLastLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelLastLogin.Location = new System.Drawing.Point(163, 510);
+            this.labelLastLogin.Name = "labelLastLogin";
+            this.labelLastLogin.Size = new System.Drawing.Size(0, 95);
+            this.labelLastLogin.TabIndex = 74;
+            this.labelLastLogin.Visible = false;
             // 
             // FormMain
             // 
@@ -759,6 +775,7 @@
         private System.Windows.Forms.TabPage TimeUsageTab;
         private System.Windows.Forms.Label labelElapsedTime;
         private System.Windows.Forms.Label labelOverallElapsedTime;
+        private System.Windows.Forms.Label labelLastLogin;
     }
 }
 
