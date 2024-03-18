@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Security;
 using System.Windows.Forms;
 
 namespace BasicFacebookFeatures
@@ -58,6 +59,18 @@ namespace BasicFacebookFeatures
 
             loadUsageTime();
             initiateTimer();
+        }
+
+        public void bindDataToListBox<T>(ListBox i_ListBox, List<T> i_AllElements, BindingSource i_BindingSource) where T : class
+        {
+            if (!i_ListBox.InvokeRequired)
+            {
+                i_BindingSource.DataSource = i_AllElements;
+            }
+            else
+            {
+                i_ListBox.Invoke(new Action(() => i_BindingSource.DataSource = i_AllElements));
+            }
         }
 
         // -------------
@@ -119,14 +132,13 @@ namespace BasicFacebookFeatures
         private void initiateFormData()
         {
             bool isLoggedIn = true;
-            List<string> favPagesNames = m_ActiveUserManager.FetchNamesOfObjectList<Page>(m_LoginResult.LoggedInUser.LikedPages.ToList());
             List<string> friendsNames = m_ActiveUserManager.FetchNamesOfObjectList<User>(m_LoginResult.LoggedInUser.Friends.ToList());
             List<string> albumsNames = m_ActiveUserManager.FetchNamesOfObjectList<Album>(m_LoginResult.LoggedInUser.Albums.ToList());
 
             toggleDisplayedElements(isLoggedIn);
+            bindDataToListBox<Page>(listBoxFavPagesList, m_LoginResult.LoggedInUser.LikedPages.ToList<Page>(), pageBindingSource);
+            bindDataToListBox<User>(friendsListBox, m_LoginResult.LoggedInUser.Friends.ToList<User>(), userBindingSource);
             populateStatus(k_StartIndex);
-            populateListBox(listBoxFavoritePages, favPagesNames);
-            populateListBox(listBoxFriends, friendsNames);
             populateListBox(AlbumsListBox, albumsNames);
             populateImagePost(k_StartIndex);
             populateAboutTab();
@@ -168,7 +180,6 @@ namespace BasicFacebookFeatures
             checkBoxRememberMe.Enabled = true;
             textBoxAppID.Enabled = true;
             toggleDisplayedElements(shouldShow);
-            pictureBoxFavPage.Image = null;
             pictureBoxImagePost.Image = null;
             AlbumPictureBox.Image = null;
             richTextBoxStatus.Text = string.Empty;
@@ -202,6 +213,8 @@ namespace BasicFacebookFeatures
             i_ListBox.Items.AddRange(i_NamesList.ToArray());
         }
 
+
+
         private void handlePreviousAndNextButtons(int i_CurrentShowedIndex, int i_SizeOfObjects, Button i_PreviousButton, Button i_NextButton)
         {
             i_PreviousButton.Enabled = (i_CurrentShowedIndex != (i_SizeOfObjects - 1));
@@ -223,15 +236,7 @@ namespace BasicFacebookFeatures
         // -------------
         // Pages
         // -------------
-        private void favoritePagesListBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Page chosenPage;
-            string imageUrl;
 
-            chosenPage = m_LoginResult.LoggedInUser.LikedPages[(sender as ListBox).SelectedIndex];
-            imageUrl = ActiveUserManager.FetchPagePhoto(chosenPage);
-            pictureBoxFavPage.Load(imageUrl);
-        }
 
         // -------------
         // Posts
@@ -428,6 +433,11 @@ namespace BasicFacebookFeatures
             {
                 labelLastLogin.Text = $"Last login: {m_TimeData.m_LastLoginDateTime}";
             }
+        }
+
+        private void uRLLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start((sender as  LinkLabel).Text);
         }
     }
 }
