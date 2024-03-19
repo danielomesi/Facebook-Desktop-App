@@ -11,6 +11,7 @@ namespace BasicFacebookFeatures
         public int m_StatusPostsListSize;
         public int m_PhotoPostsListSize;
         public List<string> m_AiSuggestionsForStatuses;
+        public List<Post> m_PostsFilteredByTextOfUser;
 
         public ActiveUserManager(User i_LoggedInUser)
         {
@@ -18,6 +19,7 @@ namespace BasicFacebookFeatures
             m_StatusPostsListSize = getListSizeOfSpecificPostsType(Post.eType.status);
             m_PhotoPostsListSize = getListSizeOfSpecificPostsType(Post.eType.photo);
             m_AiSuggestionsForStatuses = null;
+            m_PostsFilteredByTextOfUser = null;
         }
 
 
@@ -56,6 +58,19 @@ namespace BasicFacebookFeatures
             List<Post> filteredPosts = postsFilter.Filter(r_LoggedInUser.Posts.ToList<Post>(), i_PostType);
 
             return filteredPosts[i_Index];
+        }
+
+        public List<Post> FetchPostsListByText(string i_Text)
+        {
+            List<Post> filteredPosts = null;
+
+            if (!string.IsNullOrEmpty(i_Text))
+            {
+                PostsFilter postsFilter = new PostsFilter(new PostFilterTextContainStrategy());
+                filteredPosts = postsFilter.Filter(r_LoggedInUser.Posts.ToList<Post>(), i_Text);
+            }
+
+            return filteredPosts;
         }
     }
 }

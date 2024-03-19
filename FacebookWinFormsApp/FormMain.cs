@@ -7,6 +7,7 @@ using System.Linq;
 using System.Security;
 using System.Threading;
 using System.Windows.Forms;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace BasicFacebookFeatures
 {
@@ -30,7 +31,9 @@ namespace BasicFacebookFeatures
         int m_CurrentShowedAlbumIndex;
         int m_CurrentShowedPhotoIndexInAlbum;
         int m_CurrentShowedSuggestedAiTextIndex;
-       
+        //
+        int m_CurrentShowedFilteredStatusIndex;
+
         public FormMain()
         {
             InitializeComponent();
@@ -95,7 +98,6 @@ namespace BasicFacebookFeatures
         private void autoLogin()
         {
             m_LoginResult = FacebookService.Connect(m_AppSettings.LastAccessToken);
-
             if (string.IsNullOrEmpty(m_LoginResult.ErrorMessage))
             {
                 setLoggedInUser();
@@ -123,7 +125,6 @@ namespace BasicFacebookFeatures
                 "user_age_range",
                 "user_events"
                 );
-
                 setLoggedInUser();
             }
             catch (Exception ex)
@@ -135,14 +136,21 @@ namespace BasicFacebookFeatures
 
         private void setLoggedInUser()
         {
-            m_ActiveUserManager = new ActiveUserManager(m_LoginResult.LoggedInUser);
-            buttonLogin.Text = $"Logged in as {m_LoginResult.LoggedInUser.Name}";
-            buttonLogin.BackColor = Color.LightBlue;
-            buttonLogin.Enabled = false;
-            checkBoxRememberMe.Enabled = false;
-            buttonLogout.Enabled = true;
-            textBoxAppID.Enabled = false;
-            initiateFormData();
+            if (buttonLogin.InvokeRequired)
+            {
+                buttonLogin.Invoke(new Action(setLoggedInUser));
+            }
+            else
+            {
+                m_ActiveUserManager = new ActiveUserManager(m_LoginResult.LoggedInUser);
+                buttonLogin.Text = $"Logged in as {m_LoginResult.LoggedInUser.Name}";
+                buttonLogin.BackColor = Color.LightBlue;
+                buttonLogin.Enabled = false;
+                checkBoxRememberMe.Enabled = false;
+                buttonLogout.Enabled = true;
+                textBoxAppID.Enabled = false;
+                initiateFormData();
+            }
         }
 
         private void initiateFormData()
@@ -233,6 +241,8 @@ namespace BasicFacebookFeatures
 
         private void handlePreviousAndNextButtons(int i_CurrentShowedIndex, int i_SizeOfObjects, Button i_PreviousButton, Button i_NextButton)
         {
+            //i_PreviousButton.Enabled = i_CurrentShowedIndex > 0;
+            //i_NextButton.Enabled = i_CurrentShowedIndex < i_SizeOfObjects;
             i_PreviousButton.Enabled = (i_CurrentShowedIndex != (i_SizeOfObjects - 1));
             i_NextButton.Enabled = (i_CurrentShowedIndex != 0);
         }
@@ -277,6 +287,19 @@ namespace BasicFacebookFeatures
         private void nextPostButton_Click(object sender, EventArgs e)
         {
             populateStatus(m_CurrentShowedStatusIndex - 1);
+        }
+
+        private void populateFilteredStatus(int i_PostIndex)
+        {
+            Post post = m_ActiveUserManager.m_PostsFilteredByTextOfUser[i_PostIndex];
+
+            if (post != null)
+            {
+                richTextBoxFilteredStatus.Text = post.Message;
+                labelActualTypeOfFilteredPost.Text = post.Type.ToString();
+                m_CurrentShowedFilteredStatusIndex = i_PostIndex;
+                handlePreviousAndNextButtons(m_CurrentShowedFilteredStatusIndex, m_ActiveUserManager.m_PostsFilteredByTextOfUser.Count, buttonPreviousFilteredStatuses, buttonNextFilteredStatuses);
+            }
         }
 
         // -------------
@@ -454,6 +477,33 @@ namespace BasicFacebookFeatures
         private void uRLLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start((sender as  LinkLabel).Text);
+        }
+
+        private void buttonFilterStatuses_Click(object sender, EventArgs e)
+        {
+            List<Post> posts = m_ActiveUserManager.FetchPostsListByText(textBoxFilteredStatusInput.Text.ToLower());
+            m_ActiveUserManager.m_PostsFilteredByTextOfUser = posts;
+            if (posts != null && posts.Count > 0)
+            {
+                populateFilteredStatus(0);
+            }
+            else
+            {
+                buttonNextFilteredStatuses.Enabled = false;
+                buttonPreviousFilteredStatuses.Enabled = false;
+                richTextBoxFilteredStatus.Text = string.Empty;
+                labelActualTypeOfFilteredPost.Text = string.Empty;
+            }
+        }
+
+        private void buttonPreviousFilteredStatuses_Click(object sender, EventArgs e)
+        {
+            populateFilteredStatus(m_CurrentShowedFilteredStatusIndex + 1);
+        }
+
+        private void buttonNextFilteredStatuses_Click(object sender, EventArgs e)
+        {
+            populateFilteredStatus(m_CurrentShowedFilteredStatusIndex - 1);
         }
     }
 }

@@ -8,9 +8,6 @@ using System.Xml.Serialization;
 
 namespace BasicFacebookFeatures
 {
-
-
-
     public class PostsFilter
     {
         public IPostFilteringStrategy m_PostFilterStrategy;
@@ -53,12 +50,15 @@ namespace BasicFacebookFeatures
         }
     }
 
-    //to do
-    public class PostFilterTextCountStrategy : IPostFilteringStrategy
+    public class PostFilterTextContainStrategy : IPostFilteringStrategy
     {
         public bool ShouldInclude(Post i_Post, object i_OptinalParam)
         {
-            return !string.IsNullOrEmpty(i_Post.Message);
+            if (!string.IsNullOrEmpty(i_Post.Message) && i_OptinalParam is string str)
+            {
+                return i_Post.Message.ToLower().Contains(str);
+            }
+            return false;
         }
     }
 }
