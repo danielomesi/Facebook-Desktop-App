@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Security;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace BasicFacebookFeatures
@@ -45,21 +46,19 @@ namespace BasicFacebookFeatures
                 this.Size = m_AppSettings.LastWindowSize;
                 this.Location = m_AppSettings.LastWindowLocation;
                 checkBoxRememberMe.Checked = m_AppSettings.RememberUser;
-                m_LoginResult = FacebookService.Connect(m_AppSettings.LastAccessToken);
-
-                if (string.IsNullOrEmpty(m_LoginResult.ErrorMessage))
-                {
-                    setLoggedInUser();
-                }
+                new Thread(this.autoLogin).Start();
             }
             else
             {
                 m_AppSettings = new AppSettings();
+                setLoginButtons(false);
             }
 
             loadUsageTime();
             initiateTimer();
         }
+
+
 
         public void bindDataToListBox<T>(ListBox i_ListBox, List<T> i_AllElements, BindingSource i_BindingSource) where T : class
         {
@@ -82,7 +81,24 @@ namespace BasicFacebookFeatures
 
             if (m_LoginResult == null)
             {
-                login();
+                new Thread(this.login).Start();
+            }
+        }
+
+        private void setLoginButtons(bool i_IsConnected)
+        {
+            buttonLogin.Enabled = !i_IsConnected;
+            buttonLogout.Enabled = i_IsConnected;
+            checkBoxRememberMe.Enabled = !i_IsConnected;
+        }
+
+        private void autoLogin()
+        {
+            m_LoginResult = FacebookService.Connect(m_AppSettings.LastAccessToken);
+
+            if (string.IsNullOrEmpty(m_LoginResult.ErrorMessage))
+            {
+                setLoggedInUser();
             }
         }
 
