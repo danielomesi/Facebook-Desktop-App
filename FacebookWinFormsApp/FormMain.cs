@@ -476,7 +476,7 @@ namespace BasicFacebookFeatures
 
         private void uRLLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start((sender as  LinkLabel).Text);
+            System.Diagnostics.Process.Start((sender as  LinkLabel).Tag.ToString());
         }
 
         private void buttonFilterStatuses_Click(object sender, EventArgs e)
