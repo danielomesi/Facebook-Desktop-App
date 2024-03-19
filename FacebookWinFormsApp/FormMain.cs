@@ -339,7 +339,7 @@ namespace BasicFacebookFeatures
         // -------------
         private async void startAiButton_Click(object sender, EventArgs e)
         {
-            m_ActiveUserManager.m_AiSuggestionsForStatuses = await AITextGenerator.AITextGenerator.ParaphraseTextAsync(richTextBoxWritePhrase.Text);
+            m_ActiveUserManager.m_AiSuggestionsForStatuses = await AITextGenerator.AITextGenerator.Instance.ParaphraseTextAsync(richTextBoxWritePhrase.Text);
             populateAiSuggestionTextBox(k_StartIndex);
         }
 

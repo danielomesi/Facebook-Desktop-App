@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using FacebookWrapper.ObjectModel;
 
@@ -19,19 +20,13 @@ namespace BasicFacebookFeatures
             m_AiSuggestionsForStatuses = null;
         }
 
+
         private int getListSizeOfSpecificPostsType(Post.eType i_PostType)
         {
-            int specificPostsTypeCounter = 0;
+            PostsFilter postsFilter = new PostsFilter(new PostFilterTypeStrategy());
+            List<Post> filteredPosts = postsFilter.Filter(r_LoggedInUser.Posts.ToList<Post>(), i_PostType);
 
-            foreach (Post post in r_LoggedInUser.Posts)
-            {
-                if (post.Type == i_PostType)
-                {
-                    specificPostsTypeCounter++;
-                }
-            }
-
-            return specificPostsTypeCounter;
+            return filteredPosts.Count;
         }
 
         public List<string> FetchNamesOfObjectList<T>(List<T> i_ListOfElementsThatHaveNameProperty)
@@ -57,23 +52,10 @@ namespace BasicFacebookFeatures
 
         public Post FetchPostByIndex(Post.eType i_PostType, int i_Index)
         {
-            Post postRes = null;
-            int specificPostsRunner = 0;
+            PostsFilter postsFilter = new PostsFilter(new PostFilterTypeStrategy());
+            List<Post> filteredPosts = postsFilter.Filter(r_LoggedInUser.Posts.ToList<Post>(), i_PostType);
 
-            foreach (Post post in r_LoggedInUser.Posts)
-            {
-                if (post.Type == i_PostType)
-                {
-                    if (specificPostsRunner == i_Index)
-                    {
-                        postRes = post;
-                    }
-
-                    specificPostsRunner++;
-                }
-            }
-
-            return postRes;
+            return filteredPosts[i_Index];
         }
     }
 }

@@ -7,12 +7,22 @@ using System.Threading.Tasks;
 
 namespace AITextGenerator
 {
-    public static class AITextGenerator
+    public sealed class AITextGenerator
     {
+
         private const string k_ApiKey = "GOZIBGQfIhJUzd0uNj0tErRGal1W8e0X";
         private const string k_RequestUri = "https://api.ai21.com/studio/v1/paraphrase";
+        public static AITextGenerator Instance
+        {
+            get { return NestedHolder.instance; }
+        }
+        private AITextGenerator() { }
 
-        public static async Task<List<string>> ParaphraseTextAsync(string i_Text)
+        class NestedHolder
+        {
+            internal static volatile AITextGenerator instance = new AITextGenerator();
+        }
+        public async Task<List<string>> ParaphraseTextAsync(string i_Text)
         {
             bool isSuccess;
             List<string> suggestionsList = new List<string>();
