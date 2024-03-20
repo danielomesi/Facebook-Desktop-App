@@ -713,7 +713,7 @@
             // 
             this.labelLastLogin.AutoSize = true;
             this.labelLastLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelLastLogin.Location = new System.Drawing.Point(163, 510);
+            this.labelLastLogin.Location = new System.Drawing.Point(149, 446);
             this.labelLastLogin.Name = "labelLastLogin";
             this.labelLastLogin.Size = new System.Drawing.Size(0, 55);
             this.labelLastLogin.TabIndex = 74;
@@ -724,7 +724,7 @@
             this.labelOverallElapsedTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.labelOverallElapsedTime.AutoSize = true;
             this.labelOverallElapsedTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelOverallElapsedTime.Location = new System.Drawing.Point(152, 201);
+            this.labelOverallElapsedTime.Location = new System.Drawing.Point(149, 267);
             this.labelOverallElapsedTime.Name = "labelOverallElapsedTime";
             this.labelOverallElapsedTime.Size = new System.Drawing.Size(0, 55);
             this.labelOverallElapsedTime.TabIndex = 73;
@@ -736,7 +736,7 @@
             this.labelElapsedTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.labelElapsedTime.AutoSize = true;
             this.labelElapsedTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelElapsedTime.Location = new System.Drawing.Point(152, 21);
+            this.labelElapsedTime.Location = new System.Drawing.Point(149, 87);
             this.labelElapsedTime.Name = "labelElapsedTime";
             this.labelElapsedTime.Size = new System.Drawing.Size(0, 55);
             this.labelElapsedTime.TabIndex = 72;

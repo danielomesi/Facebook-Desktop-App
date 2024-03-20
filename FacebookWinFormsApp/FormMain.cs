@@ -4,35 +4,33 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Security;
 using System.Threading;
 using System.Windows.Forms;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace BasicFacebookFeatures
 {
     public partial class FormMain : Form
     {
         //consts
-        const string k_AppSettingsFilePath = @".\App Settings.xml";
-        const string k_ElapsedTimeFilePath = @".\Elapsed Time.xml";
-        const string k_MessageNotFoundText = "This status has no textual message to show";
-        const int k_StartIndex = 0;
-        const int k_CollectionLimit = 25;
+        private const string k_AppSettingsFilePath = @".\App Settings.xml";
+        private const string k_ElapsedTimeFilePath = @".\Elapsed Time.xml";
+        private const string k_MessageNotFoundText = "This status has no textual message to show";
+        private const int k_StartIndex = 0;
+        private const int k_CollectionLimit = 25;
         //
-        LoginResult m_LoginResult;
-        ActiveUserManager m_ActiveUserManager;
-        AppSettings m_AppSettings;
-        SessionTimer m_SessionTimer;
-        TimeData m_TimeData;
-        DateTime m_LastLoginDateTime;
-        int m_CurrentShowedStatusIndex;
-        int m_CurrentShowedImagePostIndex;
-        int m_CurrentShowedAlbumIndex;
-        int m_CurrentShowedPhotoIndexInAlbum;
-        int m_CurrentShowedSuggestedAiTextIndex;
+        private LoginResult m_LoginResult;
+        private ActiveUserManager m_ActiveUserManager;
+        private AppSettings m_AppSettings;
+        private SessionTimer m_SessionTimer;
+        private TimeData m_TimeData;
+        private DateTime m_LastLoginDateTime;
+        private int m_CurrentShowedStatusIndex;
+        private int m_CurrentShowedImagePostIndex;
+        private int m_CurrentShowedAlbumIndex;
+        private int m_CurrentShowedPhotoIndexInAlbum;
+        private int m_CurrentShowedSuggestedAiTextIndex;
         //
-        int m_CurrentShowedFilteredStatusIndex;
+        private int m_CurrentShowedFilteredStatusIndex;
 
         public FormMain()
         {
@@ -60,8 +58,6 @@ namespace BasicFacebookFeatures
             loadUsageTime();
             initiateTimer();
         }
-
-
 
         public void bindDataToListBox<T>(ListBox i_ListBox, List<T> i_AllElements, BindingSource i_BindingSource) where T : class
         {
@@ -236,8 +232,6 @@ namespace BasicFacebookFeatures
             i_ListBox.Items.Clear();
             i_ListBox.Items.AddRange(i_NamesList.ToArray());
         }
-
-
 
         private void handlePreviousAndNextButtons(int i_CurrentShowedIndex, int i_SizeOfObjects, Button i_PreviousButton, Button i_NextButton)
         {
