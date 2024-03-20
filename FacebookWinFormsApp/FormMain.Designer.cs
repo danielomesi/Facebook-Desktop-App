@@ -51,7 +51,7 @@
             this.friendBirthdayLabel = new System.Windows.Forms.Label();
             this.friendImageNormalPictureBox = new System.Windows.Forms.PictureBox();
             this.labelFavoritePages = new System.Windows.Forms.Label();
-            this.uRLLinkLabel = new System.Windows.Forms.LinkLabel();
+            this.pageNameLinkLabel = new System.Windows.Forms.LinkLabel();
             this.pageBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.listBoxFavPagesList = new System.Windows.Forms.ListBox();
             this.favPageImageNormalPictureBox = new System.Windows.Forms.PictureBox();
@@ -211,7 +211,7 @@
             this.tabHome.Controls.Add(this.friendBirthdayLabel);
             this.tabHome.Controls.Add(this.friendImageNormalPictureBox);
             this.tabHome.Controls.Add(this.labelFavoritePages);
-            this.tabHome.Controls.Add(this.uRLLinkLabel);
+            this.tabHome.Controls.Add(this.pageNameLinkLabel);
             this.tabHome.Controls.Add(this.listBoxFavPagesList);
             this.tabHome.Controls.Add(this.favPageImageNormalPictureBox);
             this.tabHome.Controls.Add(this.labelMyImagePosts);
@@ -367,16 +367,16 @@
             this.labelFavoritePages.Text = "My Favorite Pages";
             this.labelFavoritePages.Visible = false;
             // 
-            // uRLLinkLabel
+            // pageNameLinkLabel
             // 
-            this.uRLLinkLabel.DataBindings.Add(new System.Windows.Forms.Binding("Tag", this.pageBindingSource, "URL", true));
-            this.uRLLinkLabel.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.pageBindingSource, "Name", true));
-            this.uRLLinkLabel.Location = new System.Drawing.Point(69, 300);
-            this.uRLLinkLabel.Name = "uRLLinkLabel";
-            this.uRLLinkLabel.Size = new System.Drawing.Size(133, 18);
-            this.uRLLinkLabel.TabIndex = 75;
-            this.uRLLinkLabel.Visible = false;
-            this.uRLLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.uRLLinkLabel_LinkClicked);
+            this.pageNameLinkLabel.DataBindings.Add(new System.Windows.Forms.Binding("Tag", this.pageBindingSource, "URL", true));
+            this.pageNameLinkLabel.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.pageBindingSource, "Name", true));
+            this.pageNameLinkLabel.Location = new System.Drawing.Point(69, 300);
+            this.pageNameLinkLabel.Name = "pageNameLinkLabel";
+            this.pageNameLinkLabel.Size = new System.Drawing.Size(133, 18);
+            this.pageNameLinkLabel.TabIndex = 75;
+            this.pageNameLinkLabel.Visible = false;
+            this.pageNameLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.pageNameLinkLabel_LinkClicked);
             // 
             // pageBindingSource
             // 
@@ -948,7 +948,7 @@
         private System.Windows.Forms.Label friendBirthdayLabel;
         private System.Windows.Forms.PictureBox friendImageNormalPictureBox;
         private System.Windows.Forms.Label labelFavoritePages;
-        private System.Windows.Forms.LinkLabel uRLLinkLabel;
+        private System.Windows.Forms.LinkLabel pageNameLinkLabel;
         private System.Windows.Forms.ListBox listBoxFavPagesList;
         private System.Windows.Forms.PictureBox favPageImageNormalPictureBox;
         private System.Windows.Forms.Label labelMyImagePosts;

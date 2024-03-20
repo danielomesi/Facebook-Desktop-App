@@ -1,18 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 using FacebookWrapper;
 
 namespace BasicFacebookFeatures
 {
-    /// <summary>
-    /// Creational Patterns:
-    /// - Singelton for FileDataHandler Class
-    /// 
-    /// Structoral Patterns:
-    /// - Facade for taking all the buttons of next/previous on pictures and implementing it in a different class
-    /// </summary>
     static class Program
     {
         [STAThread]
