@@ -80,7 +80,7 @@ namespace BasicFacebookFeatures
 
             if (m_LoginResult == null)
             {
-                new Thread(this.login).Start();
+                new Thread(login).Start();
             }
         }
 
@@ -121,7 +121,15 @@ namespace BasicFacebookFeatures
                 "user_age_range",
                 "user_events"
                 );
-                setLoggedInUser();
+
+                if (m_LoginResult != null && m_LoginResult.LoggedInUser != null)
+                {
+                    setLoggedInUser();
+                } 
+                else  
+                {
+                    throw new Exception();
+                }
             }
             catch (Exception ex)
             {
