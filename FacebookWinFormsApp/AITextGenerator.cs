@@ -18,7 +18,7 @@ namespace AITextGenerator
         }
         private AITextGenerator() { }
 
-        class NestedHolder
+        private class NestedHolder
         {
             internal static volatile AITextGenerator instance = new AITextGenerator();
         }

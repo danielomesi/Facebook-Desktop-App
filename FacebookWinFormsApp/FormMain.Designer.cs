@@ -37,6 +37,7 @@
             this.buttonLogout = new System.Windows.Forms.Button();
             this.buttonLogin = new System.Windows.Forms.Button();
             this.tabHome = new System.Windows.Forms.TabPage();
+            this.labelExplanationOnFiltering = new System.Windows.Forms.Label();
             this.userNameBirthdayLabel = new System.Windows.Forms.Label();
             this.userBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.labelActualTypeOfFilteredPost = new System.Windows.Forms.Label();
@@ -94,7 +95,6 @@
             this.labelGender = new System.Windows.Forms.Label();
             this.labelbirthday = new System.Windows.Forms.Label();
             this.labelFullName = new System.Windows.Forms.Label();
-            this.labelExplanationOnFiltering = new System.Windows.Forms.Label();
             happyBirthdayLabel = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.tabLogin.SuspendLayout();
@@ -231,6 +231,15 @@
             this.tabHome.TabIndex = 0;
             this.tabHome.Text = "Home";
             // 
+            // labelExplanationOnFiltering
+            // 
+            this.labelExplanationOnFiltering.AutoSize = true;
+            this.labelExplanationOnFiltering.Location = new System.Drawing.Point(561, 359);
+            this.labelExplanationOnFiltering.Name = "labelExplanationOnFiltering";
+            this.labelExplanationOnFiltering.Size = new System.Drawing.Size(136, 18);
+            this.labelExplanationOnFiltering.TabIndex = 93;
+            this.labelExplanationOnFiltering.Text = "Filter Posts By Text";
+            // 
             // userNameBirthdayLabel
             // 
             this.userNameBirthdayLabel.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.userBindingSource, "Name", true));
@@ -291,6 +300,7 @@
             this.richTextBoxFilteredStatus.BackColor = System.Drawing.Color.Lavender;
             this.richTextBoxFilteredStatus.Location = new System.Drawing.Point(562, 434);
             this.richTextBoxFilteredStatus.Name = "richTextBoxFilteredStatus";
+            this.richTextBoxFilteredStatus.ReadOnly = true;
             this.richTextBoxFilteredStatus.Size = new System.Drawing.Size(271, 96);
             this.richTextBoxFilteredStatus.TabIndex = 86;
             this.richTextBoxFilteredStatus.Text = "";
@@ -863,15 +873,6 @@
             this.labelFullName.TabIndex = 0;
             this.labelFullName.Text = "Full Name: ";
             this.labelFullName.Visible = false;
-            // 
-            // labelExplanationOnFiltering
-            // 
-            this.labelExplanationOnFiltering.AutoSize = true;
-            this.labelExplanationOnFiltering.Location = new System.Drawing.Point(561, 359);
-            this.labelExplanationOnFiltering.Name = "labelExplanationOnFiltering";
-            this.labelExplanationOnFiltering.Size = new System.Drawing.Size(136, 18);
-            this.labelExplanationOnFiltering.TabIndex = 93;
-            this.labelExplanationOnFiltering.Text = "Filter Posts By Text";
             // 
             // FormMain
             // 

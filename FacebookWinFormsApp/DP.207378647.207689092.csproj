@@ -110,7 +110,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SessionTimer.cs" />
     <Compile Include="Suggestion.cs" />
-    <Compile Include="TimeData.cs" />
+    <Compile Include="DateTimeProxy.cs" />
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>

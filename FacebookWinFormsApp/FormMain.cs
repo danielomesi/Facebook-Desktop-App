@@ -22,7 +22,7 @@ namespace BasicFacebookFeatures
         private ActiveUserManager m_ActiveUserManager;
         private AppSettings m_AppSettings;
         private SessionTimer m_SessionTimer;
-        private TimeData m_TimeData;
+        private DateTimeProxy m_DateTimeProxy;
         private DateTime m_LastLoginDateTime;
         private int m_CurrentShowedStatusIndex;
         private int m_CurrentShowedImagePostIndex;
@@ -410,19 +410,16 @@ namespace BasicFacebookFeatures
 
         private void terminateTimer()
         {
-            TimeData timeData = new TimeData();
-            double elapsedSeconds = m_SessionTimer.GetSeconds();
-
-            timeData.m_ElapsedSeconds = elapsedSeconds + m_TimeData.m_ElapsedSeconds;
-            timeData.m_LastLoginDateTime = m_LastLoginDateTime;
+            DateTimeProxy dateTimeProxy = new DateTimeProxy();
+            dateTimeProxy.UpdateBeforeLeaving(m_SessionTimer, m_LastLoginDateTime);
             m_SessionTimer.Stop();
-            FileDataHandler.SaveToFile(k_ElapsedTimeFilePath, timeData, typeof(TimeData));
+            FileDataHandler.SaveToFile(k_ElapsedTimeFilePath, dateTimeProxy, typeof(DateTimeProxy));
         }
 
         private void updateTimeLabel(object sender, EventArgs e)
         {
             TimeSpan elapsedTime = m_SessionTimer.Stopwatch.Elapsed;
-            TimeSpan oldElapsedTime = TimeSpan.FromSeconds(m_TimeData.m_ElapsedSeconds);
+            TimeSpan oldElapsedTime = TimeSpan.FromSeconds(m_DateTimeProxy.ElapsedSeconds);
             TimeSpan overallElapsedTime = elapsedTime + oldElapsedTime;
             string overallTimeAsString = m_SessionTimer.ConvertTimeSpanToString(overallElapsedTime);
             string elapsedTimeAsString = m_SessionTimer.ConvertTimeSpanToString(elapsedTime);
@@ -433,18 +430,18 @@ namespace BasicFacebookFeatures
 
         private void loadUsageTime()
         {
-            m_TimeData = FileDataHandler.LoadFromFile(k_ElapsedTimeFilePath, typeof(TimeData)) as TimeData;
+            m_DateTimeProxy = FileDataHandler.LoadFromFile(k_ElapsedTimeFilePath, typeof(DateTimeProxy)) as DateTimeProxy;
             m_LastLoginDateTime = DateTime.Now;
 
-            if (m_TimeData == null)
+            if (m_DateTimeProxy == null)
             {
-                m_TimeData = new TimeData();
-                m_TimeData.m_ElapsedSeconds = 0;
+                m_DateTimeProxy = new DateTimeProxy();
+                m_DateTimeProxy.ElapsedSeconds = 0;
                 labelLastLogin.Text = string.Empty;
             }
             else
             {
-                labelLastLogin.Text = $"Last login: {m_TimeData.m_LastLoginDateTime}";
+                labelLastLogin.Text = $"Last login: {m_DateTimeProxy.LastLoginDateTime}";
             }
         }
 
