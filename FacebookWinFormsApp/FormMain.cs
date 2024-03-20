@@ -124,7 +124,8 @@ namespace BasicFacebookFeatures
 
                 if (m_LoginResult != null && m_LoginResult.LoggedInUser != null)
                 {
-                    setLoggedInUser();
+                    m_ActiveUserManager = new ActiveUserManager(m_LoginResult.LoggedInUser);
+                    buttonLogin.Invoke(new Action(setLoggedInUser));
                 } 
                 else  
                 {
@@ -140,13 +141,6 @@ namespace BasicFacebookFeatures
 
         private void setLoggedInUser()
         {
-            if (buttonLogin.InvokeRequired)
-            {
-                buttonLogin.Invoke(new Action(setLoggedInUser));
-            }
-            else
-            {
-                m_ActiveUserManager = new ActiveUserManager(m_LoginResult.LoggedInUser);
                 buttonLogin.Text = $"Logged in as {m_LoginResult.LoggedInUser.Name}";
                 buttonLogin.BackColor = Color.LightBlue;
                 buttonLogin.Enabled = false;
@@ -154,7 +148,6 @@ namespace BasicFacebookFeatures
                 buttonLogout.Enabled = true;
                 textBoxAppID.Enabled = false;
                 initiateFormData();
-            }
         }
 
         private void initiateFormData()
@@ -243,8 +236,6 @@ namespace BasicFacebookFeatures
 
         private void handlePreviousAndNextButtons(int i_CurrentShowedIndex, int i_SizeOfObjects, Button i_PreviousButton, Button i_NextButton)
         {
-            //i_PreviousButton.Enabled = i_CurrentShowedIndex > 0;
-            //i_NextButton.Enabled = i_CurrentShowedIndex < i_SizeOfObjects;
             i_PreviousButton.Enabled = (i_CurrentShowedIndex != (i_SizeOfObjects - 1));
             i_NextButton.Enabled = (i_CurrentShowedIndex != 0);
         }
