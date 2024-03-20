@@ -96,7 +96,7 @@ namespace BasicFacebookFeatures
             m_LoginResult = FacebookService.Connect(m_AppSettings.LastAccessToken);
             if (string.IsNullOrEmpty(m_LoginResult.ErrorMessage))
             {
-                setLoggedInUser();
+                buttonLogin.Invoke(new Action(setLoggedInUser));
             }
         }
 
@@ -124,7 +124,6 @@ namespace BasicFacebookFeatures
 
                 if (m_LoginResult != null && m_LoginResult.LoggedInUser != null)
                 {
-                    m_ActiveUserManager = new ActiveUserManager(m_LoginResult.LoggedInUser);
                     buttonLogin.Invoke(new Action(setLoggedInUser));
                 } 
                 else  
@@ -141,6 +140,7 @@ namespace BasicFacebookFeatures
 
         private void setLoggedInUser()
         {
+                m_ActiveUserManager = new ActiveUserManager(m_LoginResult.LoggedInUser);
                 buttonLogin.Text = $"Logged in as {m_LoginResult.LoggedInUser.Name}";
                 buttonLogin.BackColor = Color.LightBlue;
                 buttonLogin.Enabled = false;
@@ -153,7 +153,6 @@ namespace BasicFacebookFeatures
         private void initiateFormData()
         {
             bool isLoggedIn = true;
-            List<string> friendsNames = m_ActiveUserManager.FetchNamesOfObjectList<User>(m_LoginResult.LoggedInUser.Friends.ToList());
             List<string> albumsNames = m_ActiveUserManager.FetchNamesOfObjectList<Album>(m_LoginResult.LoggedInUser.Albums.ToList());
 
             toggleDisplayedElements(isLoggedIn);

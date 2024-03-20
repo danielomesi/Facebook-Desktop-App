@@ -94,6 +94,7 @@
             this.labelGender = new System.Windows.Forms.Label();
             this.labelbirthday = new System.Windows.Forms.Label();
             this.labelFullName = new System.Windows.Forms.Label();
+            this.labelExplanationOnFiltering = new System.Windows.Forms.Label();
             happyBirthdayLabel = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.tabLogin.SuspendLayout();
@@ -197,6 +198,7 @@
             // 
             this.tabHome.AutoScroll = true;
             this.tabHome.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.tabHome.Controls.Add(this.labelExplanationOnFiltering);
             this.tabHome.Controls.Add(this.userNameBirthdayLabel);
             this.tabHome.Controls.Add(happyBirthdayLabel);
             this.tabHome.Controls.Add(this.labelActualTypeOfFilteredPost);
@@ -862,6 +864,15 @@
             this.labelFullName.Text = "Full Name: ";
             this.labelFullName.Visible = false;
             // 
+            // labelExplanationOnFiltering
+            // 
+            this.labelExplanationOnFiltering.AutoSize = true;
+            this.labelExplanationOnFiltering.Location = new System.Drawing.Point(561, 359);
+            this.labelExplanationOnFiltering.Name = "labelExplanationOnFiltering";
+            this.labelExplanationOnFiltering.Size = new System.Drawing.Size(136, 18);
+            this.labelExplanationOnFiltering.TabIndex = 93;
+            this.labelExplanationOnFiltering.Text = "Filter Posts By Text";
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
@@ -967,6 +978,7 @@
         private System.Windows.Forms.Label labelActualTypeOfFilteredPost;
         private System.Windows.Forms.Label labelTypeOfFilteredPost;
         private System.Windows.Forms.Label userNameBirthdayLabel;
+        private System.Windows.Forms.Label labelExplanationOnFiltering;
     }
 }
 
