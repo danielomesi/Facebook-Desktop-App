@@ -11,13 +11,11 @@ namespace BasicFacebookFeatures
 {
     public partial class FormMain : Form
     {
-        //consts
         private const string k_AppSettingsFilePath = @".\App Settings.xml";
         private const string k_ElapsedTimeFilePath = @".\Elapsed Time.xml";
         private const string k_MessageNotFoundText = "This status has no textual message to show";
         private const int k_StartIndex = 0;
         private const int k_CollectionLimit = 25;
-        //
         private LoginResult m_LoginResult;
         private ActiveUserManager m_ActiveUserManager;
         private AppSettings m_AppSettings;
@@ -29,7 +27,6 @@ namespace BasicFacebookFeatures
         private int m_CurrentShowedAlbumIndex;
         private int m_CurrentShowedPhotoIndexInAlbum;
         private int m_CurrentShowedSuggestedAiTextIndex;
-        //
         private int m_CurrentShowedFilteredStatusIndex;
 
         public FormMain()
@@ -94,6 +91,7 @@ namespace BasicFacebookFeatures
         private void autoLogin()
         {
             m_LoginResult = FacebookService.Connect(m_AppSettings.LastAccessToken);
+
             if (string.IsNullOrEmpty(m_LoginResult.ErrorMessage))
             {
                 buttonLogin.Invoke(new Action(setLoggedInUser));
@@ -321,10 +319,13 @@ namespace BasicFacebookFeatures
 
             m_CurrentShowedPhotoIndexInAlbum = 0;
             m_CurrentShowedAlbumIndex = (sender as ListBox).SelectedIndex;
-            currentAlbum = m_LoginResult.LoggedInUser.Albums[m_CurrentShowedAlbumIndex];
-            AlbumImagesLabel.Text = !string.IsNullOrEmpty(currentAlbum.Name) ? currentAlbum.Name : string.Empty;
-            albumCreatedAtLabel.Text = !string.IsNullOrEmpty(currentAlbum.CreatedTime.ToString()) ? string.Format("Created At: {0}", currentAlbum.CreatedTime) : string.Empty;
-            populateAlbumPhoto(m_CurrentShowedPhotoIndexInAlbum);
+            if (m_CurrentShowedAlbumIndex >= 0 && m_CurrentShowedAlbumIndex < m_LoginResult.LoggedInUser.Albums.Count)
+            {
+                currentAlbum = m_LoginResult.LoggedInUser.Albums[m_CurrentShowedAlbumIndex];
+                AlbumImagesLabel.Text = !string.IsNullOrEmpty(currentAlbum.Name) ? currentAlbum.Name : string.Empty;
+                albumCreatedAtLabel.Text = !string.IsNullOrEmpty(currentAlbum.CreatedTime.ToString()) ? string.Format("Created At: {0}", currentAlbum.CreatedTime) : string.Empty;
+                populateAlbumPhoto(m_CurrentShowedPhotoIndexInAlbum);
+            }   
         }
 
         private void populateAlbumPhoto(int i_PhotoIndexToChange)

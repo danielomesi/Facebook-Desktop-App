@@ -22,7 +22,6 @@ namespace BasicFacebookFeatures
             m_PostsFilteredByTextOfUser = null;
         }
 
-
         private int getListSizeOfSpecificPostsType(Post.eType i_PostType)
         {
             PostsFilter postsFilter = new PostsFilter(new PostFilterTypeStrategy());

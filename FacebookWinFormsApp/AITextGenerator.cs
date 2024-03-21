@@ -9,19 +9,24 @@ namespace AITextGenerator
 {
     public sealed class AITextGenerator
     {
-
         private const string k_ApiKey = "GOZIBGQfIhJUzd0uNj0tErRGal1W8e0X";
         private const string k_RequestUri = "https://api.ai21.com/studio/v1/paraphrase";
+
+        private AITextGenerator()
+        {
+
+        }
+
         public static AITextGenerator Instance
         {
             get { return NestedHolder.instance; }
         }
-        private AITextGenerator() { }
 
         private class NestedHolder
         {
             internal static volatile AITextGenerator instance = new AITextGenerator();
         }
+
         public async Task<List<string>> ParaphraseTextAsync(string i_Text)
         {
             bool isSuccess;

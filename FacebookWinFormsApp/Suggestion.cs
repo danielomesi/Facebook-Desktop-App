@@ -1,6 +1,4 @@
-﻿using static System.Net.Mime.MediaTypeNames;
-
-namespace AITextGenerator
+﻿namespace AITextGenerator
 {
     public class Suggestion
     {

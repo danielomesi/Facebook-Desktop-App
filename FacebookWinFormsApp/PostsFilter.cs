@@ -27,33 +27,4 @@ namespace BasicFacebookFeatures
             return filteredList;
         }
     }
-
-    public interface IPostFilteringStrategy
-    {
-        bool ShouldInclude(Post i_Post, object i_OptinalParam);
-    }
-
-    public class PostFilterTypeStrategy : IPostFilteringStrategy
-    {
-        public bool ShouldInclude(Post i_Post, object i_OptinalParam)
-        {
-            if (i_OptinalParam is Post.eType comparedType)
-            {
-                return i_Post.Type == comparedType;
-            }
-            return false;
-        }
-    }
-
-    public class PostFilterTextContainStrategy : IPostFilteringStrategy
-    {
-        public bool ShouldInclude(Post i_Post, object i_OptinalParam)
-        {
-            if (!string.IsNullOrEmpty(i_Post.Message) && i_OptinalParam is string str)
-            {
-                return i_Post.Message.ToLower().Contains(str);
-            }
-            return false;
-        }
-    }
 }

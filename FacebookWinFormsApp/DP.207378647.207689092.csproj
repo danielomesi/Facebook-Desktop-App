@@ -104,7 +104,10 @@
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
     <Compile Include="ActiveUserManager.cs" />
+    <Compile Include="IPostFilteringStrategy.cs" />
     <Compile Include="ParaphraseResponse.cs" />
+    <Compile Include="PostFilterTextContainStrategy.cs" />
+    <Compile Include="PostFilterTypeStrategy.cs" />
     <Compile Include="PostsFilter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

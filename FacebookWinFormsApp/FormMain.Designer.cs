@@ -95,6 +95,7 @@
             this.labelGender = new System.Windows.Forms.Label();
             this.labelbirthday = new System.Windows.Forms.Label();
             this.labelFullName = new System.Windows.Forms.Label();
+            this.labelClickOptionOnImagePost = new System.Windows.Forms.Label();
             happyBirthdayLabel = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.tabLogin.SuspendLayout();
@@ -198,6 +199,7 @@
             // 
             this.tabHome.AutoScroll = true;
             this.tabHome.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.tabHome.Controls.Add(this.labelClickOptionOnImagePost);
             this.tabHome.Controls.Add(this.labelExplanationOnFiltering);
             this.tabHome.Controls.Add(this.userNameBirthdayLabel);
             this.tabHome.Controls.Add(happyBirthdayLabel);
@@ -239,6 +241,7 @@
             this.labelExplanationOnFiltering.Size = new System.Drawing.Size(136, 18);
             this.labelExplanationOnFiltering.TabIndex = 93;
             this.labelExplanationOnFiltering.Text = "Filter Posts By Text";
+            this.labelExplanationOnFiltering.Visible = false;
             // 
             // userNameBirthdayLabel
             // 
@@ -874,6 +877,16 @@
             this.labelFullName.Text = "Full Name: ";
             this.labelFullName.Visible = false;
             // 
+            // labelClickOptionOnImagePost
+            // 
+            this.labelClickOptionOnImagePost.Location = new System.Drawing.Point(847, 359);
+            this.labelClickOptionOnImagePost.Name = "labelClickOptionOnImagePost";
+            this.labelClickOptionOnImagePost.Size = new System.Drawing.Size(252, 55);
+            this.labelClickOptionOnImagePost.TabIndex = 94;
+            this.labelClickOptionOnImagePost.Text = "Note: If the Image Post contains textual info, you can click on the image to view" +
+    " it";
+            this.labelClickOptionOnImagePost.Visible = false;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
@@ -980,6 +993,7 @@
         private System.Windows.Forms.Label labelTypeOfFilteredPost;
         private System.Windows.Forms.Label userNameBirthdayLabel;
         private System.Windows.Forms.Label labelExplanationOnFiltering;
+        private System.Windows.Forms.Label labelClickOptionOnImagePost;
     }
 }
 
