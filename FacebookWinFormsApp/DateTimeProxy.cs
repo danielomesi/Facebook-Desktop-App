@@ -35,7 +35,7 @@ namespace BasicFacebookFeatures
         {
             double elapsedSeconds = i_SessionTimer.GetSeconds();
             m_ElapsedSeconds = elapsedSeconds + m_ElapsedSeconds;
-             m_LastLoginDateTime = i_LastLoginDateTime;
+            m_LastLoginDateTime = i_LastLoginDateTime;
         }
     }
 }
