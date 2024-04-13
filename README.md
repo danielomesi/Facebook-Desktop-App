@@ -7,6 +7,9 @@ During a Design Patterns course, me and my fellow student Gal Suliman (https://g
 ## Login
 
 Here you can log into to your account, and see your login status if you are already logged in.
+
+![App Screenshot](./Images/Login_tab.png)
+
 ## Home
 
 Here you can get a look on your favorite pages, friends, statuses, image posts. You can also filter your posts by text and navigate through the results.
